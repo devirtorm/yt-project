@@ -42,11 +42,19 @@ class UserController extends Controller
     public function store(SaveUserRequest $request)
     {
         $validatedData = $request->validated();
-
+    
         try {
-            
-            return (new UserResource(User::create($validatedData)))->additional(['msg' => 'usuario registrado']);
-
+            $user = new User();
+            $user->fill($validatedData);
+            $user->password = bcrypt($request->password);
+            $user->save();
+    
+            $user->roles()->attach($request->roles);
+    
+            return response()->json([
+                'res' => true,
+                'msg' => 'usuario registrado correctamente'
+            ]);
         } catch (\Exception $e) {
             return response()->json([
                 'res' => false,
@@ -54,6 +62,8 @@ class UserController extends Controller
             ], 500);
         }
     }
+    
+
 
     /**
      * Display the specified resource.
