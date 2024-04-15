@@ -5,7 +5,10 @@
   <div
     class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto"
   >
-    <form>
+    <form 
+    [formGroup]="formLogin"
+    (ngSubmit)="saveData()"
+    >
       <div
         class="relative flex flex-col bg-white border shadow-sm rounded-xl overflow-hidden dark:bg-gray-800 dark:border-gray-700"
       >
@@ -49,7 +52,8 @@
             >
             <input
               type="text"
-              id="name"
+              id="emailLogin"
+              formControlName="email"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Ingrese aquí su nombre, por favor"
               required
@@ -63,7 +67,8 @@
             >
             <input
               type="text"
-              id="name"
+              id="passwordLogin"
+              formControlName="password"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Ingrese aquí su nombre, por favor"
               required
@@ -81,12 +86,12 @@
           >
             Cancelar
           </button>
-          <a
+          <button
             class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
-            href="#"
+            type="submit"
           >
             Iniciar sesión
-          </a>
+          </button>
         </div>
       </div>
     </form>
