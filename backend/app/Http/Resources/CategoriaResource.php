@@ -18,8 +18,8 @@ class CategoriaResource extends JsonResource
             'identificador' => $this->id,
             'nombre_categoria' => ucfirst($this->nombre_categoria),
             'descripcion' => ucfirst($this->descripcion),
-            'fecha_creado' => $this->created_at->format('d-m-Y'),
-            'fecha_modificado' => $this->updated_at->format('d-m-Y')
+            'fecha_creado' => optional($this->created_at)->format('d-m-Y'),
+            'fecha_modificado' => optional($this->updated_at)->format('d-m-Y')
         ];
     }
 }
