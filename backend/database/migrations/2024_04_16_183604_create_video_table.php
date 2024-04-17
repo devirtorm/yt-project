@@ -17,9 +17,11 @@ class CreateVideoTable extends Migration
             $table->id();
             $table->string('titulo');
             $table->string('descripcion');
+            $table->string('url');
             $table->integer('estado');
+            $table->integer('fk_user');
             $table->integer('fk_categoria');
-            $table->integer('fk_comentarios');
+            //$table->integer('fk_comentarios');
             $table->timestamps();
         });
     }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\api\authController;
 use App\Http\Controllers\api\CategoriaController;
 use App\Http\Controllers\api\UserController;
+use App\Http\Controllers\api\videoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('users',[UserController::class, 'store']); // crear usuario
 Route::post('login',[authController::class, 'access']); // crear usuario
+Route::post('videos',[videoController::class, 'storeVideo']); // crear usuario
+Route::get('videos',[videoController::class, 'index']); // ver lista de videos
+Route::get('comentarios',[videoController::class, 'comentario']); // ver lista de videos
 
 //Categoría
 Route::get('categoria',[CategoriaController::class, 'index']);
