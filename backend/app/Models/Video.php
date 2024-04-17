@@ -8,8 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Video extends Model
 {
     protected $table = 'video';
-       public function comentarios()
+
+    protected $fillable = [
+        'titulo',
+        'descripcion',
+        'url',
+        'fk_categoria',
+        'fk_user',
+        'estado',
+    ];
+
+
+    public function user()
     {
-        return $this->hasMany(Comentario::class, 'fk_video', 'id');
+        return $this->belongsTo(User::class, 'fk_user', 'id');
     }
 }
