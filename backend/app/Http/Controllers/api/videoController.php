@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ActualizarVideoRequest;
 use App\Http\Requests\saveVideoRequest;
+use App\Http\Resources\VideoResource;
 use App\Models\Comentario;
 use App\Models\Video;
 use Illuminate\Http\Request;
@@ -66,9 +68,9 @@ class videoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Video $video)
     {
-        //
+        return new VideoResource($video);
     }
 
     /**
@@ -78,9 +80,10 @@ class videoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ActualizarVideoRequest $request, Video $video)
     {
-        //
+        $video -> update($request->all());
+            return (new VideoResource($video))->additional(['msg'=> 'Video actualizado correctamente'])->response()->setStatusCode(202);
     }
 
     /**
@@ -89,8 +92,9 @@ class videoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Video $video)
     {
-        //
+        $video->delete();
+        return (new VideoResource($video))->additional(['msg'=> 'Video eliminado correctamente']);
     }
 }

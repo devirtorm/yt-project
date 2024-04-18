@@ -28,6 +28,10 @@ Route::post('videos',[videoController::class, 'storeVideo']); // crear usuario
 Route::get('videos',[videoController::class, 'index']); // ver lista de videos
 Route::get('comentarios',[videoController::class, 'comentario']); // ver lista de videos
 
+Route::get('videos/{video}',[videoController::class, 'show']); // Mostrar video
+Route::put('videos/{video}',[videoController::class, 'update']); // Actualizar video
+Route::delete('videos/{video}',[videoController::class, 'destroy']); // Eliminar video
+
 //Categoría
 Route::get('categoria',[CategoriaController::class, 'index']);
 Route::post('categoria',[CategoriaController::class, 'store']);
