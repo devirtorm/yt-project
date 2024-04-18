@@ -8,12 +8,18 @@ import { UserSignupComponent } from './user-signup/user-signup.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { UserLoginComponent } from './components/user-login/user-login.component';
+import { CrearCategoriaComponent } from './components/crear-categoria/crear-categoria.component';
+import { ModalCategoriaComponent } from './components/modal-categoria/modal-categoria.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserSignupComponent,
-    UserLoginComponent
+    UserLoginComponent,
+    CrearCategoriaComponent,
+    ModalCategoriaComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,

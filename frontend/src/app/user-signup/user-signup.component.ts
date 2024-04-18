@@ -27,7 +27,7 @@ export class UserSignupComponent implements OnInit {
       roles: [''] 
     };
     this.formUser = this.formulario.group(formValues);
-  } 
+  }  
 
   saveData(): any {
     this.formUser.patchValue({
