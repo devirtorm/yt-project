@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ActualizarVideoRequest;
 use App\Http\Requests\saveVideoRequest;
+use App\Http\Requests\SubirVideoRequest;
 use App\Http\Resources\VideoResource;
 use App\Models\Comentario;
 use App\Models\Video;
@@ -34,33 +35,34 @@ class videoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function storeVideo(saveVideoRequest $request)
-    {
-        $validatedData = $request->validated();
-        
-        try {
-            // Crear una nueva instancia del modelo Video
-            $video = new Video();
+    public function upload(SubirVideoRequest $request)
+{
+        $archivo = $request->file('file'); 
+        $imagen = $request->file('image');
     
-            // Llenar el modelo con los datos validados
-            $video->fill($validatedData);
-    
-            // Guardar el video en la base de datos
-            $video->save();
-    
-            // Devolver una respuesta JSON de éxito
-            return response()->json([
-                'res' => true,
-                'msg' => 'Video registrado correctamente'
-            ], 200);
-        } catch (\Exception $e) {
-            // Devolver una respuesta JSON de error en caso de excepción
-            return response()->json([
-                'res' => false,
-                'msg' => 'Hubo un problema al guardar el video: ' . $e->getMessage()
-            ], 500);
+        if (!$archivo) {
+        // Manejar el caso cuando no se ha cargado un archivo
+        return response()->json(['error' => 'No se ha cargado ningun Video'], 400);
         }
-    }
+        if (!$imagen) {
+            // Manejar el caso cuando no se ha cargado un archivo
+            return response()->json(['error' => 'No se ha cargado ninguna miniatura'], 400);
+            }
+
+        $nombreArchivo = $request->input('url'); 
+        $nombreImagen = $request->input('miniatura');
+
+        $uploadPath = $archivo->storeAs('archivos/videos', $nombreArchivo, 'public');
+        $uploadImagePath = $imagen->storeAs('archivos/images', $nombreImagen, 'public');
+
+        //metodo para guardar el registro
+        $subirvideo = Video::create($request->all());
+    
+    return response()->json([
+        'res' => true,
+        'message' => 'Video subido exitosamente'
+    ]);
+}
 
     /**
      * Display the specified resource.

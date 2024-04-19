@@ -13,6 +13,7 @@ class Video extends Model
         'titulo',
         'descripcion',
         'url',
+        'miniatura',
         'fk_categoria',
         'fk_user',
         'estado',
@@ -22,5 +23,10 @@ class Video extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'fk_user', 'id');
+    }
+
+    public function categoria()
+    {
+        return $this->belongsTo(Categoria::class, 'fk_categoria', 'id');
     }
 }
