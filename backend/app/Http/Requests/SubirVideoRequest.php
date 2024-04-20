@@ -26,7 +26,6 @@ class SubirVideoRequest extends FormRequest
         return [
             "titulo" => "required",
             "descripcion" => "required",
-            "edad" => "required",
             "url" => "required",
             "miniatura" => "required",
             "fk_categoria" => "required",
