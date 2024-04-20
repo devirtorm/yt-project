@@ -15,7 +15,7 @@ class VideoResource extends JsonResource
     public function toArray($request)
     {
         return[
-            'identificador' => $this->id,
+            'id' => $this->id,
             'titulo' => ucfirst($this->titulo),
             'descripcion' => ucfirst($this->descripcion),
             'url' => $this->url,
