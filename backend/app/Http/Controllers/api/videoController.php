@@ -37,8 +37,8 @@ class videoController extends Controller
      */
     public function upload(SubirVideoRequest $request)
 {
-        $archivo = $request->file('file'); 
-        $imagen = $request->file('image');
+        $archivo = $request->file('url'); 
+        $imagen = $request->file('miniatura');
     
         if (!$archivo) {
         // Manejar el caso cuando no se ha cargado un archivo
@@ -52,11 +52,16 @@ class videoController extends Controller
         $nombreArchivo = $request->input('url'); 
         $nombreImagen = $request->input('miniatura');
 
-        $uploadPath = $archivo->storeAs('archivos/videos', $nombreArchivo, 'public');
-        $uploadImagePath = $imagen->storeAs('archivos/images', $nombreImagen, 'public');
+        // Generar nombres de archivo únicos
+        $nombreArchivo = uniqid() . '.' . $archivo->getClientOriginalExtension();
+        $nombreImagen = uniqid() . '.' . $imagen->getClientOriginalExtension();
+
+        // Almacenar los archivos en una ubicación permanente en el servidor
+        $archivo->storeAs('archivos/videos', $nombreArchivo, 'public');
+        $imagen->storeAs('archivos/images', $nombreImagen, 'public');
 
         //metodo para guardar el registro
-        $subirvideo = Video::create($request->all());
+        Video::create($request->all());
     
     return response()->json([
         'res' => true,

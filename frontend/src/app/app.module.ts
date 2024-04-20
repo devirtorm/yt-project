@@ -11,6 +11,8 @@ import { UserLoginComponent } from './components/user-login/user-login.component
 import { CrearCategoriaComponent } from './components/crear-categoria/crear-categoria.component';
 import { ModalCategoriaComponent } from './components/modal-categoria/modal-categoria.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { MisVideosComponent } from './components/mis-videos/mis-videos.component';
+import { SidebarVideosComponent } from './components/sidebar-videos/sidebar-videos.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     UserLoginComponent,
     CrearCategoriaComponent,
     ModalCategoriaComponent,
-    SidebarComponent
+    SidebarComponent,
+    MisVideosComponent,
+    SidebarVideosComponent
   ],
   imports: [
     BrowserModule,
