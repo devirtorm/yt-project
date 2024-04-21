@@ -36,38 +36,45 @@ class videoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function upload(SubirVideoRequest $request)
-{
+    {
         $archivo = $request->file('url'); 
         $imagen = $request->file('miniatura');
     
         if (!$archivo) {
-        // Manejar el caso cuando no se ha cargado un archivo
-        return response()->json(['error' => 'No se ha cargado ningun Video'], 400);
+            // Manejar el caso cuando no se ha cargado un archivo de video
+            return response()->json(['error' => 'No se ha cargado ningún video'], 400);
         }
+    
         if (!$imagen) {
-            // Manejar el caso cuando no se ha cargado un archivo
+            // Manejar el caso cuando no se ha cargado un archivo de miniatura
             return response()->json(['error' => 'No se ha cargado ninguna miniatura'], 400);
-            }
-
-        $nombreArchivo = $request->input('url'); 
-        $nombreImagen = $request->input('miniatura');
-
+        }
+    
         // Generar nombres de archivo únicos
         $nombreArchivo = uniqid() . '.' . $archivo->getClientOriginalExtension();
         $nombreImagen = uniqid() . '.' . $imagen->getClientOriginalExtension();
-
+    
         // Almacenar los archivos en una ubicación permanente en el servidor
         $archivo->storeAs('archivos/videos', $nombreArchivo, 'public');
         $imagen->storeAs('archivos/images', $nombreImagen, 'public');
-
-        //metodo para guardar el registro
-        Video::create($request->all());
     
-    return response()->json([
-        'res' => true,
-        'message' => 'Video subido exitosamente'
-    ]);
-}
+        // Crear el registro del video en la base de datos
+        Video::create([
+            'url' => 'archivos/videos/' . $nombreArchivo,
+            'miniatura' => 'archivos/images/' . $nombreImagen,
+            'titulo' => $request->input('titulo'),
+            'descripcion' => $request->input('descripcion'),
+            'fk_user' => $request->input('fk_user'),
+            'fk_categoria' => $request->input('fk_categoria'),
+            'estado' => '1',
+        ]);
+    
+        return response()->json([
+            'res' => true,
+            'message' => 'Video subido exitosamente'
+        ]);
+    }
+    
 
     /**
      * Display the specified resource.

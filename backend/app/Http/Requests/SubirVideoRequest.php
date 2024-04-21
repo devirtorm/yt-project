@@ -30,7 +30,8 @@ class SubirVideoRequest extends FormRequest
             "fk_user" => "required",
             "estado" => "required",
             "url" => "required | file | mimes:mp4",
-            "miniatura" => "required | image | mimes:jpg"
+            "miniatura" => "required|image|mimes:jpg,jpeg,png"
+
         ];
     }
 }
