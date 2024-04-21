@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\api\authController;
 use App\Http\Controllers\api\CategoriaController;
+use App\Http\Controllers\api\ComentarioController;
 use App\Http\Controllers\api\UserController;
 use App\Http\Controllers\api\videoController;
 use Illuminate\Http\Request;
@@ -38,6 +39,13 @@ Route::post('categoria',[CategoriaController::class, 'store']);
 Route::get('categoria/{categoria}',[CategoriaController::class, 'show']);
 Route::put('categoria/{categoria}',[CategoriaController::class, 'update']);
 Route::delete('categoria/{categoria}',[CategoriaController::class, 'destroy']);
+
+//Comentarios
+Route::get('comentarios',[ComentarioController::class, 'index']);
+Route::post('comentarios',[ComentarioController::class, 'store']);
+Route::get('comentarios/{comentario}',[ComentarioController::class, 'show']);
+Route::put('comentarios/{comentario}',[ComentarioController::class, 'update']);
+Route::delete('comentarios/{comentario}',[ComentarioController::class, 'destroy']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('users',[UserController::class, 'index']);    

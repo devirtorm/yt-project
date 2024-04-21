@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ActualizarVideoRequest extends FormRequest
+class ComentarioRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,12 +24,9 @@ class ActualizarVideoRequest extends FormRequest
     public function rules()
     {
         return [
-            "titulo" => "required",
-            "descripcion" => "required",
-            "url" => "required",
-            "estado" => "required",
-            "fk_user" => "required",
-            "fk_categoria" => "required"
+            "comentario" => "required",
+            "fk_video" => "required",
+            "fk_user" => "required"
         ];
     }
 }

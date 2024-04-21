@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ActualizarComentarioRequest;
+use App\Http\Requests\ComentarioRequest;
 use App\Http\Resources\ComentarioResource;
 use App\Models\Comentario;
 use Illuminate\Http\Request;
@@ -16,7 +18,7 @@ class ComentarioController extends Controller
      */
     public function index()
     {
-        //
+        return ComentarioResource::collection(Comentario::all());
     }
 
     /**
@@ -25,9 +27,9 @@ class ComentarioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ComentarioRequest $request)
     {
-        return (new ComentarioResource(Comentario::create($request->all())))->additional(['msg'=> 'Comentario guardado correctamente']);
+        return (new ComentarioResource(Comentario::create($request->all())))->additional(['msg'=> 'Comentario realizado correctamente']);
     }
 
     /**
@@ -36,9 +38,9 @@ class ComentarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Comentario $comentario)
     {
-        //
+        return new ComentarioResource($comentario);
     }
 
     /**
@@ -48,9 +50,10 @@ class ComentarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ActualizarComentarioRequest $request, Comentario $comentario)
     {
-        //
+        $comentario -> update($request->all());
+            return (new ComentarioResource($comentario))->additional(['msg'=> 'Comentario actualizado correctamente'])->response()->setStatusCode(202);
     }
 
     /**
@@ -59,8 +62,9 @@ class ComentarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Comentario $comentario)
     {
-        //
+        $comentario->delete();
+        return (new ComentarioResource($comentario))->additional(['msg'=> 'Comentario eliminado correctamente']);
     }
 }

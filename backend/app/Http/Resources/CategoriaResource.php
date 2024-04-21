@@ -16,7 +16,7 @@ class CategoriaResource extends JsonResource
     {
         return[
             'id' => $this->id,
-            'comentario' => ucfirst($this->nombre_categoria),
+            'nombre_categoria' => ucfirst($this->nombre_categoria),
             'descripcion' => ucfirst($this->descripcion),
             'fecha_creado' => optional($this->created_at)->format('d-m-Y'),
             'fecha_modificado' => optional($this->updated_at)->format('d-m-Y')
