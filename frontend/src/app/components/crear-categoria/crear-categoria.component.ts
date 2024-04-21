@@ -9,16 +9,28 @@ import { ModalTablaCategoriasService } from '../../services/categorias/modal-tab
   styleUrls: ['./crear-categoria.component.css'],
 })
 export class CrearCategoriaComponent implements OnInit {
+  editCategoria: FormGroup;
   categorias: any = {};
   categoriasOriginales: any = {};
-
+  categoriaSeleccionada: any = {};
+  showModal: boolean = false;
   terminoBusqueda: string = '';
 
   constructor(
     private categoriaService: CategoriaService,
-    public form:FormBuilder,
-    private actualizacionTablaService: ModalTablaCategoriasService // Importante
-  ) {}
+    public form: FormBuilder,
+    private actualizacionTablaService: ModalTablaCategoriasService
+  ) {
+    const formValues = {
+      nombre_categoria: [''],
+      descripcion: [''],
+    }
+    this.editCategoria = this.form.group(formValues);
+
+  }
+  
+
+
 
   ngOnInit(): void {
     this.actualizacionTablaService.actualizarTabla$.subscribe(() => {
@@ -27,19 +39,37 @@ export class CrearCategoriaComponent implements OnInit {
     this.cargarCategorias();
   }
 
+
+
+  toggleModal(categoria?: any): void {
+    this.showModal = !this.showModal;
+    if (categoria) {
+      this.categoriaSeleccionada = { ...categoria };
+    } else {
+      this.categoriaSeleccionada = {};
+    }
+  }
+
+  editData(): void {
+    if (this.editCategoria.valid) {
+      const id = this.categoriaSeleccionada.id;
+      const formData = this.editCategoria.value;
+      this.categoriaService.updateCategoria(id, formData).subscribe(() => {
+        this.actualizacionTablaService.actualizarTabla();
+        this.toggleModal(); // Cerrar el modal después de editar
+      });
+    }
+  }
+
   cargarCategorias(): void {
     this.categoriaService.getCategorias().subscribe((respuesta) => {
-      console.log(respuesta);
       this.categorias = respuesta;
-      this.categoriasOriginales = { ...respuesta }; // Hacer una copia de respaldo
+      this.categoriasOriginales = { ...respuesta };
     });
   }
 
   borrarRegistro(id: any, iControl: any) {
-    console.log(id);
-    console.log(iControl);
-
-    if (window.confirm('¿Estas seguro que deseas eliminar este empleado?')) {
+    if (window.confirm('¿Estás seguro que deseas eliminar este empleado?')) {
       this.categoriaService.BorrarCategoria(id).subscribe((respuesta) => {
         this.categorias.data.splice(iControl, 1);
       });
@@ -49,7 +79,7 @@ export class CrearCategoriaComponent implements OnInit {
   buscarCategoria(event: Event): void {
     const valor = (event.target as HTMLInputElement).value.trim().toLowerCase();
     if (valor === '') {
-      this.categorias = { ...this.categoriasOriginales }; // Restaurar categorías originales
+      this.categorias = { ...this.categoriasOriginales };
       return;
     }
     this.categorias.data = this.categoriasOriginales.data.filter((categoria: any) => {
@@ -58,8 +88,8 @@ export class CrearCategoriaComponent implements OnInit {
   }
 
   limpiarBusqueda(): void {
-    // Restablecer la lista de categorías original
     this.terminoBusqueda = '';
     this.cargarCategorias();
   }
+
 }

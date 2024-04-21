@@ -15,6 +15,9 @@ export class CategoriaService {
   storeCategoria(categoriaData:Categoria):Observable<any>{
     return this.httpClient.post(this.API,categoriaData)
   }
+  updateCategoria(id:any, categoriaData:Categoria):Observable<any>{
+    return this.httpClient.put(this.API+id,categoriaData)
+  }
 
   BorrarCategoria(id:any):Observable<any>{
     return this.httpClient.delete(this.API+id)
