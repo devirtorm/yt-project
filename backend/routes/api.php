@@ -3,6 +3,7 @@
 use App\Http\Controllers\api\authController;
 use App\Http\Controllers\api\CategoriaController;
 use App\Http\Controllers\api\ComentarioController;
+use App\Http\Controllers\api\LikeController;
 use App\Http\Controllers\api\UserController;
 use App\Http\Controllers\api\videoController;
 use Illuminate\Http\Request;
@@ -48,8 +49,13 @@ Route::delete('comentarios/{comentario}',[ComentarioController::class, 'destroy'
 
 
 
+
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::get('users',[UserController::class, 'index']);    
+    Route::get('users',[UserController::class, 'index']);   
+    
+    //Para dar like
+Route::post('videos/{video}/like', [LikeController::class, 'toggleLike']);
+
 });
 
 
