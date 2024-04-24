@@ -13,6 +13,8 @@ import { ModalCategoriaComponent } from './components/modal-categoria/modal-cate
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { MisVideosComponent } from './components/mis-videos/mis-videos.component';
 import { SidebarVideosComponent } from './components/sidebar-videos/sidebar-videos.component';
+import { DataTablesModule } from 'angular-datatables';
+import { SolicitudVideosComponent } from './components/solicitud-videos/solicitud-videos.component';
 
 @NgModule({
   declarations: [
@@ -23,14 +25,16 @@ import { SidebarVideosComponent } from './components/sidebar-videos/sidebar-vide
     ModalCategoriaComponent,
     SidebarComponent,
     MisVideosComponent,
-    SidebarVideosComponent
+    SidebarVideosComponent,
+    SolicitudVideosComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    DataTablesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

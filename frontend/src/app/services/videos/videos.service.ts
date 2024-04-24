@@ -17,6 +17,11 @@ export class VideosService {
     
   }
 
+  VerificarVideo(id:string, valores:any): Observable<any> {
+    return this.httpClient.patch(this.API+id,valores);
+    
+  }
+
   storeVideo(videoData: FormData): Observable<any> {
     const headers = new HttpHeaders();
     // Configura el encabezado Content-Type como multipart/form-data

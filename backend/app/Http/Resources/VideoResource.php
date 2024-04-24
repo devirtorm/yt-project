@@ -22,6 +22,7 @@ class VideoResource extends JsonResource
             'url' => Storage::url('storage/' . $this->url),
             'miniatura' => Storage::url('storage/' . $this->miniatura),
             'estado' => $this->estado,
+            'revisado' => $this->revisado,
             'fk_user' => $this->fk_user,
             'fk_categoria' => $this->fk_categoria,
             'created_at' => $this->created_at,

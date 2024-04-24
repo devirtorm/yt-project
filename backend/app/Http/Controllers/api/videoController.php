@@ -66,7 +66,7 @@ class videoController extends Controller
             'descripcion' => $request->input('descripcion'),
             'fk_user' => $request->input('fk_user'),
             'fk_categoria' => $request->input('fk_categoria'),
-            'estado' => '1',
+            'estado' => '',
         ]);
     
         return response()->json([
@@ -75,6 +75,31 @@ class videoController extends Controller
         ]);
     }
     
+    public function revisarVideos(Request $request, $id)
+    {
+        // Buscar el video a editar
+        $video = Video::find($id);
+        
+        // Verificar si el video existe
+        if (!$video) {
+            return response()->json(['error' => 'El video no existe'], 404);
+        }
+    
+        // Obtener los datos del request
+        $estado = $request->input('estado', $video->estado);
+        $revisado = $request->input('revisado', 1);
+    
+
+    
+        $video->estado = $estado;
+        $video->revisado = $revisado;
+        $video->save();
+    
+        return response()->json([
+            'res' => true,
+            'message' => 'Video editado exitosamente'
+        ]);
+    }
 
     /**
      * Display the specified resource.

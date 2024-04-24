@@ -30,6 +30,7 @@ Route::get('comentarios',[videoController::class, 'comentario']); // ver lista d
 
 Route::get('videos/{video}',[videoController::class, 'show']); // Mostrar video
 Route::put('videos/{video}',[videoController::class, 'update']); // Actualizar video
+Route::patch('videos/{id}',[videoController::class, 'revisarVideos']); // Actualizar el estado del video
 Route::delete('videos/{video}',[videoController::class, 'destroy']); // Eliminar video
 
 //Categoría
