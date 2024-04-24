@@ -8,8 +8,14 @@ import { Observable } from 'rxjs';
 export class VideosService {
 
   API: string = 'http://127.0.0.1:8000/api/videos/';
+  data: any;
 
   constructor(private httpClient: HttpClient) { }
+
+  ActualizarVideo(id:string, formData:FormData): Observable<any> {
+    return this.httpClient.post(this.API+id,formData);
+    
+  }
 
   storeVideo(videoData: FormData): Observable<any> {
     const headers = new HttpHeaders();
@@ -19,4 +25,14 @@ export class VideosService {
     // Realiza la solicitud POST con los datos y los encabezados adecuados
     return this.httpClient.post(this.API, videoData, { headers: headers });
   }
+
+  getVideos(): Observable<any> {
+    return this.httpClient.get(this.API);
+  }
+
+  BorrarVideo(id:string): Observable<any> {
+    return this.httpClient.delete(this.API+id);
+  }
+  
+
 }

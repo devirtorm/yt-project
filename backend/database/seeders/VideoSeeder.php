@@ -19,7 +19,7 @@ class VideoSeeder extends Seeder
             'titulo' => 'Visitante',
             'descripcion' => 'Video de visitante',
             'url' => 'URL',
-            'miniatura' => 'ruta/a/la/imagen.jpg', // Asegúrate de que esta línea exista y tenga un valor válido
+            'miniatura' => 'archivos/videos/662468dc31452.mp4', // Asegúrate de que esta línea exista y tenga un valor válido
             'fk_categoria' => 1,
             'fk_user' => 1,
             'estado' => 1

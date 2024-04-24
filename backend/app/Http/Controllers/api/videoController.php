@@ -94,11 +94,51 @@ class videoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ActualizarVideoRequest $request, Video $video)
+    public function update(ActualizarVideoRequest $request, $id)
     {
-        $video -> update($request->all());
-            return (new VideoResource($video))->additional(['msg'=> 'Video actualizado correctamente'])->response()->setStatusCode(202);
+        // Buscar el video a editar
+        $video = Video::find($id);
+        
+        // Verificar si el video existe
+        if (!$video) {
+            return response()->json(['error' => 'El video no existe'], 404);
+        }
+    
+        // Obtener los datos del request
+        $titulo = $request->input('titulo');
+        $descripcion = $request->input('descripcion');
+        $fk_user = $request->input('fk_user');
+        $fk_categoria = $request->input('fk_categoria');
+    
+        // Verificar si se subió un nuevo archivo de video
+        if ($request->hasFile('url')) {
+            $archivo = $request->file('url');
+            $nombreArchivo = uniqid() . '.' . $archivo->getClientOriginalExtension();
+            $archivo->storeAs('archivos/videos', $nombreArchivo, 'public');
+            $video->url = 'archivos/videos/' . $nombreArchivo;
+        }
+    
+        // Verificar si se subió una nueva miniatura
+        if ($request->hasFile('miniatura')) {
+            $imagen = $request->file('miniatura');
+            $nombreImagen = uniqid() . '.' . $imagen->getClientOriginalExtension();
+            $imagen->storeAs('archivos/images', $nombreImagen, 'public');
+            $video->miniatura = 'archivos/images/' . $nombreImagen;
+        }
+    
+        // Actualizar otros campos
+        $video->titulo = $titulo;
+        $video->descripcion = $descripcion;
+        $video->fk_user = $fk_user;
+        $video->fk_categoria = $fk_categoria;
+        $video->save();
+    
+        return response()->json([
+            'res' => true,
+            'message' => 'Video editado exitosamente'
+        ]);
     }
+    
 
     /**
      * Remove the specified resource from storage.

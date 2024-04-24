@@ -7,7 +7,7 @@ import { ModalTablaCategoriasService } from '../../services/categorias/modal-tab
 @Component({
   selector: 'app-modal-categoria',
   templateUrl: './modal-categoria.component.html',
-  styleUrl: './modal-categoria.component.css'
+  styleUrl: './modal-categoria.component.css',
 })
 export class ModalCategoriaComponent {
   modalAbierto: boolean = true; // Variable para controlar el estado del modal
@@ -15,25 +15,26 @@ export class ModalCategoriaComponent {
 
   constructor(
     private categoriaService: CategoriaService,
-    public form:FormBuilder,
-    public router:Router,
+    public form: FormBuilder,
+    public router: Router,
     private actualizacionTablaService: ModalTablaCategoriasService // Importante
   ) {
     const formValues = {
       nombre_categoria: [''],
       descripcion: [''],
-    }
+    };
     this.agregarCategoria = this.form.group(formValues);
-
   }
 
   saveData(): any {
     console.log(this.agregarCategoria.value);
-    this.categoriaService.storeCategoria(this.agregarCategoria.value).subscribe(() => {
-      this.actualizacionTablaService.actualizarTabla(); // Notificar al componente padre
-      this.modalAbierto = false;
-      this.resetForm(); 
-    });
+    this.categoriaService
+      .storeCategoria(this.agregarCategoria.value)
+      .subscribe(() => {
+        this.actualizacionTablaService.actualizarTabla(); // Notificar al componente padre
+        this.modalAbierto = false;
+        this.resetForm();
+      });
   }
 
   resetForm(): void {

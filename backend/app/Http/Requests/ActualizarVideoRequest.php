@@ -26,10 +26,11 @@ class ActualizarVideoRequest extends FormRequest
         return [
             "titulo" => "required",
             "descripcion" => "required",
-            "url" => "required",
-            "estado" => "required",
+            "fk_categoria" => "required",
             "fk_user" => "required",
-            "fk_categoria" => "required", 
+            "estado" => "required",
+            "url" => "nullable|file|mimes:mp4", // Permitimos que la URL sea opcional en la edición
+            "miniatura" => "nullable|image|mimes:jpg,jpeg,png" // Permitimos que la miniatura sea opcional en la edición
         ];
     }
 }
