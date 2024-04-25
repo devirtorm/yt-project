@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { VideosService } from '../../services/videos/videos.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+import 'sweetalert2/src/sweetalert2.scss'
 
 
 
@@ -79,17 +81,39 @@ export class SolicitudVideosComponent implements OnInit {
       revisado: "1",
       estado: "1"
     };
-    this.videoService.VerificarVideo(id, datosActualizar).subscribe(
-      
-      () => {
-        console.log('Video actualizado exitosamente');
-        this.toggleEditModal();  // Cerrar el modal después de editar
-        this.cargarVideos();  // Recargar la lista de videos si es necesario
-      },
-      error => {
-        console.error('Error al actualizar el video:', error);
+    Swal.fire({
+      title: "Estas seguro?",
+      text: "El video se publicara",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Publicar",
+      cancelButtonText: "Cancelar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Video rechazado!",
+          icon: "success",
+          confirmButtonText:"Aceptar"
+        });
+        this.videoService.VerificarVideo(id, datosActualizar).subscribe(
+          () => {
+            this.toggleEditModal();  // Cerrar el modal después de editar
+            this.cargarVideos();  // Recargar la lista de videos si es necesario
+          },
+          error => {
+            console.error('Error al actualizar el video:', error);
+            Swal.fire({
+              position: "top-end",
+              icon: "error",
+              title: "Hubo algun error al procesar la petición",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        );
       }
-    );
+    });
   }
   
 
@@ -99,16 +123,41 @@ export class SolicitudVideosComponent implements OnInit {
       estado: "0"
     };
 
-    this.videoService.VerificarVideo(id, datosActualizar).subscribe(
-      () => {
-        console.log('Video actualizado exitosamente');
-        this.toggleEditModal();  // Cerrar el modal después de editar
-        this.cargarVideos();  // Recargar la lista de videos si es necesario
-      },
-      error => {
-        console.error('Error al actualizar el video:', error);
+    Swal.fire({
+      title: "Estas seguro?",
+      text: "El video sera rechazado y no podrá ser mostrado",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Rechazar",
+      cancelButtonText: "Cancelar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Video rechazado!",
+          icon: "success",
+          confirmButtonText:"Rechazar"
+        });
+        this.videoService.VerificarVideo(id, datosActualizar).subscribe(
+          () => {
+            this.toggleEditModal();  // Cerrar el modal después de editar
+            this.cargarVideos();  // Recargar la lista de videos si es necesario
+          },
+          error => {
+            console.error('Error al actualizar el video:', error);
+            Swal.fire({
+              position: "top-end",
+              icon: "error",
+              title: "Hubo algun error al procesar la petición",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        );
       }
-    );
+    });
+
   
   }
 
