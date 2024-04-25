@@ -21,7 +21,7 @@ class CreateVideoTable extends Migration
             $table->string('miniatura');
             $table->integer('fk_user');
             $table->integer('fk_categoria');
-            $table->boolean('revisado');
+            $table->boolean('revisado')->nullable();
             $table->string('estado')->nullable();
             //$table->integer('fk_comentarios');
             $table->timestamps();

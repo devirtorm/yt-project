@@ -4,6 +4,7 @@ import { VideosService } from '../../services/videos/videos.service';
 import { Router } from '@angular/router';
 
 
+
 @Component({
   selector: 'app-solicitud-videos',
   templateUrl: './solicitud-videos.component.html',
@@ -68,12 +69,6 @@ export class SolicitudVideosComponent implements OnInit {
     const date = new Date(dateString);
     return date.toLocaleDateString('es-ES', options);
   }
-
-
-
-  
-  
-  
 
   toggleModal(): void {
     this.showModal = !this.showModal;

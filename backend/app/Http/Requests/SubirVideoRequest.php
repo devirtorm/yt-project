@@ -29,7 +29,7 @@ class SubirVideoRequest extends FormRequest
             "fk_categoria" => "required",
             "fk_user" => "required",
             "estado" => "nullable",
-            "revisado" => "required",
+            "revisado" => "nullable",
             "url" => "required | file | mimes:mp4",
             "miniatura" => "required|image|mimes:jpg,jpeg,png"
 

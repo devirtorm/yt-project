@@ -19,6 +19,8 @@ export class MisVideosComponent implements OnInit {
   videos: any = {};
   videosOriginales: any = {};
 
+
+
   constructor(
     private formulario: FormBuilder,
     private videoService: VideosService,
@@ -48,39 +50,24 @@ export class MisVideosComponent implements OnInit {
   saveVideo(): void {
     console.log(this.formVideo.value);
     if (this.formVideo.valid) {
+  
       const id = localStorage.getItem('id');
-
-      // Crear una instancia de FormData
       const formData = new FormData();
-
-      // Agregar los valores de los campos al FormData
       formData.append('titulo', this.formVideo.get('titulo')?.value || '');
-      formData.append(
-        'descripcion',
-        this.formVideo.get('descripcion')?.value || ''
-      );
-      formData.append(
-        'miniatura',
-        this.formVideo.get('miniatura')?.value || ''
-      );
+      formData.append('descripcion', this.formVideo.get('descripcion')?.value || '');
+      formData.append('miniatura', this.formVideo.get('miniatura')?.value || '');
       formData.append('url', this.formVideo.get('url')?.value || '');
-      formData.append('estado', '1'); // Si el estado es constante, se puede agregar aquí
+      formData.append('estado', '1');
       formData.append('fk_categoria', '1');
       if (id) {
-        formData.append('fk_user', id); // Agregar el id del usuario
+        formData.append('fk_user', id);
       }
-
-      // Enviar el FormData al servicio
+  
       this.videoService.storeVideo(formData).subscribe(
         () => {
-          // Manejar la respuesta o redireccionar si es necesario
           console.log('Video guardado exitosamente');
-          this.formVideo.reset(); // Limpiar el formulario si es necesario
-
-          // Cerrar el modal solo si la respuesta es exitosa
-          this.toggleModal(); // Cerrar el modal después de agregar el registro
-
-          // Actualizar la lista de videos después de guardar exitosamente
+          this.formVideo.reset();
+          this.toggleModal();
           this.cargarVideos();
         },
         (error) => {
@@ -89,6 +76,7 @@ export class MisVideosComponent implements OnInit {
       );
     }
   }
+  
 
   cargarVideos(): void {
     this.videoService.getVideos().subscribe((respuesta) => {

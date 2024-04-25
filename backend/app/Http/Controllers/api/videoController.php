@@ -66,7 +66,6 @@ class videoController extends Controller
             'descripcion' => $request->input('descripcion'),
             'fk_user' => $request->input('fk_user'),
             'fk_categoria' => $request->input('fk_categoria'),
-            'estado' => '',
         ]);
     
         return response()->json([
