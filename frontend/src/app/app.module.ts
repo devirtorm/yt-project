@@ -15,6 +15,8 @@ import { MisVideosComponent } from './components/mis-videos/mis-videos.component
 import { SidebarVideosComponent } from './components/sidebar-videos/sidebar-videos.component';
 import { DataTablesModule } from 'angular-datatables';
 import { SolicitudVideosComponent } from './components/solicitud-videos/solicitud-videos.component';
+import { VideosComponent } from './components/videos/videos.component';
+
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import { SolicitudVideosComponent } from './components/solicitud-videos/solicitu
     SidebarComponent,
     MisVideosComponent,
     SidebarVideosComponent,
-    SolicitudVideosComponent
+    SolicitudVideosComponent,
+    VideosComponent
   ],
   imports: [
     BrowserModule,

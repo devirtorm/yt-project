@@ -18,4 +18,8 @@ export class AuthService {
       return loginData.token;
     } 
   }
+  
+  logout(): void {
+    localStorage.removeItem('token');
+  }
 }

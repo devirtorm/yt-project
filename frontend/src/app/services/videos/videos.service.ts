@@ -37,6 +37,10 @@ export class VideosService {
     return this.httpClient.get(this.API);
   }
 
+  obtenerVideosVerificados(): Observable<any> {
+    return this.httpClient.get(this.API+"active/");
+  }
+
   BorrarVideo(id:string): Observable<any> {
     return this.httpClient.delete(this.API+id);
   }

@@ -1,0 +1,25 @@
+<app-sidebar-videos></app-sidebar-videos>
+
+<div class="p-4 sm:ml-64 mt-10">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        <!-- Card 1 -->
+        <div *ngFor="let video of videos.data; let iControl = index" class="max-w-sm rounded overflow-hidden shadow-lg">
+            <img class="w-full h-auto rounded-t-xl" [src]="'http://127.0.0.1:8000/storage/' + video.miniatura" alt="" alt="Image Description">
+            <div class="p-4 md:p-5">
+              <h3 class="text-lg font-bold text-gray-800 dark:text-white">
+                {{video.titulo}}
+              </h3>
+
+              <p class="flex">
+                <img
+                class="w-8 h-8 rounded-full"
+                src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                alt="user photo"
+              />
+                {{video.user.name}}
+              </p>
+            </div>
+        </div>
+    </div>
+    
+</div>

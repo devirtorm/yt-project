@@ -53,7 +53,7 @@ export class MisVideosComponent implements OnInit {
     console.log(this.formVideo.value);
     if (this.formVideo.valid) {
   
-      const id = localStorage.getItem('id');
+      const id = localStorage.getItem('userId');
       const formData = new FormData();
       formData.append('titulo', this.formVideo.get('titulo')?.value || '');
       formData.append('descripcion', this.formVideo.get('descripcion')?.value || '');
@@ -159,7 +159,7 @@ export class MisVideosComponent implements OnInit {
       formData.append('_method', 'PUT');
 
       
-      const fk_usuario = localStorage.getItem('id');
+      const fk_usuario = localStorage.getItem('userId');
       if (fk_usuario) {
         formData.append('fk_user', fk_usuario);
       }
