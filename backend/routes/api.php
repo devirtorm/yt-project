@@ -30,7 +30,6 @@ Route::post('videos',[videoController::class, 'upload']); // crear usuario
 Route::get('videos',[videoController::class, 'index']); // ver lista de videos
 Route::get('comentarios',[videoController::class, 'comentario']); // ver lista de videos
 
-Route::get('videos/{video}',[videoController::class, 'show']); // Mostrar video
 Route::put('videos/{video}',[videoController::class, 'update']); // Actualizar video
 Route::patch('videos/{id}',[videoController::class, 'revisarVideos']); // Actualizar el estado del video
 Route::delete('videos/{video}',[videoController::class, 'destroy']); // Eliminar video
@@ -41,6 +40,17 @@ Route::post('categoria',[CategoriaController::class, 'store']);
 Route::get('categoria/{categoria}',[CategoriaController::class, 'show']);
 Route::put('categoria/{categoria}',[CategoriaController::class, 'update']);
 Route::delete('categoria/{categoria}',[CategoriaController::class, 'destroy']);
+
+//Mostrar videos en 1
+Route::get('videos/active', [videoController::class, 'showActiveVideos']);
+
+//Mostrar videos en 0
+Route::get('videos/inactive', [videoController::class, 'showInactiveVideos']);
+
+//Mostrar los videos de los usuarios
+Route::get('users/{userId}/videos', [VideoController::class, 'showUserVideos']);
+
+Route::get('videos/{video}',[videoController::class, 'show']); // Mostrar video
 
 //Comentarios
 Route::post('comentarios',[ComentarioController::class, 'store']); // crear comentario

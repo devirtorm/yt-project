@@ -8,6 +8,7 @@ use App\Http\Requests\saveVideoRequest;
 use App\Http\Requests\SubirVideoRequest;
 use App\Http\Resources\VideoResource;
 use App\Models\Comentario;
+use App\Models\User;
 use App\Models\Video;
 use Illuminate\Http\Request;
 
@@ -28,6 +29,35 @@ class videoController extends Controller
         $comentarios = Comentario::with('video')->get();
         return response()->json(['data' => $comentarios], 200);
     }
+
+    //Mostrar videos con estado igual a 1
+    public function showActiveVideos()
+    {
+    $videos = Video::where('estado', 1)->get();
+    return response()->json(['data' => $videos], 200);
+    }
+
+    //Mostrar videos con estado igual a 0
+    public function showInactiveVideos()
+    {
+    $videos = Video::where('estado', 0)->get();
+    return response()->json(['data' => $videos], 200);
+    }
+
+    public function showUserVideos($userId)
+    {
+    
+    $user = User::find($userId);
+    if (!$user) {
+        return response()->json(['message' => 'Usuario no encontrado'], 404);
+    }
+
+    // Obtiene todos los videos del usuario
+    $videos = Video::where('fk_user', $userId)->get();
+
+    return response()->json(['data' => $videos], 200);
+    }   
+
 
     /**
      * Store a newly created resource in storage.
