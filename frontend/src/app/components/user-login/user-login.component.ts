@@ -34,6 +34,7 @@ export class UserLoginComponent {
       (response) => {
         console.log(response); // Aquí puedes manejar la respuesta
         localStorage.setItem('token', response.access_token);
+        localStorage.setItem('userId', response.user.id);
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -41,7 +42,7 @@ export class UserLoginComponent {
           showConfirmButton: false,
           timer: 1500,
         });
-        this.router.navigateByUrl('/home');
+        this.router.navigateByUrl('/');
         this.toggleModal();
       },
       (error) => {

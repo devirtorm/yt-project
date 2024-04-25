@@ -7,7 +7,7 @@
             <img class="w-full h-auto rounded-t-xl" [src]="'http://127.0.0.1:8000/storage/' + video.miniatura" alt="" alt="Image Description">
             <div class="p-4 md:p-5">
               <h3 class="text-lg font-bold text-gray-800 dark:text-white">
-                {{video.titulo}}
+                {{video?.titulo}}
               </h3>
 
               <p class="flex">
@@ -16,7 +16,7 @@
                 src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
                 alt="user photo"
               />
-                {{video.user.name}}
+              {{ video?.data?.name || 'Nombre no disponible' }}
               </p>
             </div>
         </div>

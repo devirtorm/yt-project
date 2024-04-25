@@ -5,13 +5,16 @@ import { CrearCategoriaComponent } from './components/crear-categoria/crear-cate
 import { MisVideosComponent } from './components/mis-videos/mis-videos.component';
 import { SolicitudVideosComponent } from './components/solicitud-videos/solicitud-videos.component';
 import { VideosComponent } from './components/videos/videos.component';
+import { AuthGuard } from './guards/guard.service';
+import { UserLoginComponent } from './components/user-login/user-login.component';
 
 const routes: Routes = [
   {path:'', pathMatch:'full', redirectTo: 'UserSignupComponent'},
   {path:'sign-up', component: UserSignupComponent},
-  {path:'categorias', component: CrearCategoriaComponent},
-  {path:'mis-videos', component: MisVideosComponent},
-  {path:'solicitud-videos', component: SolicitudVideosComponent},
+  {path:'login', component: UserLoginComponent},
+  {path:'categorias', component: CrearCategoriaComponent, canActivate: [AuthGuard]},
+  {path:'mis-videos', component: MisVideosComponent, canActivate: [AuthGuard]},
+  {path:'solicitud-videos', component: SolicitudVideosComponent, canActivate: [AuthGuard]},
   {path:'', component: VideosComponent},
 ];
 

@@ -20,7 +20,6 @@ class UserController extends Controller
         return UserResource::collection(User::all());
 
         // Pasar los usuarios a la vista para ser renderizados
-        
     }
 
     /**
@@ -73,7 +72,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        return new UserResource(User::find($id));
     }
 
     /**

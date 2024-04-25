@@ -50,6 +50,7 @@ Route::get('videos/inactive', [videoController::class, 'showInactiveVideos']);
 
 //Mostrar los videos de los usuarios
 Route::get('users/{userId}/videos', [VideoController::class, 'showUserVideos']);
+Route::get('users/{userId}', [UserController::class, 'show']);
 
 Route::get('videos/{video}',[videoController::class, 'show']); // Mostrar video
 
