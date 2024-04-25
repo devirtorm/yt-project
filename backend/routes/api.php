@@ -4,6 +4,7 @@ use App\Http\Controllers\api\authController;
 use App\Http\Controllers\api\CategoriaController;
 use App\Http\Controllers\api\ComentarioController;
 use App\Http\Controllers\api\LikeController;
+use App\Http\Controllers\api\SearchController;
 use App\Http\Controllers\api\UserController;
 use App\Http\Controllers\api\videoController;
 use Illuminate\Http\Request;
@@ -57,6 +58,11 @@ Route::post('comentarios',[ComentarioController::class, 'store']); // crear come
 Route::get('comentarios',[ComentarioController::class, 'index']); // Mostrar todos los comentarios
 Route::get('comentarios/{comentario}',[ComentarioController::class, 'show']); // Mostrar un comentario
 Route::delete('comentarios/{comentario}',[ComentarioController::class, 'destroy']); //Eliminar un comentario
+
+//Buscador
+Route::get('search/videos', [SearchController::class, 'searchVideos']); //Buscar videos
+
+Route::get('search/users', [SearchController::class, 'searchUsers']); //Buscar usuarios
 
 
 
