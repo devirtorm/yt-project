@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { VideosService } from '../../services/videos/videos.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+import 'sweetalert2/src/sweetalert2.scss'
 
 @Component({
   selector: 'app-mis-videos',
@@ -65,13 +67,26 @@ export class MisVideosComponent implements OnInit {
   
       this.videoService.storeVideo(formData).subscribe(
         () => {
-          console.log('Video guardado exitosamente');
           this.formVideo.reset();
           this.toggleModal();
           this.cargarVideos();
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Tu video se ha subido correctamente",
+            showConfirmButton: false,
+            timer: 1500,
+          });
         },
         (error) => {
           console.error('Error al guardar el video:', error);
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "No hemos podido guardar tu video",
+            showConfirmButton: false,
+            timer: 1500,
+          });
         }
       );
     }
@@ -106,12 +121,30 @@ export class MisVideosComponent implements OnInit {
   }
 
   borrarRegistro(id: any, iControl: any) {
-    if (window.confirm('¿Estás seguro que deseas eliminar este video?')) {
-      this.videoService.BorrarVideo(id).subscribe(() => {
-        // Eliminar el video de la lista localmente
-        this.videos.data.splice(iControl, 1);
-      });
-    }
+    Swal.fire({
+      title: "Estas seguro",
+      text: "No podras recuperar el video",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Borrar",
+      cancelButtonText: "Cancelar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Borrado!",
+          text: "Video eliminado exitosamente",
+          icon: "success",
+          confirmButtonText:"Aceptar"
+        });
+          this.videoService.BorrarVideo(id).subscribe(() => {
+            // Eliminar el video de la lista localmente
+            this.videos.data.splice(iControl, 1);
+          });
+      }
+    });
+
   }
 
   editData(): void {
@@ -150,9 +183,23 @@ export class MisVideosComponent implements OnInit {
           this.toggleEditModal();  // Cerrar el modal después de editar
           this.cargarVideos();  // Recargar la lista de videos si es necesario
 
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Video editado exitosamente",
+            showConfirmButton: false,
+            timer: 1500,
+          });
         },
         error => {
           console.error('Error al actualizar el video:', error);
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "Error tu video no pudo ser editado",
+            showConfirmButton: false,
+            timer: 1500,
+          });
         }
       );
     } else {
