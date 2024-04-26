@@ -58,12 +58,6 @@
                     scope="col"
                     class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500"
                   >
-                    Título
-                  </th>
-                  <th
-                    scope="col"
-                    class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500"
-                  >
                     Video
                   </th>
                   <th
@@ -76,14 +70,20 @@
                     scope="col"
                     class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500"
                   >
+                    Título
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500"
+                  >
                     descripción
                   </th>
                   <th
-                  scope="col"
-                  class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500"
-                >
-                  Estado
-                </th>
+                    scope="col"
+                    class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500"
+                  >
+                    Estado
+                  </th>
                   <th
                     scope="col"
                     class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500"
@@ -100,47 +100,109 @@
               </thead>
               <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
                 <tr *ngFor="let video of videos.data; let iControl = index">
-                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">
-                    {{ video.titulo }}
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">
+                  <td
+                    class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200"
+                  >
                     <div class="aspect-w-16 aspect-h-9">
                       <video class="object-cover w-40 h-25" controls>
-                        <source [src]="'http://127.0.0.1:8000/storage/' + video.url" type="video/mp4">
+                        <source
+                          [src]="'http://127.0.0.1:8000/storage/' + video.url"
+                          type="video/mp4"
+                        />
                         Tu navegador no admite la etiqueta de video.
                       </video>
                     </div>
                   </td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">
+                  <td
+                    class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200"
+                  >
                     <div class="aspect-w-16 aspect-h-9">
-                      <img class="object-cover w-40 h-25" [src]="'http://127.0.0.1:8000/storage/' + video.miniatura" alt="">
+                      <img
+                        class="object-cover w-40 h-25"
+                        [src]="
+                          'http://127.0.0.1:8000/storage/' + video.miniatura
+                        "
+                        alt=""
+                      />
                     </div>
                   </td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">
-                    {{ video.descripcion }}
+                  <td
+                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200"
+                  >
+                    <div *ngIf="video.titulo && video.titulo.length > 25">
+                      <p class="text-xs">
+                        {{ video.titulo | slice : 0 : 25 }}...
+                      </p>
+                    </div>
+                    <div
+                      *ngIf="
+                        video.titulo && video.titulo.length <= 20
+                      "
+                    >
+                      <p class="text-xs">{{video.titulo}}</p>
+                    </div>
                   </td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">
-                    <p [style.color]="video.estado === '1' ? 'green' : (video.estado === '0' ? 'red' : 'gray')">
-                      {{ video.estado === '1' ? 'Aceptado' : (video.estado === '0' ? 'Rechazado' : 'En espera') }}
+                  <td
+                    class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200"
+                  >
+                    <div
+                      *ngIf="video.descripcion && video.descripcion.length > 20"
+                    >
+                      <p class="text-xs">
+                        {{ video.descripcion | slice : 0 : 20 }}...
+                      </p>
+                    </div>
+                    <div
+                      *ngIf="
+                        video.descripcion && video.descripcion.length <= 20
+                      "
+                    >
+                      <p class="text-xs">{{video.descripcion}}</p>
+                    </div>
+                  </td>
+                  <td
+                    class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200"
+                  >
+                    <p
+                      [style.color]="
+                        video.estado === '1'
+                          ? 'green'
+                          : video.estado === '0'
+                          ? 'red'
+                          : 'gray'
+                      "
+                    >
+                      {{
+                        video.estado === "1"
+                          ? "Aceptado"
+                          : video.estado === "0"
+                          ? "Rechazado"
+                          : "En espera"
+                      }}
                     </p>
-                    
                   </td>
-                  <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
-                    {{ formatDate(video.created_at) }}
+                  <td
+                    class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium"
+                  >
+                    <p class="text-xs">{{ formatDate(video.created_at) }}</p>
                   </td>
                   <td>
                     <div class="inline-flex rounded-md shadow-sm">
-                      <button (click)="toggleEditModal(video)" class="px-4 py-2 text-sm font-medium text-blue-700 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
+                      <button
+                        (click)="toggleEditModal(video)"
+                        class="px-4 py-2 text-sm font-medium text-blue-700 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white"
+                      >
                         <i class="fas fa-pencil"></i>
                       </button>
-                      <a (click)="borrarRegistro(video.id, iControl)" class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
+                      <a
+                        (click)="borrarRegistro(video.id, iControl)"
+                        class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white"
+                      >
                         <i class="fas fa-trash"></i>
                       </a>
                     </div>
                   </td>
                 </tr>
-                
-                
               </tbody>
             </table>
           </div>
@@ -159,11 +221,7 @@
       class="flex flex-col bg-white border shadow-sm rounded-xl pointer-events-auto dark:bg-neutral-800 dark:border-neutral-700 dark:shadow-neutral-700/70"
     >
       <!-- Aquí debes agregar el formulario que incluye los campos de entrada -->
-      <form
-        [formGroup]="formVideo"
-        (ngSubmit)="saveVideo()"
-        class="p-3"
-      >
+      <form [formGroup]="formVideo" (ngSubmit)="saveVideo()" class="p-3">
         <div
           class="flex justify-between items-center py-3 px-4 border-b dark:border-neutral-700"
         >
@@ -199,14 +257,13 @@
               >Titulo</label
             >
             <input
-            type="text"
-            id="categoriaEditar"
-            formControlName="titulo" 
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Ingrese aquí el nombre de la categoria, por favor"
-            required
-          />
-          
+              type="text"
+              id="categoriaEditar"
+              formControlName="titulo"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Ingrese aquí el nombre de la categoria, por favor"
+              required
+            />
           </div>
           <div class="mb-5">
             <label
@@ -242,7 +299,6 @@
               class="block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 file:bg-gray-50 file:border-0 file:me-4 file:py-2 file:px-4 dark:file:bg-neutral-700 dark:file:text-neutral-400"
             />
           </div>
-          
         </div>
         <div
           class="flex justify-end items-center gap-x-2 py-3 px-4 border-t dark:border-neutral-700"
@@ -266,22 +322,20 @@
   </div>
 </div>
 
-
-<div *ngIf="showEditModal"  id="modal-update-categoria" class="fixed top-0 left-0 z-50 w-full h-full bg-gray-800 bg-opacity-50 flex items-center justify-center">
+<div
+  *ngIf="showEditModal"
+  id="modal-update-categoria"
+  class="fixed top-0 left-0 z-50 w-full h-full bg-gray-800 bg-opacity-50 flex items-center justify-center"
+>
   <div class="sm:max-w-lg sm:w-full m-3 sm:mx-auto">
     <div
       class="flex flex-col bg-white border shadow-sm rounded-xl pointer-events-auto dark:bg-neutral-800 dark:border-neutral-700 dark:shadow-neutral-700/70"
     >
-      <form
-      [formGroup]="editVideo"
-      (ngSubmit)="editData()"
-      >
+      <form [formGroup]="editVideo" (ngSubmit)="editData()">
         <div
           class="flex justify-between items-center py-3 px-4 border-b dark:border-neutral-700"
         >
-          <h3 class="font-bold text-gray-800 dark:text-white">
-            Editar video
-          </h3>
+          <h3 class="font-bold text-gray-800 dark:text-white">Editar video</h3>
           <button
             type="button"
             class="flex justify-center items-center size-7 text-sm font-semibold rounded-full border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-neutral-700"
@@ -313,14 +367,13 @@
               >Titulo</label
             >
             <input
-            type="text"
-            id="descripcionEditar"
-            formControlName="titulo"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Escribe una descripción, por favor"
-            required
-          />
-          
+              type="text"
+              id="descripcionEditar"
+              formControlName="titulo"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Escribe una descripción, por favor"
+              required
+            />
           </div>
           <div class="mb-5">
             <label
@@ -329,20 +382,21 @@
               >Descripción</label
             >
             <input
-            type="text"
-            id="descripcionEditar"
-            formControlName="descripcion" 
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Escribe una descripción, por favor"
-            required
-          />
+              type="text"
+              id="descripcionEditar"
+              formControlName="descripcion"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Escribe una descripción, por favor"
+              required
+            />
           </div>
           <div class="mb-5">
             <label for="small-file-input">Elije una miniatura</label>
             <input
               type="file"
               id="miniatura"
-              formControlName="miniatura" (change)="onFileSelected($event, 'miniatura')"
+              formControlName="miniatura"
+              (change)="onFileSelected($event, 'miniatura')"
               class="block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 file:bg-gray-50 file:border-0 file:me-4 file:py-2 file:px-4 dark:file:bg-neutral-700 dark:file:text-neutral-400"
             />
           </div>
@@ -351,10 +405,14 @@
             <input
               type="file"
               id="url"
-              formControlName="url" (change)="onFileSelected($event, 'url')"
+              formControlName="url"
+              (change)="onFileSelected($event, 'url')"
               class="block w-full border mb-2 border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 file:bg-gray-50 file:border-0 file:me-4 file:py-2 file:px-4 dark:file:bg-neutral-700 dark:file:text-neutral-400"
             />
-            <p class="text-sm text-gray-500 font-bold">Si desea conservar los archivos anteriores deje estos campos vacíos</p>
+            <p class="text-sm text-gray-500 font-bold">
+              Si desea conservar los archivos anteriores deje estos campos
+              vacíos
+            </p>
           </div>
         </div>
         <div
