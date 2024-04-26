@@ -58,6 +58,7 @@ Route::get('videos/{video}',[videoController::class, 'show']); // Mostrar video
 Route::post('comentarios',[ComentarioController::class, 'store']); // crear comentario
 Route::get('comentarios',[ComentarioController::class, 'index']); // Mostrar todos los comentarios
 Route::get('comentarios/{comentario}',[ComentarioController::class, 'show']); // Mostrar un comentario
+Route::put('comentarios/{comentario}',[ComentarioController::class, 'update']); // Actualizar un comentario
 Route::delete('comentarios/{comentario}',[ComentarioController::class, 'destroy']); //Eliminar un comentario
 
 //Buscador

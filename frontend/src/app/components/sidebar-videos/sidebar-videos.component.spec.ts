@@ -13,7 +13,7 @@ describe('SidebarVideosComponent', () => {
     .compileComponents();
     
     fixture = TestBed.createComponent(SidebarVideosComponent);
-    component = fixture.componentInstance;
+    component = fixture.componentInstance; 
     fixture.detectChanges();
   });
 

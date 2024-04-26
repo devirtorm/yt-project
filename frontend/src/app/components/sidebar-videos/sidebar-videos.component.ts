@@ -4,7 +4,8 @@ import { AuthService } from '../../services/auth/auth.service';
 import { UserService } from '../../services/user/user-service.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import 'sweetalert2/src/sweetalert2.scss'
+import 'sweetalert2/src/sweetalert2.scss';
+import { SearchService } from '../../services/search.service';
 
 @Component({
   selector: 'app-sidebar-videos',
@@ -15,12 +16,19 @@ export class SidebarVideosComponent {
 
   user: any = {};
 
+  searchQuery: string = '';
+  searchType: string = 'users';  // Valor predeterminado para la búsqueda
+  searchResults: any[] = [];
+
 
   constructor (
     private authService: AuthService,
     private router: Router,
     private userService: UserService,
+    private searchService: SearchService,
   ) {}
+
+  
   ngOnInit(): void {
     this.cargarUsuario();
   }
@@ -52,6 +60,21 @@ export class SidebarVideosComponent {
       );
     } else {
       console.error('El valor de userId en localStorage es null');
+    }
+  }
+
+  performSearch(query: string): void {
+    if (query.trim() === '') {
+      return;
+    }
+    if (this.searchType === 'users') {
+      this.searchService.searchUsers(query).subscribe(results => {
+        this.searchResults = results.data;
+      });
+    } else if (this.searchType === 'videos') {
+      this.searchService.searchVideos(query).subscribe(results => {
+        this.searchResults = results.data;
+      });
     }
   }
   

@@ -16,8 +16,9 @@ class ComentarioResource extends JsonResource
     {
         return[
             'id' => $this->id,
-            'nombre_categoria' => ucfirst($this->nombre_categoria),
-            'descripcion' => ucfirst($this->descripcion),
+            'comentario' => ucfirst($this->comentario),
+            "fk_user"=> $this->fk_user,
+            "fk_video"=> $this->fk_video,
             'fecha_creado' => optional($this->created_at)->format('d-m-Y'),
             'fecha_modificado' => optional($this->updated_at)->format('d-m-Y')
         ];
