@@ -15,34 +15,22 @@ class SearchController extends Controller
      * @return \Illuminate\Http\Response
      */
    // Método existente para buscar usuarios
-   public function searchUsers(Request $request)
-   {
+   public function searchAll(Request $request)
+{
     $query = $request->input('query');
-   
+
     if (trim($query) === '') {
-        return response()->json(['data' => []], 200);
+        return response()->json(['data' => []], 200); // Retorna vacío si no hay entrada
     }
 
-    // Asegura que la búsqueda sea insensible a mayúsculas y minúsculas
-    $user = User::whereRaw('LOWER(name) LIKE LOWER(?)', ['%' . $query . '%'])->get();
+    $users = User::whereRaw("unaccent(lower(name)) LIKE unaccent(lower(?))", ['%' . $query . '%'])->get();
+    $videos = Video::whereRaw("unaccent(lower(titulo)) LIKE unaccent(lower(?))", ['%' . $query . '%'])->get();
 
-    return response()->json(['data' => $user], 200);
-   }
-
-   // Nuevo método para buscar videos por título
-   public function searchVideos(Request $request)
-   {
-       $query = $request->input('query');
-   
-       if (trim($query) === '') {
-           return response()->json(['data' => []], 200);
-       }
-   
-       // Asegura que la búsqueda sea insensible a mayúsculas y minúsculas
-       $videos = Video::whereRaw('LOWER(titulo) LIKE LOWER(?)', ['%' . $query . '%'])->get();
-   
-       return response()->json(['data' => $videos], 200);
-   }
+    return response()->json([
+        'users' => $users,
+        'videos' => $videos
+    ], 200);
+}
     /**
      * Store a newly created resource in storage.
      *

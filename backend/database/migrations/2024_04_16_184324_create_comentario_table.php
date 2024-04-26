@@ -16,8 +16,8 @@ class CreateComentarioTable extends Migration
         Schema::create('comentario', function (Blueprint $table) {
             $table->id();
             $table->string('comentario');
-            $table->string('fk_video');
-            $table->string('fk_user');
+            $table->integer('fk_video');
+            $table->integer('fk_user');
             $table->timestamps();
         });
     }

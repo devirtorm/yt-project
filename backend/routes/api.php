@@ -62,9 +62,11 @@ Route::put('comentarios/{comentario}',[ComentarioController::class, 'update']); 
 Route::delete('comentarios/{comentario}',[ComentarioController::class, 'destroy']); //Eliminar un comentario
 
 //Buscador
-Route::get('search/videos', [SearchController::class, 'searchVideos']); //Buscar videos
+Route::get('search/all', [SearchController::class, 'searchAll']);
 
-Route::get('search/users', [SearchController::class, 'searchUsers']); //Buscar usuarios
+//Mostrar los comentarios de un video
+Route::get('videos/{videoId}/comentarios', [VideoController::class, 'showComentarios']);
+
 
 
 
