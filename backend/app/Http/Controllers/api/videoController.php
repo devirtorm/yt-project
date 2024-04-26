@@ -33,7 +33,7 @@ class videoController extends Controller
     //Mostrar videos con estado igual a 1
     public function showActiveVideos()
     {
-    $videos = Video::where('estado', 1)->get();
+    $videos = Video::with('user')->where('estado', 1)->get();
     return response()->json(['data' => $videos], 200);
     }
 

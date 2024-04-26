@@ -71,11 +71,7 @@
               data-dropdown-toggle="dropdown-user"
             >
               <span class="sr-only">Open user menu</span>
-              <img
-                class="w-8 h-8 rounded-full"
-                src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                alt="user photo"
-              />
+              <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/examples/image-2@2x.jpg" alt="image description">
             </button>
           </div>
           <div
@@ -84,7 +80,7 @@
           >
             <div class="px-4 py-3" role="none">
               <p class="text-sm text-gray-900 dark:text-white" role="none">
-                {{ user?.data.name || 'Nombre no disponible' }}
+                {{ user?.data?.name || 'Nombre no disponible' }}
               </p>
               <p
                 class="text-sm font-medium text-gray-900 truncate dark:text-gray-300"

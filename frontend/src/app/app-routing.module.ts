@@ -7,6 +7,7 @@ import { SolicitudVideosComponent } from './components/solicitud-videos/solicitu
 import { VideosComponent } from './components/videos/videos.component';
 import { AuthGuard } from './guards/guard.service';
 import { UserLoginComponent } from './components/user-login/user-login.component';
+import { VideoDetalleComponent } from './components/video-detalle/video-detalle.component';
 
 const routes: Routes = [
   {path:'', pathMatch:'full', redirectTo: 'UserSignupComponent'},
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path:'mis-videos', component: MisVideosComponent, canActivate: [AuthGuard]},
   {path:'solicitud-videos', component: SolicitudVideosComponent, canActivate: [AuthGuard]},
   {path:'', component: VideosComponent},
+  {path:'video/:id', component: VideoDetalleComponent},
 ];
 
 @NgModule({

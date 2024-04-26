@@ -31,7 +31,9 @@ export class VideosService {
     return this.httpClient.post(this.API, videoData, { headers: headers });
   }
 
-  
+  getVideoById(id:string): Observable<any> {
+    return this.httpClient.get(this.API+id);
+  }
 
   getVideos(): Observable<any> {
     return this.httpClient.get(this.API);
