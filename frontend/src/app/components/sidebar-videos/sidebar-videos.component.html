@@ -34,29 +34,28 @@
         </a>
       </div>
       <div class="w-1/2 space-y-3">
-        <div class="relative">
-            <input
-              type="search"
-              class="peer py-3 px-4 ps-11 block w-full bg-gray-100 border-transparent rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-700 dark:border-transparent dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-              placeholder="Buscar"
-            />
-            <button type="button" class="absolute inset-y-0 right-0 flex items-center px-4 bg-blue-500 text-white rounded-r-lg hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="w-6 h-6"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-                />
-              </svg>
-            </button>
-          </div> 
+        <div class="relative w-full">
+          <input
+            type="search"
+            #searchInput
+            class="peer py-3 px-4 ps-11 block w-full bg-gray-100 border-transparent rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-700 dark:border-transparent dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+            placeholder="Buscar"
+          />
+          <button (click)="search()" type="button" class="absolute inset-y-0 right-0 flex items-center px-4 bg-blue-500 text-white rounded-r-lg hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+            </svg>
+          </button>
+          <!-- Contenedor de Resultados de Búsqueda -->
+          <div *ngIf="searchResults" class="absolute w-full bg-white shadow-md mt-12 z-10">
+            <ul *ngIf="searchResults.users.length > 0">
+              <li *ngFor="let user of searchResults.users">{{ user.name }}</li>
+            </ul>
+            <ul *ngIf="searchResults.videos.length > 0">
+              <li *ngFor="let video of searchResults.videos">{{ video.titulo }}</li>
+            </ul>
+          </div>
+        </div> 
       </div>
 
       

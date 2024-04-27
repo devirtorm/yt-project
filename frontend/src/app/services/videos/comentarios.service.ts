@@ -20,7 +20,7 @@ export class ComentariosService {
   }
 
   getReplyByCommentId(id:string): Observable<any> {
-    return this.httpClient.get(this.API+'');
+    return this.httpClient.get(this.API+id+'/respuestas');
   }
 
   BorrarComentario(id:any):Observable<any>{

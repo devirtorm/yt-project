@@ -7,6 +7,17 @@ import { LikesService } from '../../services/videos/likes.service';
 import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
 
+interface Comment {
+  id: string;
+  user: {
+    name: string;
+  };
+  created_at: string;
+  comentario: string;
+  fk_user: string;
+  fk_video: string;
+}
+
 @Component({
   selector: 'app-video-detalle',
   templateUrl: './video-detalle.component.html',
@@ -15,12 +26,17 @@ import 'sweetalert2/src/sweetalert2.scss';
 export class VideoDetalleComponent implements OnInit {
   video: any; // Variable para almacenar los datos del video
   like: any = {};
-  comments: any = {};
+  comments: { comentarios: Comment[] } = { comentarios: [] };
+  respuestaPorComentario: { [commentId: string]: any[] } = {};
+  respuestas: any = {};
   formComentario: FormGroup;
   dropdownOpenIndex: number = -1;
+  dropdownOpenReplies: number = -1;
   videoHasLike: boolean = false;
   userId: string | null = localStorage.getItem('userId');
   isLiked: boolean = false;
+
+  
 
   constructor(
     public form: FormBuilder,
@@ -37,8 +53,8 @@ export class VideoDetalleComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarInfo();
-    this.infoLike();
   }
+
 
   cargarInfo(): void {
     const id = this.route.snapshot.paramMap.get('id'); // Obtiene el ID del video de los parámetros de la ruta
@@ -49,6 +65,7 @@ export class VideoDetalleComponent implements OnInit {
         console.log(this.video); // Imprime los datos del video en la consola
         this.cargarComentarios();
         this.infoLike();
+
       });
     } else {
       // Manejo de error o redirección si id es null
@@ -77,20 +94,38 @@ export class VideoDetalleComponent implements OnInit {
   
 
   cargarComentarios(): void {
-    console.log(this.video.data.id); //
+    console.log(this.video.data.id);
     this.videoService.getCommentsByVideoId(this.video.data.id).subscribe(
-      (data: any) => {
-        // Imprime los comentarios del video en la consola
-        // Asigna los comentarios a una variable en tu componente para mostrarlos en la plantilla
+      (data: { comentarios: Comment[] }) => { // Aquí estás tipando los datos recibidos como un arreglo de comentarios
         this.comments = data;
+        this.comments.comentarios.forEach(comment => {
+          this.cargarRespuestas(this.video.data.id, comment.id);
+        });
         console.log(this.comments);
       },
       (error) => {
         console.error('Error al cargar comentarios:', error);
-        // Aquí puedes manejar el error de la forma que desees, por ejemplo, mostrar un mensaje al usuario
       }
     );
   }
+
+  cargarRespuestas(videoId:string, commentId: string): void {
+    console.log(commentId); // Solo para verificar el commentId
+    console.log("joto"); // Solo para verificar el commentId
+    this.comentariosService.getReplyByCommentId(commentId).subscribe(
+      (data: any) => {
+        console.log(data);
+        this.respuestaPorComentario[commentId] = data;
+      },
+      (error) => {
+        console.error('Error al cargar respuestas:', error);
+      }
+    );
+  }
+  
+  
+
+
 
   saveData(): void {
     const idUser = localStorage.getItem('userId');
@@ -157,6 +192,16 @@ export class VideoDetalleComponent implements OnInit {
     } else {
       this.dropdownOpenIndex = index; // Abre el dropdown correspondiente
       console.log(index);
+    }
+  }
+
+  toggleDropdownReplies(iControl: number) {
+    if (this.dropdownOpenReplies === iControl) {
+      this.dropdownOpenReplies = -1; // Cierra el dropdown si ya está abierto
+      console.log(iControl);
+    } else {
+      this.dropdownOpenReplies = iControl; // Abre el dropdown correspondiente
+      console.log(iControl);
     }
   }
 

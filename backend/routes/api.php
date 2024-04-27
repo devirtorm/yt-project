@@ -69,6 +69,9 @@ Route::get('comentarios/respuestas/{respuesta}',[RespuestasComentariosController
 Route::put('comentarios/respuestas/{respuesta}',[RespuestasComentariosController::class, 'update']); // Actualizar una respuesta
 Route::delete('comentarios/respuestas/{respuesta}',[RespuestasComentariosController::class, 'destroy']); //Eliminar una respuesta
 
+//Las respuestas de un comentario
+Route::get('/comentarios/{id}/respuestas', [ComentarioController::class, 'respuestas']);
+
 
 //Buscador
 Route::get('search/all', [SearchController::class, 'searchAll']);
