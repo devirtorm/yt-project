@@ -42,6 +42,17 @@ class ComentarioController extends Controller
     {
         return new ComentarioResource($comentario);
     }
+    
+    public function respuestas($id)
+    {
+        $comentario = Comentario::with('respuestas.user')->find($id);
+
+        if (!$comentario) {
+            return response()->json(['message' => 'Comentario no encontrado'], 404);
+        }
+
+        return response()->json($comentario->respuestas);
+    }
 
     /**
      * Update the specified resource in storage.

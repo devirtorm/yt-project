@@ -25,4 +25,10 @@ class Comentario extends Model
     {
         return $this->belongsTo(User::class, 'fk_user', 'id');
     }
+
+    public function respuestas()
+    {
+        return $this->hasMany(RespuestasComentarios::class, 'fk_comentario');
+    }
+
 }

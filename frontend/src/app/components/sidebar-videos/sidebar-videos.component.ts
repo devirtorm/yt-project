@@ -1,34 +1,29 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
 import { UserService } from '../../services/user/user-service.service';
 import { Router } from '@angular/router';
+import { SearchService } from '../../services/buscador/search.service'; // Asegúrate de que la ruta sea correcta
 import Swal from 'sweetalert2';
-import 'sweetalert2/src/sweetalert2.scss';
-import { SearchService } from '../../services/search.service';
+
+
 
 @Component({
   selector: 'app-sidebar-videos',
   templateUrl: './sidebar-videos.component.html',
-  styleUrl: './sidebar-videos.component.css'
+  styleUrls: ['./sidebar-videos.component.css']
 })
 export class SidebarVideosComponent {
-
+  @ViewChild('searchInput') searchInput!: ElementRef;
   user: any = {};
-
-  searchQuery: string = '';
-  searchType: string = 'users';  // Valor predeterminado para la búsqueda
-  searchResults: any[] = [];
+  searchResults: any = null; 
 
 
   constructor (
     private authService: AuthService,
     private router: Router,
     private userService: UserService,
-    private searchService: SearchService,
+    private searchService: SearchService
   ) {}
-
-  
   ngOnInit(): void {
     this.cargarUsuario();
   }
@@ -63,19 +58,20 @@ export class SidebarVideosComponent {
     }
   }
 
-  performSearch(query: string): void {
-    if (query.trim() === '') {
-      return;
-    }
-    if (this.searchType === 'users') {
-      this.searchService.searchUsers(query).subscribe(results => {
-        this.searchResults = results.data;
-      });
-    } else if (this.searchType === 'videos') {
-      this.searchService.searchVideos(query).subscribe(results => {
-        this.searchResults = results.data;
-      });
-    }
+
+  search(): void {
+    const query = this.searchInput.nativeElement.value;
+    console.log('Búsqueda con query:', query); // Para depurar
+    if (!query.trim()) return;
+    this.searchService.search(query).subscribe({
+      next: (response) => {
+        console.log('Resultados de la búsqueda:', response); // Para depurar
+        this.searchResults = response;
+      },
+      error: (error) => {
+        console.error('Error durante la búsqueda:', error);
+      }
+    });
   }
   
 
