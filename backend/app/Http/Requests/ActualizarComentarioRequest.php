@@ -25,8 +25,8 @@ class ActualizarComentarioRequest extends FormRequest
     {
         return [
             "comentario" => "required",
-            "fk_video" => "required",
-            "fk_user" => "required"
+            "fk_video" => "nullable",
+            "fk_user" => "nullable"
         ];
     }
 }

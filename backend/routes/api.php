@@ -58,7 +58,7 @@ Route::get('videos/{video}',[videoController::class, 'show']); // Mostrar video
 Route::post('comentarios',[ComentarioController::class, 'store']); // crear comentario
 Route::get('comentarios',[ComentarioController::class, 'index']); // Mostrar todos los comentarios
 Route::get('comentarios/{comentario}',[ComentarioController::class, 'show']); // Mostrar un comentario
-Route::put('comentarios/{comentario}',[ComentarioController::class, 'update']); // Actualizar un comentario
+Route::patch('comentarios/{comentario}',[ComentarioController::class, 'update']); // Actualizar un comentario
 Route::delete('comentarios/{comentario}',[ComentarioController::class, 'destroy']); //Eliminar un comentario
 
 //Buscador
@@ -67,15 +67,17 @@ Route::get('search/all', [SearchController::class, 'searchAll']);
 //Mostrar los comentarios de un video
 Route::get('videos/{videoId}/comentarios', [VideoController::class, 'showComentarios']);
 
-
-
-
+Route::post('likes', [LikeController::class, 'addLike']);
+Route::delete('likes', [LikeController::class, 'removeLike']);
+Route::get('/users/{userId}/likes', [LikeController::class, 'getUserLikes']);
+Route::get('/videos/{videoId}/likes', [LikeController::class, 'getVideoLikes']);
+Route::post('/likes/search', [LikeController::class, 'searchLike']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('users',[UserController::class, 'index']);   
     
     //Para dar like
-Route::post('videos/{video}/like', [LikeController::class, 'toggleLike']);
+
 
 });
 

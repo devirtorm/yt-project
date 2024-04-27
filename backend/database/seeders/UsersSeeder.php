@@ -17,8 +17,8 @@ class UsersSeeder extends Seeder
     {
         DB::table('users')->insert([
             [
-                'name' => 'María Perla',
-                'email' => 'maria@example.com',
+                'name' => 'irving',
+                'email' => 'irtormxd@gamil.com',
                 'password' => '123',
                 'birthdate' => Carbon::createFromFormat('Y-m-d', rand(1950, 2000) . '-' . rand(1, 12) . '-' . rand(1, 28)),
                 'gender' => 'femenino',

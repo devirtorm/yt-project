@@ -18,7 +18,7 @@ class VideoSeeder extends Seeder
         DB::table('video')->insert([
             'titulo' => 'Visitante',
             'descripcion' => 'Video de visitante',
-            'url' => 'URL',
+            'url' => 'archivos/images/662c10ba062e2.jpg',
             'miniatura' => 'archivos/videos/662468dc31452.mp4', // Asegúrate de que esta línea exista y tenga un valor válido
             'fk_categoria' => 1,
             'fk_user' => 1,

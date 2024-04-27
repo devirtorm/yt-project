@@ -25,36 +25,98 @@ class LikeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function toggleLike(Request $request, $videoId)
+    public function addLike(Request $request)
     {
-        $user = $request->user();
-    
-        if (!$user) {
-            return response()->json(['error' => 'Unauthenticated'], 401);
+        $request->validate([
+            'fk_usuario' => 'required|exists:users,id', // Validar que el usuario existe
+            'fk_video' => 'required|exists:video,id', // Validar que el video existe
+            'like' => 'required|boolean', // El like debe ser booleano
+        ]);
+
+        // Buscar si ya existe un like del usuario para el video
+        $existingLike = Like::where('fk_usuario', $request->fk_usuario)
+            ->where('fk_video', $request->fk_video)
+            ->first();
+
+        // Si ya existe un like del usuario para el video
+        if ($existingLike) {
+            // Si el like enviado es verdadero, simplemente retornamos un mensaje indicando que ya existe
+            $existingLike->delete();
+            return response()->json(['message' => 'Like eliminado con éxito'], 200);
         }
-    
-        $userId = $user->id;
-        $like = Like::where('fk_video', $videoId)->where('fk_usuario', $userId)->first();
-    
-        if ($like) {
-            $like->delete();  // Elimina el like existente
-            return response()->json([
-                'message' => 'Like removed successfully',  // Mensaje de que el like fue eliminado
-                'liked' => false  // Estado de like
-            ]);
-        } else {
-            Like::create([
-                'like' => true,
-                'fk_usuario' => $userId,
-                'fk_video' => $videoId,
-                'fecha_like' => now()
-            ]);  // Crea un nuevo like
-            return response()->json([
-                'message' => 'Like added successfully',  // Mensaje de que se añadió el like
-                'liked' => true  // Estado de like
-            ]);
+
+        // Si no existe un like del usuario para el video, creamos uno nuevo
+        $like = new Like();
+        $like->fk_usuario = $request->fk_usuario;
+        $like->fk_video = $request->fk_video;
+        $like->like = true; // Se establece como verdadero, ya que este es el primer like del usuario para el video
+        $like->save();
+
+        return response()->json(['message' => 'Like agregado con éxito'], 200);
+    }
+
+
+
+    // Método para eliminar un like
+    public function removeLike(Request $request)
+    {
+        $request->validate([
+            'fk_usuario' => 'required|exists:users,id', // Validar que el usuario existe
+            'fk_video' => 'required|exists:video,id', // Validar que el video existe
+        ]);
+
+        // Buscar y eliminar el like
+        Like::where('fk_usuario', $request->fk_usuario)
+            ->where('fk_video', $request->fk_video)
+            ->delete();
+
+        return response()->json(['message' => 'Like eliminado con éxito'], 200);
+    }
+
+    // Método para obtener todos los likes de un usuario
+    public function getUserLikes($userId)
+    {
+        $likes = Like::where('fk_usuario', $userId)->get();
+
+        return response()->json($likes, 200);
+    }
+
+    // Método para obtener todos los likes de un video
+    public function getVideoLikes($videoId)
+    {
+        $likes = Like::where('fk_video', $videoId)->get();
+
+        return response()->json(['data' => $likes], 200);
+    }
+
+
+    public function searchLike(Request $request)
+    {
+        // Validar los datos de la solicitud
+        $request->validate([
+            'fk_usuario' => 'required|exists:users,id',
+            'fk_video' => 'required|exists:video,id',
+        ]);
+
+        try {
+            // Buscar el like en la base de datos
+            $like = Like::where('fk_usuario', $request->fk_usuario)
+                        ->where('fk_video', $request->fk_video)
+                        ->first();
+
+            if ($like) {
+                // Si se encuentra el like, devolver los datos del like con código 200
+                return response()->json($like, 200);
+            } else {
+                // Si no se encuentra el like, devolver un mensaje de error con código 404
+                return response()->json(['error' => 'No se encontró ningún like para el usuario y video especificados'], 404);
+            }
+        } catch (\Exception $exception) {
+            // Si ocurre algún error durante la búsqueda, devolver un mensaje de error con código 500
+            return response()->json(['error' => 'Ocurrió un error al buscar el like'], 500);
         }
     }
+
 
     /**
      * Display the specified resource.

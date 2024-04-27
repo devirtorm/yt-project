@@ -16,13 +16,9 @@ class CreateLikesTable extends Migration
         Schema::create('likes', function (Blueprint $table) {
             $table->id();
             $table->boolean('like');
-            $table->unsignedBigInteger('fk_usuario');
-            $table->unsignedBigInteger('fk_video');
-            $table->date('fecha_like');
+            $table->integer('fk_usuario');
+            $table->integer('fk_video');
             $table->timestamps();
-
-            $table->foreign('fk_usuario')->references('id')->on('users');
-            $table->foreign('fk_video')->references('id')->on('video');
         });
     }
 

@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { VideosService } from '../../services/videos/videos.service';
 import { ComentariosService } from '../../services/videos/comentarios.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { LikesService } from '../../services/videos/likes.service';
 import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
 
@@ -13,14 +14,18 @@ import 'sweetalert2/src/sweetalert2.scss';
 })
 export class VideoDetalleComponent implements OnInit {
   video: any; // Variable para almacenar los datos del video
+  like: any = {};
   comments: any = {};
   formComentario: FormGroup;
   dropdownOpenIndex: number = -1;
+  videoHasLike: boolean = false;
   userId: string | null = localStorage.getItem('userId');
+  isLiked: boolean = false;
 
   constructor(
     public form: FormBuilder,
     private route: ActivatedRoute,
+    private likesService: LikesService,
     private videoService: VideosService,
     private comentariosService: ComentariosService
   ) {
@@ -32,6 +37,7 @@ export class VideoDetalleComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarInfo();
+    this.infoLike();
   }
 
   cargarInfo(): void {
@@ -42,11 +48,33 @@ export class VideoDetalleComponent implements OnInit {
         this.video = data; // Almacena los datos del video recuperado del servicio
         console.log(this.video); // Imprime los datos del video en la consola
         this.cargarComentarios();
+        this.infoLike();
       });
     } else {
       // Manejo de error o redirección si id es null
     }
   }
+
+  infoLike(): void {
+    if (this.userId !== null) {
+      this.likesService
+        .getLikeByUserAndVideo(this.userId, this.video.data.id)
+        .subscribe(
+          (data: any) => {
+            this.like = data;
+            console.log(this.like);
+            // Actualiza isLiked basado en si hay un "me gusta" o no
+            this.isLiked = this.like !== null;
+          },
+          (error) => {
+            console.error('Error al cargar comentarios:', error);
+            // En caso de error, establece isLiked en false
+            this.isLiked = false;
+          }
+        );
+    }
+  }
+  
 
   cargarComentarios(): void {
     console.log(this.video.data.id); //
@@ -159,7 +187,7 @@ export class VideoDetalleComponent implements OnInit {
     });
   }
 
-  async editarComentario(id: string, comentario:string, idVideo:string) {
+  async editarComentario(id: string, comentario: string, idVideo: string) {
     const ipAPI = '//api.ipify.org?format=json';
     const response = await fetch(ipAPI);
     const data = await response.json();
@@ -167,20 +195,20 @@ export class VideoDetalleComponent implements OnInit {
     const { value: valorComentario } = await Swal.fire({
       title: 'Edita tu comentario',
       input: 'text',
-      cancelButtonText:'Cancelar ',
-      confirmButtonText:'Aceptar',
+      cancelButtonText: 'Cancelar ',
+      confirmButtonText: 'Aceptar',
       inputValue,
       showCancelButton: true,
     });
     if (valorComentario) {
       const formData = new FormData();
       formData.append('comentario', valorComentario);
-      formData.append('_method','patch');
+      formData.append('_method', 'patch');
 
       this.comentariosService.EditarComentario(id, formData).subscribe(() => {
         Swal.fire({
           position: 'top-end',
-          icon:'success',
+          icon: 'success',
           text: 'Tu comentario se ha editado',
           showConfirmButton: false,
           timer: 1500,
@@ -191,4 +219,72 @@ export class VideoDetalleComponent implements OnInit {
       });
     }
   }
+  saveLike(): void {
+    const idUser = localStorage.getItem('userId');
+    const formData = new FormData();
+    formData.append('fk_video', this.video.data.id);
+    formData.append('like', '1');
+    if (idUser) {
+      formData.append('fk_usuario', idUser);
+    }
+  
+    console.log(formData);
+    this.likesService.saveLikeByVideoId(formData).subscribe(
+      (response) => {
+        console.log(response);
+        this.videoHasLike = !this.videoHasLike;
+        this.infoLike(); // Actualiza la información de "me gusta"
+      },
+      (error) => {
+        // Maneja el error si ocurre
+        console.error('Error al guardar el comentario:', error);
+      }
+    );
+  }
+
+/*   saveDislike(): void {
+    const idUser = localStorage.getItem('userId');
+    const formData = new FormData();
+    formData.append('fk_video', this.video.data.id);
+    formData.append('like', '0'); // Indica que es un "no me gusta"
+    if (idUser) {
+      formData.append('fk_usuario', idUser);
+    }
+  
+    console.log(formData);
+  
+    // Primero, elimina cualquier "me gusta" existente
+    if (this.isLiked) {
+      this.likesService.deleteLikeByUserAndVideo(this.userId, this.video.data.id).subscribe(
+        () => {
+          console.log('Me gusta eliminado correctamente');
+          this.isLiked = false; // Actualiza el estado de "me gusta"
+          // Luego, guarda el "no me gusta"
+          this.saveDislikeRequest(formData);
+        },
+        (error) => {
+          console.error('Error al eliminar el me gusta:', error);
+        }
+      );
+    } else {
+      // Si no hay "me gusta" existente, solo guarda el "no me gusta"
+      this.saveDislikeRequest(formData);
+    }
+  } */
+  
+  private saveDislikeRequest(formData: FormData): void {
+    this.likesService.saveLikeByVideoId(formData).subscribe(
+      (response) => {
+        console.log(response);
+        this.videoHasLike = !this.videoHasLike;
+        this.infoLike(); // Actualiza la información de "me gusta"
+      },
+      (error) => {
+        // Maneja el error si ocurre
+        console.error('Error al guardar el "no me gusta":', error);
+      }
+    );
+  }
+  
+  
 }
