@@ -7,6 +7,7 @@ use App\Http\Controllers\api\LikeController;
 use App\Http\Controllers\api\SearchController;
 use App\Http\Controllers\api\UserController;
 use App\Http\Controllers\api\videoController;
+use App\Http\Controllers\RespuestasComentariosController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -60,6 +61,14 @@ Route::get('comentarios',[ComentarioController::class, 'index']); // Mostrar tod
 Route::get('comentarios/{comentario}',[ComentarioController::class, 'show']); // Mostrar un comentario
 Route::put('comentarios/{comentario}',[ComentarioController::class, 'update']); // Actualizar un comentario
 Route::delete('comentarios/{comentario}',[ComentarioController::class, 'destroy']); //Eliminar un comentario
+
+//Respuestas de comentarios
+Route::post('respuestas',[RespuestasComentariosController::class, 'store']); // crear respuestas
+Route::get('respuestas',[RespuestasComentariosController::class, 'index']); // Mostrar todas las respuestas
+Route::get('respuestas/{respuesta}',[RespuestasComentariosController::class, 'show']); // Mostrar una respuesta
+Route::put('respuestas/{respuesta}',[RespuestasComentariosController::class, 'update']); // Actualizar una respuesta
+Route::delete('respuestas/{respuesta}',[RespuestasComentariosController::class, 'destroy']); //Eliminar una respuesta
+
 
 //Buscador
 Route::get('search/all', [SearchController::class, 'searchAll']);
