@@ -17,6 +17,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { SolicitudVideosComponent } from './components/solicitud-videos/solicitud-videos.component';
 import { VideosComponent } from './components/videos/videos.component';
 import { VideoDetalleComponent } from './components/video-detalle/video-detalle.component';
+import { PerfilUsuarioComponent } from './components/perfil-usuario/perfil-usuario.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { VideoDetalleComponent } from './components/video-detalle/video-detalle.
     SidebarVideosComponent,
     SolicitudVideosComponent,
     VideosComponent,
-    VideoDetalleComponent
+    VideoDetalleComponent,
+    PerfilUsuarioComponent
   ],
   imports: [
     BrowserModule,

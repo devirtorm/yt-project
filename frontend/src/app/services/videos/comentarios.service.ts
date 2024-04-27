@@ -15,6 +15,14 @@ export class ComentariosService {
     return this.httpClient.post(this.API,commentData)
   }
 
+  GuardarRespuestas(respuestaData: FormData): Observable<any> {
+    return this.httpClient.post(this.API,respuestaData)
+  }
+
+  getReplyByCommentId(id:string): Observable<any> {
+    return this.httpClient.get(this.API+'');
+  }
+
   BorrarComentario(id:any):Observable<any>{
     return this.httpClient.delete(this.API+id)
   }
@@ -22,4 +30,6 @@ export class ComentariosService {
   EditarComentario(id:any, comentario:FormData):Observable<any>{
     return this.httpClient.post(this.API+id,comentario)
   }
+
+  
 }

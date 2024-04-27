@@ -3,9 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Str;
 
-class UserResource extends JsonResource
+class RespuestasComentariosResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,13 +14,12 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
-            "id"=> $this->id,
-            "name"=> Str::upper($this->name),
-            "email"=> $this->email,
-            "birthdate"=> $this->birthdate,
-            "foto"=> $this->foto,
-            "gender"=> $this->gender,
+        return[
+            'id' => $this->id,
+            'respuesta' => ucfirst($this->respuesta),
+            'fk_user' => $this->fk_user,
+            'usuario' => $this->whenLoaded('user'),
+            'fk_comentario' => $this->fk_comentario
         ];
     }
 }

@@ -24,9 +24,9 @@
                 {{ video?.titulo }}
               </h3>
     
-              <p class="text-xs">
+              <a [routerLink]="['/profile', video?.user?.id]" class="text-xs text-blue-500 hover:underline">
                 {{ video?.user?.name }}
-              </p>
+              </a>
             </div>
           </div>
         </div>
