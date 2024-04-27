@@ -51,5 +51,10 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class, 'roles_asignados');
     }
 
+    public function videos()
+    {
+        return $this->hasMany(Video::class, 'fk_user');
+    }
+
     
 }

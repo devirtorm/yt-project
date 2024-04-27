@@ -55,6 +55,12 @@ Route::get('users/{userId}', [UserController::class, 'show']);
 
 Route::get('videos/{video}',[videoController::class, 'show']); // Mostrar video
 
+//Muestra los videos de un usuario especifico
+Route::get('/users/{id}/videos', [UserController::class, 'videos']);
+
+//Muestra los videos en estado 1 de un usuario especifico
+Route::get('/users/{id}/videos-activos', [UserController::class, 'videosActivos']);
+
 //Comentarios
 Route::post('comentarios',[ComentarioController::class, 'store']); // crear comentario
 Route::get('comentarios',[ComentarioController::class, 'index']); // Mostrar todos los comentarios
@@ -71,7 +77,6 @@ Route::delete('respuestas/{respuesta}',[RespuestasComentariosController::class, 
 
 //Las respuestas de un comentario
 Route::get('/comentarios/{id}/respuestas', [ComentarioController::class, 'respuestas']);
-
 
 //Buscador
 Route::get('search/all', [SearchController::class, 'searchAll']);
