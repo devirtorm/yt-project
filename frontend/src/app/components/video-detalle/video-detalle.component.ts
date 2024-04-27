@@ -13,6 +13,11 @@ export class VideoDetalleComponent implements OnInit {
   constructor(private route: ActivatedRoute, private videoService: VideosService) { }
 
   ngOnInit(): void {
+    this.cargarInfo();
+    this.cargarComentarios();
+  }
+
+  cargarInfo(): void {
     const id = this.route.snapshot.paramMap.get('id'); // Obtiene el ID del video de los parámetros de la ruta
     if (id !== null) { // Verifica que id no sea null
       this.videoService.getVideoById(id).subscribe((data: any) => {
@@ -23,4 +28,11 @@ export class VideoDetalleComponent implements OnInit {
       // Manejo de error o redirección si id es null
     }
   }
+
+  cargarComentarios(): void {
+    console.log(this.video.id);
+  }
+
 }
+
+
