@@ -21,7 +21,8 @@ class UserResource extends JsonResource
             "email"=> $this->email,
             "birthdate"=> $this->birthdate,
             "foto"=> $this->foto,
-            "gender"=> $this->gender,
+            "nombre_canal"=> $this->nombre_canal,
+            "gender"=> $this->gender
         ];
     }
 }

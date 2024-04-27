@@ -29,10 +29,6 @@ class LikeController extends Controller
     {
         $user = $request->user();
     
-        if (!$user) {
-            return response()->json(['error' => 'Unauthenticated'], 401);
-        }
-    
         $userId = $user->id;
         $like = Like::where('fk_video', $videoId)->where('fk_usuario', $userId)->first();
     

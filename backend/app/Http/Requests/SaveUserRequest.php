@@ -29,7 +29,8 @@ class SaveUserRequest extends FormRequest
             "birthdate"=> "required",
             "gender"=> "required",
             "foto"=> "nullable|image|mimes:jpg,jpeg,png",
-            "password"=> "required",
+            "nombre_canal"=> "nullable",
+            "password"=> "required"
         ];
     }
 }
