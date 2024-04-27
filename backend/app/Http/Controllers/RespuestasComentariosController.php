@@ -40,6 +40,7 @@ class RespuestasComentariosController extends Controller
      */
     public function show(RespuestasComentarios $respuesta)
     {
+        $respuesta->load('user');
         return new RespuestasComentariosResource($respuesta);
     }
 
