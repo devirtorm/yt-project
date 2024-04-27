@@ -22,6 +22,32 @@ class UserController extends Controller
         // Pasar los usuarios a la vista para ser renderizados
     }
 
+    //Muestra videos de un usuario especifico
+    public function videos($id)
+    {
+        $user = User::with('videos')->find($id);
+
+        if (!$user) {
+            return response()->json(['message' => 'Usuario no encontrado'], 404);
+        }
+
+        return response()->json($user->videos);
+    }
+
+    //Muestra los videos que tienen estado 1 de cierto usuario
+    public function videosActivos($id)
+    {
+        $user = User::with(['videos' => function($query) {
+            $query->where('estado', 1);
+        }])->find($id);
+
+        if (!$user) {
+            return response()->json(['message' => 'Usuario no encontrado'], 404);
+        }
+
+        return response()->json($user->videos);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

@@ -19,11 +19,14 @@ class User extends Authenticatable
      */
 
      
+
+     
     protected $fillable = [
         'name',
         'email',
         'password',
         'foto',
+        'nombre_canal',
         'birthdate',
         'gender',
     ];
@@ -49,6 +52,11 @@ class User extends Authenticatable
    
     public function roles(){
         return $this->belongsToMany(Role::class, 'roles_asignados');
+    }
+
+    public function videos()
+    {
+        return $this->hasMany(Video::class, 'fk_user');
     }
 
     
