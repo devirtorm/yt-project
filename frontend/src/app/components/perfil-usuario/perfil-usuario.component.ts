@@ -10,7 +10,7 @@ import { VideosService } from '../../services/videos/videos.service';
 })
 export class PerfilUsuarioComponent implements OnInit  {
 
-  video: any; // Variable para almacenar los datos del video
+  videos: any; // Variable para almacenar los datos del video
   user:any;
 
   constructor(
@@ -34,6 +34,7 @@ export class PerfilUsuarioComponent implements OnInit  {
           // Manejo de la respuesta exitosa
           this.user = data; // Almacena los datos del usuario recuperados del servicio
           console.log(this.user); // Imprime los datos del usuario en la consola
+          this.cargarVideos();
         },
         (error: any) => {
           // Manejo de errores
@@ -50,11 +51,10 @@ export class PerfilUsuarioComponent implements OnInit  {
 
   cargarVideos(): void {
     console.log(this.user.data.id);
-    this.videosService.getCommentsByVideoId(this.video.data.id).subscribe(
-      (data: { comentarios: Comment[] }) => { // Aquí estás tipando los datos recibidos como un arreglo de comentarios
-        this.video = data;
-
-        console.log(this.video);
+    this.userService.getVideoByUserId(this.user.data.id).subscribe(
+      (data: any) => { // Aquí estás tipando los datos recibidos como un arreglo de comentarios
+        this.videos = data;
+        console.log(this.videos);
       },
       (error) => {
         console.error('Error al cargar comentarios:', error);
