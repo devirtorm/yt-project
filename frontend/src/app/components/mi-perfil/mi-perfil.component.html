@@ -1,0 +1,98 @@
+<app-sidebar-videos></app-sidebar-videos>
+
+<div class="p-3 sm:ml-64 mt-10">
+    <div class="container mx-auto p-3">
+      <div class="bg-blue-300 rounded-md shadow w-full h-48"></div>
+      <div class="flex flex-col ml-5 sm:flex-row items-center justify-center sm:justify-start">
+        <img
+          class="rounded-full mt-3 w-36 h-36 mb-4 sm:mb-0 sm:mr-8"
+          src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+          alt="Extra large avatar"
+        />
+        <div class="text-center sm:text-left">
+            <p class="mb-1">Yun master</p>
+          <h3 class="text-2xl font-medium mb-2"></h3>
+          <button
+            type="button"
+            class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700; mr-3"
+          >
+            Suscribirse
+          </button>
+
+          <button type="button" class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-gray-200 text-gray-500 hover:border-blue-600 hover:text-blue-600 disabled:opacity-50 disabled:pointer-events-none dark:border-neutral-700 dark:text-neutral-400 dark:hover:text-blue-500 dark:hover:border-blue-600; mb-4">
+            Editar canal
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="border-b border-gray-200 dark:border-neutral-700">
+        <nav class="flex space-x-1" aria-label="Tabs" role="tablist">
+          <button type="button" class="hs-tab-active:font-semibold hs-tab-active:border-blue-600 hs-tab-active:text-blue-600 py-4 px-1 inline-flex items-center gap-x-2 border-b-2 border-transparent text-sm whitespace-nowrap text-gray-500 hover:text-blue-600 focus:outline-none focus:text-blue-600 disabled:opacity-50 disabled:pointer-events-none dark:text-neutral-400 dark:hover:text-blue-500 active" id="tabs-with-icons-item-1" data-hs-tab="#tabs-with-icons-1" aria-controls="tabs-with-icons-1" role="tab">
+            <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            Principal
+          </button>
+          <button type="button" class="hs-tab-active:font-semibold hs-tab-active:border-blue-600 hs-tab-active:text-blue-600 py-4 px-1 inline-flex items-center gap-x-2 border-b-2 border-transparent text-sm whitespace-nowrap text-gray-500 hover:text-blue-600 focus:outline-none focus:text-blue-600 disabled:opacity-50 disabled:pointer-events-none dark:text-neutral-400 dark:hover:text-blue-500" id="tabs-with-icons-item-2" data-hs-tab="#tabs-with-icons-2" aria-controls="tabs-with-icons-2" role="tab">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.91 11.672a.375.375 0 0 1 0 .656l-5.603 3.113a.375.375 0 0 1-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112Z" />
+              </svg>
+              
+            Playlists
+          </button>
+        </nav>
+      </div>
+      
+      <div class="mt-3">
+        <div id="tabs-with-icons-1" role="tabpanel" aria-labelledby="tabs-with-icons-item-1">
+            
+            <!-- AQUÍ SE PONE LO DE LOS VIDEOS -->
+            <div *ngFor="let video of videos; let iControl = index" >
+                <a [routerLink]="['/video', video.id]"  class="block max-w-sm rounded overflow-hidden shadow-sm hover:shadow hover:c">
+                  <img
+                    class="w-full object-cover h-48"
+                    [src]="'http://127.0.0.1:8000/storage/' + video.miniatura"
+                    alt="Image Description"
+                  />
+                  <div class="bg-white p-4 md:p-5 rounded-b-xl">
+                    <div class="flex items-center"> <!-- Alineamos verticalmente el texto y la imagen -->
+                      <div>
+                        <img
+                          class="w-8 h-8 rounded-full mr-2"
+                          src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                          alt="user photo"
+                        />
+                      </div>
+                      <div>
+                        <h3 class="font-bold text-sm text-gray-800 dark:text-white">
+                          {{ video?.titulo }}
+                        </h3>
+              
+                        <a [routerLink]="['/profile', video?.user?.id]" class="text-xs text-blue-500 hover:underline">
+                          {{ video?.user?.name }}
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <!-- AQUÍ TERMINA LO DEL VIDEO -->
+        </div>
+        <div id="tabs-with-icons-2" class="hidden" role="tabpanel" aria-labelledby="tabs-with-icons-item-2">
+
+            Aquí van las playlists
+
+        </div>
+      </div>
+
+  </div>
+
+  
+  
+  
+
+  

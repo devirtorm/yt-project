@@ -18,6 +18,7 @@ import { SolicitudVideosComponent } from './components/solicitud-videos/solicitu
 import { VideosComponent } from './components/videos/videos.component';
 import { VideoDetalleComponent } from './components/video-detalle/video-detalle.component';
 import { PerfilUsuarioComponent } from './components/perfil-usuario/perfil-usuario.component';
+import { MiPerfilComponent } from './components/mi-perfil/mi-perfil.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { PerfilUsuarioComponent } from './components/perfil-usuario/perfil-usuar
     SolicitudVideosComponent,
     VideosComponent,
     VideoDetalleComponent,
-    PerfilUsuarioComponent
+    PerfilUsuarioComponent,
+    MiPerfilComponent
   ],
   imports: [
     BrowserModule,
