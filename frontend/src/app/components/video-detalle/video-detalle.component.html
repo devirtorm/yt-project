@@ -152,7 +152,7 @@
         alt="image description"
       />
       <div class="ml-2">
-        <h3>{{ video.data.user.name }}</h3>
+        <h3><a [routerLink]="['/profile', video?.data?.user?.id]">{{ video.data.user.name }}</a></h3>
         <p class="text-xs font-semibold">10k Suscriptores</p>
       </div>
       <div class="flex-grow"></div>
@@ -252,7 +252,11 @@
 
     <ul>
       <li
-        *ngFor="let comment of comments.comentarios; let i = index; let j = index"
+        *ngFor="
+          let comment of comments.comentarios;
+          let i = index;
+          let j = index
+        "
         class="flex justify-between relative"
       >
         <div class="p-2 mt-4">
@@ -264,7 +268,58 @@
           </div>
           <p class="text-sm font-medium">{{ comment.comentario }}</p>
           <button
-          *ngIf="respuestaPorComentario[comment.id]?.length && respuestaPorComentario[comment.id].length > 0"
+            (click)="toggleInput(+comment.id)"
+            class="text-gray-600 font-medium text-xs mt-1 ml-2"
+          >
+            Responder
+          </button>
+
+          <div
+            *ngIf="
+              comentarioSeleccionado &&
+              comentarioSeleccionado.id === +comment.id
+            "
+          >
+          <form [formGroup]="formRespuesta" (ngSubmit)="saveRespuesta(comment.id)">
+            <div class="relative flex-grow">
+              <input
+                id="respuesta"
+                formControlName="respuesta"
+                type="email"
+                class="peer py-3 pe-0 ps-8 block w-full bg-transparent border-t-transparent border-b-2 border-x-transparent border-b-gray-200 text-sm focus:border-t-transparent focus:border-x-transparent focus:border-b-blue-500 focus:ring-0 disabled:opacity-50 disabled:pointer-events-none dark:border-b-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 dark:focus:border-b-neutral-600"
+                placeholder="Responde a este comentario..."
+              />
+              <div
+                class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-2 peer-disabled:opacity-50 peer-disabled:pointer-events-none"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  class="flex-shrink-0 size-4 text-gray-500 dark:text-neutral-500"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M4.848 2.771A49.144 49.144 0 0 1 12 2.25c2.43 0 4.817.178 7.152.52 1.978.292 3.348 2.024 3.348 3.97v6.02c0 1.946-1.37 3.678-3.348 3.97a48.901 48.901 0 0 1-3.476.383.39.39 0 0 0-.297.17l-2.755 4.133a.75.75 0 0 1-1.248 0l-2.755-4.133a.39.39 0 0 0-.297-.17 48.9 48.9 0 0 1-3.476-.384c-1.978-.29-3.348-2.024-3.348-3.97V6.741c0-1.946 1.37-3.68 3.348-3.97ZM6.75 8.25a.75.75 0 0 1 .75-.75h9a.75.75 0 0 1 0 1.5h-9a.75.75 0 0 1-.75-.75Zm.75 2.25a.75.75 0 0 0 0 1.5H12a.75.75 0 0 0 0-1.5H7.5Z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </div>
+            </div>
+            <button type="submit" class="py-1 px-2 text-xs my-4 inline-flex items-center gap-x-2 font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
+              Guardar
+            </button>
+          </form>
+          </div>
+          
+
+          <button
+            *ngIf="
+              respuestaPorComentario[comment.id]?.length &&
+              respuestaPorComentario[comment.id].length > 0
+            "
             (click)="toggleDropdownReplies(i)"
             class="hs-dropdown-toggle text-blue-600 py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium dark:text-white"
           >
@@ -287,7 +342,7 @@
           </button>
           <ul *ngIf="dropdownOpenReplies === j">
             <li *ngFor="let respuesta of respuestaPorComentario[comment.id]">
-              <p>{{ respuesta.respuesta }}</p>
+              <p class="text-xs mb-3 font-medium">{{ respuesta.respuesta }}</p>
             </li>
           </ul>
         </div>

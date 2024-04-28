@@ -30,12 +30,16 @@ export class VideoDetalleComponent implements OnInit {
   respuestaPorComentario: { [commentId: string]: any[] } = {};
   respuestas: any = {};
   formComentario: FormGroup;
+  formRespuesta: FormGroup;
   dropdownOpenIndex: number = -1;
   dropdownOpenReplies: number = -1;
   videoHasLike: boolean = false;
   userId: string | null = localStorage.getItem('userId');
   isLiked: boolean = false;
-
+  nuevoComentario: string = ''; // Variable para almacenar el nuevo comentario
+  mostrandoInputComentario: boolean = false; // Variable para controlar la visibilidad del campo de entrada
+  comentarioAResponderId: number | null = null;
+  comentarioSeleccionado: { id: number | null, respuesta: string } = { id: null, respuesta: '' }; // Cambio en el tipo de dato del ID
   
 
   constructor(
@@ -48,7 +52,14 @@ export class VideoDetalleComponent implements OnInit {
     const formValues = {
       comentario: [''],
     };
+
+    const formValuesRespuesta = {
+      respuesta: [''],
+    };
+
     this.formComentario = this.form.group(formValues);
+
+    this.formRespuesta = this.form.group(formValuesRespuesta);
   }
 
   ngOnInit(): void {
@@ -69,6 +80,14 @@ export class VideoDetalleComponent implements OnInit {
       });
     } else {
       // Manejo de error o redirección si id es null
+    }
+  }
+
+  toggleInput(commentId: number) {
+    if (this.comentarioSeleccionado.id !== null && this.comentarioSeleccionado.id === Number(commentId)) {
+      this.comentarioSeleccionado.id = null;
+    } else {
+      this.comentarioSeleccionado = { id: commentId, respuesta: '' };
     }
   }
 
@@ -150,6 +169,38 @@ export class VideoDetalleComponent implements OnInit {
 
         this.cargarComentarios();
         this.formComentario.reset();
+        this.dropdownOpenIndex = -1;
+      },
+      (error) => {
+        // Maneja el error si ocurre
+        console.error('Error al guardar el comentario:', error);
+      }
+    );
+  }
+
+  saveRespuesta(comment:string): void {
+    const idUser = localStorage.getItem('userId');
+    const formData = new FormData();
+    formData.append('respuesta', this.formRespuesta.value.respuesta);
+    formData.append('fk_comentario', comment);
+    if (idUser) {
+      formData.append('fk_user', idUser);
+    }
+
+    console.log(formData);
+    this.comentariosService.saveReplyByCommentId(formData).subscribe(
+      (response) => {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          text: 'Respuesta guardada',
+          showConfirmButton: false,
+          timer: 1500,
+          backdrop: false,
+        });
+
+        this.cargarComentarios();
+        this.formRespuesta.reset();
         this.dropdownOpenIndex = -1;
       },
       (error) => {

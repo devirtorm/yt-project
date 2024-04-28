@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user/user-service.service';
 import { ActivatedRoute } from '@angular/router';
+import { VideosService } from '../../services/videos/videos.service';
 
 @Component({
   selector: 'app-perfil-usuario',
@@ -14,6 +15,7 @@ export class PerfilUsuarioComponent implements OnInit  {
 
   constructor(
     private userService: UserService,
+    private videosService: VideosService,
     private route: ActivatedRoute,
   ){}
 
@@ -42,6 +44,22 @@ export class PerfilUsuarioComponent implements OnInit  {
     } else {
       // Manejo de error o redirección si id es null
     }
+  }
+
+
+
+  cargarVideos(): void {
+    console.log(this.user.data.id);
+    this.videosService.getCommentsByVideoId(this.video.data.id).subscribe(
+      (data: { comentarios: Comment[] }) => { // Aquí estás tipando los datos recibidos como un arreglo de comentarios
+        this.video = data;
+
+        console.log(this.video);
+      },
+      (error) => {
+        console.error('Error al cargar comentarios:', error);
+      }
+    );
   }
   
 }

@@ -15,6 +15,10 @@ export class ComentariosService {
     return this.httpClient.post(this.API,commentData)
   }
 
+  saveReplyByCommentId(commentData: FormData): Observable<any> {
+    return this.httpClient.post(this.API+'respuestas',commentData)
+  }
+
   GuardarRespuestas(respuestaData: FormData): Observable<any> {
     return this.httpClient.post(this.API,respuestaData)
   }
