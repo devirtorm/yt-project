@@ -1,64 +1,66 @@
 <app-sidebar-videos></app-sidebar-videos>
 
 <div class="p-3 sm:ml-64 mt-10">
-    <div class="container mx-auto p-3">
-      <div class="bg-blue-300 rounded-md shadow w-full h-48"></div>
-      <div class="flex flex-col ml-5 sm:flex-row items-center justify-center sm:justify-start">
-        <img
-          class="rounded-full mt-3 w-36 h-36 mb-4 sm:mb-0 sm:mr-8"
-          src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-          alt="Extra large avatar"
-        />
-        <div class="text-center sm:text-left">
-          <h3 class="text-2xl font-medium mb-2">{{ user?.data?.name }}</h3>
-          <button
-            type="button"
-            class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
-          >
-            Suscribirse
-          </button>
-        </div>
+  <div class="container mx-auto p-3 border-b-2">
+    <div class="bg-blue-300 rounded-md shadow w-full h-48"></div>
+    <div
+      class="flex flex-col ml-5 sm:flex-row items-center justify-center sm:justify-start"
+    >
+      <img
+        class="rounded-full mt-3 w-36 h-36 mb-4 sm:mb-0 sm:mr-8"
+        src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+        alt="Extra large avatar"
+      />
+      <div class="text-center sm:text-left">
+        <h3 class="text-2xl font-medium mb-2">{{ user?.data?.name }}</h3>
+        <button
+          type="button"
+          class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+        >
+          Suscribirse
+        </button>
       </div>
     </div>
+  </div>
 
-    <div class="p-4 sm:ml-64 mt-10">
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        <!-- Card 1 -->
-        <div *ngFor="let video of videos; let iControl = index" >
-          <a [routerLink]="['/video', video.id]"  class="block max-w-sm rounded overflow-hidden shadow-sm hover:shadow hover:c">
-            <img
-              class="w-full object-cover h-48"
-              [src]="'http://127.0.0.1:8000/storage/' + video.miniatura"
-              alt="Image Description"
-            />
-            <div class="bg-white p-4 md:p-5 rounded-b-xl">
-              <div class="flex items-center"> <!-- Alineamos verticalmente el texto y la imagen -->
-                <div>
-                  <img
-                    class="w-8 h-8 rounded-full mr-2"
-                    src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                    alt="user photo"
-                  />
-                </div>
-                <div>
-                  <h3 class="font-bold text-sm text-gray-800 dark:text-white">
-                    {{ video?.titulo }}
-                  </h3>
-        
-                  <a [routerLink]="['/profile', video?.user?.id]" class="text-xs text-blue-500 hover:underline">
-                    {{ video?.user?.name }}
-                  </a>
-                </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-5 p-3">
+      <!-- Card 1 -->
+      <div *ngFor="let video of videos; let iControl = index">
+        <a
+          [routerLink]="['/video', video.id]"
+          class="block max-w-sm rounded overflow-hidden shadow-sm hover:shadow hover:c"
+        >
+          <img
+            class="w-full object-cover h-48"
+            [src]="'http://127.0.0.1:8000/storage/' + video.miniatura"
+            alt="Image Description"
+          />
+          <div class="bg-white p-4 md:p-5 rounded-b-xl">
+            <div class="flex items-center">
+              <!-- Alineamos verticalmente el texto y la imagen -->
+              <div>
+                <img
+                  class="w-8 h-8 rounded-full mr-2"
+                  src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                  alt="user photo"
+                />
+              </div>
+              <div>
+                <h3 class="font-bold text-sm text-gray-800 dark:text-white">
+                  {{ video?.titulo }}
+                </h3>
+
+                <a
+                  [routerLink]="['/profile', video?.user?.id]"
+                  class="text-xs text-blue-500 hover:underline"
+                >
+                  {{ video?.user?.name }}
+                </a>
               </div>
             </div>
-          </a>
-        </div>
-        
+          </div>
+        </a>
       </div>
     </div>
-    
-  </div>
-  
-  
-
-  
+</div>

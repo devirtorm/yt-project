@@ -9,6 +9,8 @@ import { AuthGuard } from './guards/guard.service';
 import { UserLoginComponent } from './components/user-login/user-login.component';
 import { VideoDetalleComponent } from './components/video-detalle/video-detalle.component';
 import { PerfilUsuarioComponent } from './components/perfil-usuario/perfil-usuario.component';
+import { PlaylistComponent } from './components/playlist/playlist.component';
+
 import { MiPerfilComponent } from './components/mi-perfil/mi-perfil.component';
 
 
@@ -22,6 +24,7 @@ const routes: Routes = [
   {path:'', component: VideosComponent},
   {path:'video/:id', component: VideoDetalleComponent},
   {path:'profile/:id', component: PerfilUsuarioComponent},
+  {path:'playlist', component: PlaylistComponent},
   {path:'mi-perfil', component: MiPerfilComponent}
 ];
 
