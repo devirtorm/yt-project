@@ -285,6 +285,7 @@
               type="file"
               id="miniatura"
               formControlName="miniatura"
+              accept=".jpg,.jpeg,.png"
               (change)="onFileSelected($event, 'miniatura')"
               class="block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 file:bg-gray-50 file:border-0 file:me-4 file:py-2 file:px-4 dark:file:bg-neutral-700 dark:file:text-neutral-400"
             />
@@ -295,6 +296,7 @@
               type="file"
               id="url"
               formControlName="url"
+              accept=".mp4"
               (change)="onFileSelected($event, 'url')"
               class="block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 file:bg-gray-50 file:border-0 file:me-4 file:py-2 file:px-4 dark:file:bg-neutral-700 dark:file:text-neutral-400"
             />
@@ -397,6 +399,7 @@
               id="miniatura"
               formControlName="miniatura"
               (change)="onFileSelected($event, 'miniatura')"
+              accept=".jpg,.jpeg,.png"
               class="block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 file:bg-gray-50 file:border-0 file:me-4 file:py-2 file:px-4 dark:file:bg-neutral-700 dark:file:text-neutral-400"
             />
           </div>
@@ -406,6 +409,7 @@
               type="file"
               id="url"
               formControlName="url"
+              accept=".mp4"
               (change)="onFileSelected($event, 'url')"
               class="block w-full border mb-2 border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 file:bg-gray-50 file:border-0 file:me-4 file:py-2 file:px-4 dark:file:bg-neutral-700 dark:file:text-neutral-400"
             />

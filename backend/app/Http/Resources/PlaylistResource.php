@@ -23,6 +23,7 @@ class PlaylistResource extends JsonResource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'usuario' => new UserResource($this->usuario), // Cargar los datos del usuario
+            'videos' => VideoResource::collection($this->videos),
 
         ];
     }

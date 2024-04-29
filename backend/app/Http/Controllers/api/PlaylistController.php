@@ -26,6 +26,19 @@ class PlaylistController extends Controller
         return response()->json($videos);
     }
 
+    public function destroy($id)
+    {
+        // Buscar la playlist por su ID
+        $playlist = Playlist::findOrFail($id);
+
+
+        // Eliminar la playlist
+        $playlist->delete();
+
+        // Devolver una respuesta de éxito
+        return response()->json(['message' => 'Playlist eliminada correctamente'], 200);
+    }
+
     public function store(Request $request)
     {
         // Validar los datos de entrada

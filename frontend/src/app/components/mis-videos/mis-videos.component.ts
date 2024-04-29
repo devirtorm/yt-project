@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { VideosService } from '../../services/videos/videos.service';
+import { UserService } from '../../services/user/user-service.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss'
@@ -26,6 +27,7 @@ export class MisVideosComponent implements OnInit {
   constructor(
     private formulario: FormBuilder,
     private videoService: VideosService,
+    private userService: UserService,
     private router: Router
   ) {}
 
@@ -94,11 +96,16 @@ export class MisVideosComponent implements OnInit {
   
 
   cargarVideos(): void {
-    this.videoService.getVideos().subscribe((respuesta) => {
-      console.log(respuesta);
-      this.videos = respuesta;
-      this.videosOriginales = { ...respuesta };
-    });
+
+    const userId = localStorage.getItem('userId'); 
+    if(userId){
+      this.userService.getVideoByUserPk(userId).subscribe((respuesta) => {
+        console.log(respuesta);
+        this.videos = respuesta;
+        this.videosOriginales = { ...respuesta };
+      });
+    }
+
   }
 
   formatDate(dateString: string): string {

@@ -19,5 +19,9 @@ export class PlaylistService {
     return this.httpClient.get(this.API+playlistId+'/videos');
   }
 
+  deletePlaylistById(playlistId: string): Observable<any> {
+    return this.httpClient.delete(this.API+playlistId);
+  }
+
 
 }

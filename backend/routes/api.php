@@ -100,9 +100,11 @@ Route::post('/likes/search', [LikeController::class, 'searchLike']);
 
 //################ RUTAS PARA PLAYLIST #####################
 Route::post('playlists', [PlaylistController::class, 'store']);
+Route::delete('playlists/{playlist}', [PlaylistController::class, 'destroy']);
 Route::get('/users/{userId}/playlists',[PlaylistController::class, 'index']);
 Route::post('/playlist_videos', [PlaylistVideoController::class, 'store']);
 Route::get('/playlists/{playlist}/videos', [PlaylistController::class, 'getPlaylistVideos']);
+
 
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
