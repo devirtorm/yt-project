@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('nombre_canal')->nullable();
             $table->date('birthdate');
             $table->string('gender');
+            $table->string('estado')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

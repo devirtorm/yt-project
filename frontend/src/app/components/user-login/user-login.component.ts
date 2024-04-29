@@ -33,8 +33,13 @@ export class UserLoginComponent {
     this.authService.login(this.formLogin.value).subscribe(
       (response) => {
         console.log(response); // Aquí puedes manejar la respuesta
-        localStorage.setItem('token', response.access_token);
-        localStorage.setItem('userId', response.user.id);
+        const userId = response.user.id;
+        const rol = response.user.roles[0].id;
+        console.log("este es el rol" + response.user.roles[0].id);
+        // Almacenar el ID en el localStorage
+        localStorage.setItem('userId', userId);
+        localStorage.setItem('rol', rol);
+
         Swal.fire({
           position: "top-end",
           icon: "success",
