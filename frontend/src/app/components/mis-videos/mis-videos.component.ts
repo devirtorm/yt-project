@@ -5,6 +5,7 @@ import { UserService } from '../../services/user/user-service.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss'
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-mis-videos',
@@ -28,6 +29,7 @@ export class MisVideosComponent implements OnInit {
     private formulario: FormBuilder,
     private videoService: VideosService,
     private userService: UserService,
+    private progress: NgProgress,
     private router: Router
   ) {}
 
@@ -52,6 +54,8 @@ export class MisVideosComponent implements OnInit {
   }
 
   saveVideo(): void {
+    const progressRef = this.progress.ref();
+    progressRef.start();
     console.log(this.formVideo.value);
     if (this.formVideo.valid) {
   
@@ -79,6 +83,7 @@ export class MisVideosComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500,
           });
+          progressRef.complete();
         },
         (error) => {
           console.error('Error al guardar el video:', error);
@@ -90,6 +95,7 @@ export class MisVideosComponent implements OnInit {
             timer: 1500,
           });
         }
+        
       );
     }
   }

@@ -20,7 +20,7 @@ import { VideoDetalleComponent } from './components/video-detalle/video-detalle.
 import { PerfilUsuarioComponent } from './components/perfil-usuario/perfil-usuario.component';
 import { PlaylistComponent } from './components/playlist/playlist.component';
 import { MisPlaylistsComponent } from './components/mis-playlists/mis-playlists.component';
-
+import { NgProgressModule } from 'ngx-progressbar';
 
 @NgModule({
   declarations: [
@@ -45,7 +45,8 @@ import { MisPlaylistsComponent } from './components/mis-playlists/mis-playlists.
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    DataTablesModule
+    DataTablesModule,
+    NgProgressModule
   ],
   providers: [],
   bootstrap: [AppComponent]
