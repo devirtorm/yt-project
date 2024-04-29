@@ -70,7 +70,7 @@
               data-dropdown-toggle="dropdown-user"
             >
               <span class="sr-only">Open user menu</span>
-              <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/examples/image-2@2x.jpg" alt="image description">
+              <img class="w-8 h-8 rounded-full" src="http://localhost:4200/" alt="image description">
             </button>
           </div>
           <div
@@ -88,16 +88,10 @@
             </div>
             <ul class="py-1" role="none">
               <li>
-                <a
-                  routerLink=""
-                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                  role="menuitem"
-                  >Principal</a
-                >
+                <a routerLink="/" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Principal</a>
               </li>
               <li>
                 <a
-                  href="#"
                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                   role="menuitem"
                   >Settings</a
@@ -105,7 +99,6 @@
               </li>
               <li>
                 <a
-                  href="#"
                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                   role="menuitem"
                   >Earnings</a
@@ -113,7 +106,6 @@
               </li>
               <li>
                 <a
-                  href="#"
                   (click)="logout()"
                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                   role="menuitem"
@@ -204,7 +196,7 @@
       </li>
       <li>
         <a
-          href="#"
+          routerLink="/playlist"
           class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
         >
           <svg

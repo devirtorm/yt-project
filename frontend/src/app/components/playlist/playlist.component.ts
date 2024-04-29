@@ -9,11 +9,11 @@ import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
 
 @Component({
-  selector: 'app-videos',
-  templateUrl: './videos.component.html',
-  styleUrl: './videos.component.css',
+  selector: 'app-playlist',
+  templateUrl: './playlist.component.html',
+  styleUrl: './playlist.component.css'
 })
-export class VideosComponent implements OnInit {
+export class PlaylistComponent implements OnInit {
   videos: any = {};
   playlists: any = {};
   dropdownOpenIndex: number = -1;
@@ -44,6 +44,18 @@ export class VideosComponent implements OnInit {
     this.cargarPlaylists();
   }
 
+  formatDate(dateString: string): string {
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+    };
+    const date = new Date(dateString);
+    return date.toLocaleDateString('es-ES', options);
+  }
+
   cargarVideos(): void {
     this.videoService.obtenerVideosVerificados().subscribe((respuesta) => {
       console.log(respuesta);
@@ -59,15 +71,47 @@ export class VideosComponent implements OnInit {
         console.log("videos");
         this.playlists = respuesta;
   
-        // Obtener videos asociados a cada lista de reproducción
-        this.playlists.data.forEach((playlist: any) => {
-          this.playlistService.getPlaylistVideos(playlist.id).subscribe((videos: any) => {
-            playlist.videos = videos; // Agregar la lista de videos a la lista de reproducción
-          });
-        });
       });
     }
   }
+
+  toggleAccordion(event: MouseEvent, playlistIndex: number, videoIndex: number) {
+    event.preventDefault();
+    const video = this.playlists.data[playlistIndex].videos[videoIndex];
+    video.expanded = !video.expanded;
+  }
+
+  borrarPlaylist(playlist:string){
+    Swal.fire({
+      title: "Estas seguro",
+      text: "Borraras definitivamente esta lista",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Borrar",
+      cancelButtonText: "Cancelar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Borrado!",
+          icon: "success",
+          text: "Lista de reproducción eliminada",
+          confirmButtonText:"Borrar"
+        });
+        this.playlistService.deletePlaylistById(playlist).subscribe(
+          (respuesta) => {
+            console.log(respuesta);
+            this.cargarPlaylists();
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+      
+      }
+  })
+}
   
 
   saveVideoOnlist(playlistId: string) : void{

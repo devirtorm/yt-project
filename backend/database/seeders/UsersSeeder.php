@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 
 class UsersSeeder extends Seeder
 {
@@ -18,8 +19,8 @@ class UsersSeeder extends Seeder
         DB::table('users')->insert([
             [
                 'name' => 'irving',
-                'email' => 'irtormxd@gamil.com',
-                'password' => '123',
+                'email' => 'irtormxd@gmail.com',
+                'password' => Hash::make('123'),
                 'foto' => 'archivos/videos/yo.jpg',
                 'nombre_canal' => 'Auron play',
                 'birthdate' => Carbon::createFromDate(rand(1950, 2000), rand(1, 12), rand(1, 28))->format('Y-m-d'),
@@ -28,7 +29,7 @@ class UsersSeeder extends Seeder
             [
                 'name' => 'Juan Carlos',
                 'email' => 'juan@example.com',
-                'password' => '123',
+                'password' => Hash::make('123'),
                 'foto' => 'archivos/videos/yo.jpg',
                 'nombre_canal' => 'Elrubiusomg',
                 'birthdate' => Carbon::createFromDate(rand(1950, 2000), rand(1, 12), rand(1, 28))->format('Y-m-d'),
@@ -37,7 +38,7 @@ class UsersSeeder extends Seeder
             [
                 'name' => 'Ana María',
                 'email' => 'ana@example.com',
-                'password' => '123',
+                'password' => Hash::make('123'),
                 'foto' => 'archivos/videos/yo.jpg',
                 'nombre_canal' => 'Fernanfloo',
                 'birthdate' => Carbon::createFromDate(rand(1950, 2000), rand(1, 12), rand(1, 28))->format('Y-m-d'),
@@ -46,7 +47,7 @@ class UsersSeeder extends Seeder
             [
                 'name' => 'Pedro Pablo',
                 'email' => 'pedro@example.com',
-                'password' => '123',
+                'password' => Hash::make('123'),
                 'foto' => 'archivos/videos/yo.jpg',
                 'nombre_canal' => 'Hola soy germán',
                 'birthdate' => Carbon::createFromDate(rand(1950, 2000), rand(1, 12), rand(1, 28))->format('Y-m-d'),

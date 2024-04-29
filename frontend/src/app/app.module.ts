@@ -18,7 +18,9 @@ import { SolicitudVideosComponent } from './components/solicitud-videos/solicitu
 import { VideosComponent } from './components/videos/videos.component';
 import { VideoDetalleComponent } from './components/video-detalle/video-detalle.component';
 import { PerfilUsuarioComponent } from './components/perfil-usuario/perfil-usuario.component';
-import { MiPerfilComponent } from './components/mi-perfil/mi-perfil.component';
+import { PlaylistComponent } from './components/playlist/playlist.component';
+import { MisPlaylistsComponent } from './components/mis-playlists/mis-playlists.component';
+import { NgProgressModule } from 'ngx-progressbar';import { MiPerfilComponent } from './components/mi-perfil/mi-perfil.component';
 
 
 @NgModule({
@@ -35,6 +37,8 @@ import { MiPerfilComponent } from './components/mi-perfil/mi-perfil.component';
     VideosComponent,
     VideoDetalleComponent,
     PerfilUsuarioComponent,
+    PlaylistComponent,
+    MisPlaylistsComponent,
     MiPerfilComponent
   ],
   imports: [
@@ -43,7 +47,8 @@ import { MiPerfilComponent } from './components/mi-perfil/mi-perfil.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    DataTablesModule
+    DataTablesModule,
+    NgProgressModule
   ],
   providers: [],
   bootstrap: [AppComponent]
