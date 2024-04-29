@@ -128,14 +128,21 @@ class UserController extends Controller
         return response()->json(['error' => 'Usuario no encontrado'], 404);
     }
 
-    // Si pasas la validación correctamente, actualiza el modelo
-    $user->fill($request->validated());
+    // Actualiza el modelo, excluyendo la contraseña
+    $user->fill($request->except('password'));
+
     if ($request->hasFile('foto')) {
         $foto = $request->file('foto');
         $nombreFoto = uniqid() . '.' . $foto->getClientOriginalExtension();
         $foto->storeAs('archivos/images', $nombreFoto, 'public');
         $user->foto = 'archivos/images/' . $nombreFoto;
     }
+
+    // Verifica si la contraseña ha sido proporcionada y no está vacía
+    if ($request->filled('password')) {
+        $user->password = bcrypt($request->password);
+    }
+
     $user->save();
 
     return response()->json([
