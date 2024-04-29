@@ -92,7 +92,7 @@ export class SolicitudVideosComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire({
-          title: "Video rechazado!",
+          title: "Video aceptado!",
           icon: "success",
           confirmButtonText:"Aceptar"
         });

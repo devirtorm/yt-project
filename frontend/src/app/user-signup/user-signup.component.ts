@@ -28,6 +28,7 @@ export class UserSignupComponent implements OnInit {
       email: [''],
       birthdate: [''],
       password: [''],
+      nombre_canal: [''],
       gender: [''],
       roles: [''],
     };

@@ -27,8 +27,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('users',[UserController::class, 'store']); // crear usuario
-Route::post('login',[authController::class, 'access']); // crear usuario
-Route::post('videos',[videoController::class, 'upload']); // crear usuario
+Route::put('/users/{id}', [UserController::class, 'update']); //Actualizar el usuario
+Route::post('login',[authController::class, 'access']); // login
+Route::post('videos',[videoController::class, 'upload']); // Guardar video
 Route::get('videos',[videoController::class, 'index']); // ver lista de videos
 Route::get('comentarios',[videoController::class, 'comentario']); // ver lista de videos
 

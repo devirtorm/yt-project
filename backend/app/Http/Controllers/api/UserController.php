@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ActualizarUserRequest;
 use App\Http\Requests\SaveUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
@@ -109,7 +110,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**
@@ -119,10 +120,30 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(ActualizarUserRequest $request, $id)
+{
+    $user = User::find($id);
+
+    if (!$user) {
+        return response()->json(['error' => 'Usuario no encontrado'], 404);
     }
+
+    // Si pasas la validación correctamente, actualiza el modelo
+    $user->fill($request->validated());
+    if ($request->hasFile('foto')) {
+        $foto = $request->file('foto');
+        $nombreFoto = uniqid() . '.' . $foto->getClientOriginalExtension();
+        $foto->storeAs('archivos/images', $nombreFoto, 'public');
+        $user->foto = 'archivos/images/' . $nombreFoto;
+    }
+    $user->save();
+
+    return response()->json([
+        'res' => true,
+        'message' => 'Información del usuario actualizada correctamente',
+        'data' => $user
+    ]);
+}
 
     /**
      * Remove the specified resource from storage.
