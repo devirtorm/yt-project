@@ -48,7 +48,9 @@ export class MiPerfilComponent implements OnInit {
       
       formData.append('name', this.editUser.value.name);
       formData.append('email', this.editUser.value.email);
-      formData.append('password', this.editUser.value.password);
+      if (this.editUser.value.password) { // Solo añadir si hay una nueva contraseña
+        formData.append('password', this.editUser.value.password);
+      }
       formData.append('nombre_canal', this.editUser.value.nombre_canal);
       formData.append('birthdate', this.editUser.value.birthdate);
       formData.append('gender', this.editUser.value.gender);
