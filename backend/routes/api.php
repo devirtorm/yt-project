@@ -4,6 +4,8 @@ use App\Http\Controllers\api\authController;
 use App\Http\Controllers\api\CategoriaController;
 use App\Http\Controllers\api\ComentarioController;
 use App\Http\Controllers\api\LikeController;
+use App\Http\Controllers\api\PlaylistController;
+use App\Http\Controllers\api\PlaylistVideoController;
 use App\Http\Controllers\api\SearchController;
 use App\Http\Controllers\api\UserController;
 use App\Http\Controllers\api\videoController;
@@ -92,6 +94,16 @@ Route::delete('likes', [LikeController::class, 'removeLike']);
 Route::get('/users/{userId}/likes', [LikeController::class, 'getUserLikes']);
 Route::get('/videos/{videoId}/likes', [LikeController::class, 'getVideoLikes']);
 Route::post('/likes/search', [LikeController::class, 'searchLike']);
+
+
+
+
+//################ RUTAS PARA PLAYLIST #####################
+Route::post('playlists', [PlaylistController::class, 'store']);
+Route::get('/users/{userId}/playlists',[PlaylistController::class, 'index']);
+Route::post('/playlist_videos', [PlaylistVideoController::class, 'store']);
+Route::get('/playlists/{playlist}/videos', [PlaylistController::class, 'getPlaylistVideos']);
+
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('users',[UserController::class, 'index']);   
