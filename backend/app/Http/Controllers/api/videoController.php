@@ -26,12 +26,12 @@ class videoController extends Controller
     }
 
     public function showComentarios($videoId)
-{
+    {
     $video = Video::with(['comentarios.user']) 
                   ->findOrFail($videoId);  
 
     return response()->json(['comentarios' => $video->comentarios], 200);
-}
+    }
 
     public function comentario(){
         $comentarios = Comentario::with('video')->get();

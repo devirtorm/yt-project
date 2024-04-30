@@ -21,8 +21,6 @@ export class UserService {
   }
 
   updateUser(userId: string, formData: FormData): Observable<any> {
-    // En Laravel, para enviar datos que incluyan archivos, a menudo se usa POST con un campo _method 'PUT'
-    formData.append('_method', 'PUT');
     return this.httpClient.post(this.API+userId,formData)
   }
 
