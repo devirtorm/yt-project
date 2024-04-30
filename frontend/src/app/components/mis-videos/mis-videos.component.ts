@@ -106,7 +106,7 @@ export class MisVideosComponent implements OnInit {
     const userId = localStorage.getItem('userId'); 
     if(userId){
       this.userService.getVideoByUserPk(userId).subscribe((respuesta) => {
-        console.log(respuesta);
+        console.log(respuesta); 
         this.videos = respuesta;
         this.videosOriginales = { ...respuesta };
       });

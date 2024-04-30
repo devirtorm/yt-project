@@ -17,19 +17,19 @@ class RolAsignadoSeeder extends Seeder
         DB::table('roles_asignados')->insert([
             [
                 'user_id' => 1, // ID del usuario
-                'role_id' => 4, // ID del rol de Administrador
+                'role_id' => 3, // ID del rol de Administrador
             ],
             [
                 'user_id' => 2,
-                'role_id' => 3, // ID del rol de Creador de contenido
+                'role_id' => 2, // ID del rol de Creador de contenido
             ],
             [
                 'user_id' => 3,
-                'role_id' => 3, // ID del rol de Creador de contenido
+                'role_id' => 1, // ID del rol de Creador de contenido
             ],
             [
                 'user_id' => 4,
-                'role_id' => 3, // ID del rol de Creador de contenido
+                'role_id' => 2, // ID del rol de Creador de contenido
             ],
             // Asignar más usuarios a roles según sea necesario
         ]);

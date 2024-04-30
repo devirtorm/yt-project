@@ -44,7 +44,7 @@ export class UserSignupComponent implements OnInit {
 
   saveData(): any {
     this.formUser.patchValue({
-      roles: [1, 2], // Aquí asignamos el valor 1 al campo roles
+      roles: 2 // Aquí asignamos el valor 1 al campo roles
     });
     console.log(this.formUser.value);
     this.userService.storeUser(this.formUser.value).subscribe(
@@ -78,10 +78,13 @@ export class UserSignupComponent implements OnInit {
     this.authService.login(this.formLogin.value).subscribe(
       (response) => {
         console.log(response); // Aquí puedes manejar la respuesta
+        console.log(response.user.roles.id);
         // Tomar el ID del usuario de la respuesta
         const userId = response.user.id;
+        const rol = response.user.roles.id;
         // Almacenar el ID en el localStorage
         localStorage.setItem('userId', userId);
+        localStorage.setItem('rol', rol);
         // Almacenar el token de acceso completo en el localStorage (si es necesario)
         localStorage.setItem('token', response.access_token);
         Swal.fire({

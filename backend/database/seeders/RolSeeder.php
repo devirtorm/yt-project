@@ -21,10 +21,6 @@ class RolSeeder extends Seeder
                 'descripcion' => 'Puede acceder a la aplicacion pero solo para ver, no puede dar comentarios ni dar likes.',
             ],
             [
-                'nombre' => 'Espectador',
-                'descripcion' => 'Los espectadores pueden ver videos, interactuar con ellos (dar like, comentar, etc.), suscribirse a canales y gestionar su propia actividad en la plataforma.',
-            ],
-            [
                 'nombre' => 'Creador de contenido',
                 'descripcion' => ' Los creadores de contenido tendrían permisos adicionales para cargar, editar y gestionar sus propios videos',
             ],
