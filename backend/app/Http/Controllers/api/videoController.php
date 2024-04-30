@@ -48,6 +48,18 @@ class videoController extends Controller
     //Mostrar videos con estado igual a 0
     public function showInactiveVideos()
     {
+    $videos = Video::where('estado', null)->get();
+    return response()->json(['data' => $videos], 200);
+    }
+
+    public function videosAceptados()
+    {
+    $videos = Video::where('estado', 1)->get();
+    return response()->json(['data' => $videos], 200);
+    }
+
+    public function VideosRechazados()
+    {
     $videos = Video::where('estado', 0)->get();
     return response()->json(['data' => $videos], 200);
     }

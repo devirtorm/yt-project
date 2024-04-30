@@ -51,6 +51,8 @@ Route::get('videos/active', [videoController::class, 'showActiveVideos']);
 
 //Mostrar videos en 0
 Route::get('videos/inactive', [videoController::class, 'showInactiveVideos']);
+Route::get('videos/aceptados', [videoController::class, 'videosAceptados']);
+Route::get('videos/rechazados', [videoController::class, 'videosRechazados']);
 
 //Mostrar los videos de los usuarios
 Route::get('users/{userId}/videos', [VideoController::class, 'showUserVideos']);
