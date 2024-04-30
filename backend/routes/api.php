@@ -9,6 +9,7 @@ use App\Http\Controllers\api\PlaylistVideoController;
 use App\Http\Controllers\api\SearchController;
 use App\Http\Controllers\api\UserController;
 use App\Http\Controllers\api\videoController;
+use App\Http\Controllers\historialController;
 use App\Http\Controllers\RespuestasComentariosController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -99,8 +100,6 @@ Route::get('/videos/{videoId}/likes', [LikeController::class, 'getVideoLikes']);
 Route::post('/likes/search', [LikeController::class, 'searchLike']);
 
 
-
-
 //################ RUTAS PARA PLAYLIST #####################
 Route::post('playlists', [PlaylistController::class, 'store']);
 Route::delete('playlists/{playlist}', [PlaylistController::class, 'destroy']);
@@ -109,6 +108,8 @@ Route::post('/playlist_videos', [PlaylistVideoController::class, 'store']);
 Route::get('/playlists/{playlist}/videos', [PlaylistController::class, 'getPlaylistVideos']);
 
 
+//################ RUTA PARA EL HISTORIAL ##################
+Route::post('/historial', [historialController::class, 'store']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('users',[UserController::class, 'index']);   
