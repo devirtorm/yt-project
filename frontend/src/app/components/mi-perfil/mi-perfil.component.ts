@@ -154,18 +154,4 @@ onFileSelected(event: any, controlName: string): void {
   }
 
 
-
-  cargarVideos(): void {
-    console.log(this.user.data.id);
-    this.userService.getVideoByUserId(this.user.data.id).subscribe(
-      (data: any) => { // Aquí estás tipando los datos recibidos como un arreglo de comentarios
-        this.videos = data;
-        console.log(this.videos);
-      },
-      (error) => {
-        console.error('Error al cargar comentarios:', error);
-      }
-    );
-  }
-  
 }

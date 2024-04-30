@@ -10,7 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { UserLoginComponent } from './components/user-login/user-login.component';
 import { CrearCategoriaComponent } from './components/crear-categoria/crear-categoria.component';
 import { ModalCategoriaComponent } from './components/modal-categoria/modal-categoria.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { MisVideosComponent } from './components/mis-videos/mis-videos.component';
 import { SidebarVideosComponent } from './components/sidebar-videos/sidebar-videos.component';
 import { DataTablesModule } from 'angular-datatables';
@@ -22,7 +22,9 @@ import { PlaylistComponent } from './components/playlist/playlist.component';
 import { MisPlaylistsComponent } from './components/mis-playlists/mis-playlists.component';
 import { NgProgressModule } from 'ngx-progressbar';
 import { MiPerfilComponent } from './components/mi-perfil/mi-perfil.component';
-
+import { RevisionVideosComponent } from './components/revision-videos/revision-videos.component';
+import { VideosRechazadosComponent } from './components/videos-rechazados/videos-rechazados.component';
+import { VideosAceptadosComponent } from './components/videos-aceptados/videos-aceptados.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,10 @@ import { MiPerfilComponent } from './components/mi-perfil/mi-perfil.component';
     PerfilUsuarioComponent,
     PlaylistComponent,
     MisPlaylistsComponent,
-    MiPerfilComponent
+    MiPerfilComponent,
+    RevisionVideosComponent,
+    VideosRechazadosComponent,
+    VideosAceptadosComponent
   ],
   imports: [
     BrowserModule,

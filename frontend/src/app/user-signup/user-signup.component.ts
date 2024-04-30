@@ -78,10 +78,9 @@ export class UserSignupComponent implements OnInit {
     this.authService.login(this.formLogin.value).subscribe(
       (response) => {
         console.log(response); // Aquí puedes manejar la respuesta
-        console.log(response.user.roles.id);
         // Tomar el ID del usuario de la respuesta
         const userId = response.user.id;
-        const rol = response.user.roles.id;
+        const rol = response.user.roles[0].id;
         // Almacenar el ID en el localStorage
         localStorage.setItem('userId', userId);
         localStorage.setItem('rol', rol);

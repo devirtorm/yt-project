@@ -16,12 +16,14 @@ export class MisVideosComponent implements OnInit {
   formVideo!: FormGroup;
   showModal: boolean = false;
   showEditModal: boolean = false;
+  rol : number = 0;
 
   videoSeleccionado: any = {}; //los campos para editar
   editVideo!: FormGroup;
 
   videos: any = {};
   videosOriginales: any = {};
+  
 
 
 
@@ -34,6 +36,7 @@ export class MisVideosComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.rol = Number(localStorage.getItem('rol'));
 
     this.editVideo = this.formulario.group({
       titulo: [''],

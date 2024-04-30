@@ -1,18 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { VideosService } from '../../services/videos/videos.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss'
 
-
-
 @Component({
-  selector: 'app-solicitud-videos',
-  templateUrl: './solicitud-videos.component.html',
-  styleUrl: './solicitud-videos.component.css'
+  selector: 'app-videos-aceptados',
+  templateUrl: './videos-aceptados.component.html',
+  styleUrl: './videos-aceptados.component.css'
 })
-export class SolicitudVideosComponent implements OnInit {
+export class VideosAceptadosComponent {
+  @Output() videoAceptado: EventEmitter<void> = new EventEmitter<void>();
+  @Output() videoRechazado: EventEmitter<void> = new EventEmitter<void>();
 
   formVideo!: FormGroup;
   showModal: boolean = false;
@@ -53,7 +53,7 @@ export class SolicitudVideosComponent implements OnInit {
 
 
   cargarVideos(): void {
-    this.videoService.obtenerVideosNull().subscribe((respuesta) => {
+    this.videoService.obtenerVideosVerificados().subscribe((respuesta) => {
       console.log(respuesta);
       this.videos = respuesta;
       this.videosOriginales = { ...respuesta };
@@ -100,6 +100,8 @@ export class SolicitudVideosComponent implements OnInit {
           () => {
             this.toggleEditModal();  // Cerrar el modal después de editar
             this.cargarVideos();  // Recargar la lista de videos si es necesario
+            this.videoAceptado.emit();
+            
           },
           error => {
             console.error('Error al actualizar el video:', error);
@@ -143,6 +145,7 @@ export class SolicitudVideosComponent implements OnInit {
           () => {
             this.toggleEditModal();  // Cerrar el modal después de editar
             this.cargarVideos();  // Recargar la lista de videos si es necesario
+            this.videoRechazado.emit();
           },
           error => {
             console.error('Error al actualizar el video:', error);
@@ -176,3 +179,7 @@ export class SolicitudVideosComponent implements OnInit {
 }
 
 }
+
+
+
+

@@ -111,6 +111,7 @@ class UserController extends Controller
     public function edit($id)
     {
         
+        
     }
 
     /**
@@ -137,7 +138,7 @@ class UserController extends Controller
         $user->foto = 'archivos/images/' . $nombreFoto;
     }
 
-    // Verifica si se proporcionó una contraseña y no está vacía
+    // Verifica si la contraseña ha sido proporcionada y no está vacía
     if ($request->filled('password')) {
         $user->password = bcrypt($request->password);
     }

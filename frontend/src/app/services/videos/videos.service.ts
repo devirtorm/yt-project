@@ -49,6 +49,16 @@ export class VideosService {
     return this.httpClient.get(this.API+"active/");
   }
 
+  obtenerVideosRechazados(): Observable<any> {
+    return this.httpClient.get(this.API+"rechazados/");
+  }
+
+  obtenerVideosNull(): Observable<any> {
+    return this.httpClient.get(this.API+"inactive/");
+  }
+  
+  
+
   BorrarVideo(id:string): Observable<any> {
     return this.httpClient.delete(this.API+id);
   }

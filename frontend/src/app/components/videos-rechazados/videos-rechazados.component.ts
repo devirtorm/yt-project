@@ -1,18 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { VideosService } from '../../services/videos/videos.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss'
 
-
-
 @Component({
-  selector: 'app-solicitud-videos',
-  templateUrl: './solicitud-videos.component.html',
-  styleUrl: './solicitud-videos.component.css'
+  selector: 'app-videos-rechazados',
+  templateUrl: './videos-rechazados.component.html',
+  styleUrl: './videos-rechazados.component.css'
 })
-export class SolicitudVideosComponent implements OnInit {
+export class VideosRechazadosComponent {
+  @Output() recargarVideos: EventEmitter<void> = new EventEmitter<void>();
 
   formVideo!: FormGroup;
   showModal: boolean = false;
@@ -53,7 +52,7 @@ export class SolicitudVideosComponent implements OnInit {
 
 
   cargarVideos(): void {
-    this.videoService.obtenerVideosNull().subscribe((respuesta) => {
+    this.videoService.obtenerVideosRechazados().subscribe((respuesta) => {
       console.log(respuesta);
       this.videos = respuesta;
       this.videosOriginales = { ...respuesta };
@@ -176,3 +175,7 @@ export class SolicitudVideosComponent implements OnInit {
 }
 
 }
+
+
+
+
