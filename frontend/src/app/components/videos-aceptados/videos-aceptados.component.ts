@@ -101,6 +101,7 @@ export class VideosAceptadosComponent {
             this.toggleEditModal();  // Cerrar el modal después de editar
             this.cargarVideos();  // Recargar la lista de videos si es necesario
             this.videoAceptado.emit();
+            location.reload();
             
           },
           error => {
@@ -146,6 +147,7 @@ export class VideosAceptadosComponent {
             this.toggleEditModal();  // Cerrar el modal después de editar
             this.cargarVideos();  // Recargar la lista de videos si es necesario
             this.videoRechazado.emit();
+            location.reload();
           },
           error => {
             console.error('Error al actualizar el video:', error);
