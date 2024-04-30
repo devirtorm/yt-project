@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('foto')->nullable();
-            $table->string('nombre_canal')->nullable();
+            $table->string('nombre_canal');
             $table->date('birthdate');
             $table->string('gender');
             $table->string('estado')->nullable();

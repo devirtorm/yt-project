@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SaveUserRequest extends FormRequest
+class ActualizarUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,12 +23,13 @@ class SaveUserRequest extends FormRequest
      */
     public function rules()
     {
+        $userId = $this->route('id');
+
         return [
             "name"=> "required",
-            "email"=> "required | unique:users",
+            "email"=> "required|email|unique:users,email," . $userId,
             "birthdate"=> "required",
             "gender"=> "required",
-            "foto"=> "nullable|image|mimes:jpg,jpeg,png",
             "nombre_canal"=> "required",
             "password"=> "required"
         ];

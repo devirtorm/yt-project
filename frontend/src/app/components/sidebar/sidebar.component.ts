@@ -8,11 +8,11 @@ import Swal from 'sweetalert2';
 
 
 @Component({
-  selector: 'app-sidebar-videos',
-  templateUrl: './sidebar-videos.component.html',
-  styleUrls: ['./sidebar-videos.component.css']
+  selector: 'app-sidebar',
+  templateUrl: './sidebar.component.html',
+  styleUrl: './sidebar.component.css'
 })
-export class SidebarVideosComponent {
+export class SidebarComponent {
   @ViewChild('searchInput') searchInput!: ElementRef;
   user: any = {};
   searchResults: any = null; 
@@ -75,6 +75,4 @@ export class SidebarVideosComponent {
       }
     });
   }
-  
-
 }
