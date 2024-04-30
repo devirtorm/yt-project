@@ -21,8 +21,6 @@ export class UserService {
   }
 
   updateUser(userId: string, formData: FormData): Observable<any> {
-    // En Laravel, para enviar datos que incluyan archivos, a menudo se usa POST con un campo _method 'PUT'
-    formData.append('_method', 'PUT');
     return this.httpClient.post(this.API+userId,formData)
   }
 
@@ -33,10 +31,13 @@ export class UserService {
   getVideoByUserPk(id:string): Observable<any> {
     return this.httpClient.get(this.API+id+'/videos');
   }
-  
 
   getPlaylistsByUserId(id:string): Observable<any> {
     return this.httpClient.get(this.API+id+'/playlists');  
+  }
+
+  getHistoryByUserId(id:string): Observable<any> {
+    return this.httpClient.get(this.API+id+'/historial');  
   }
 
 }

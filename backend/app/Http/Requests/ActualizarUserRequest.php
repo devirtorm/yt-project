@@ -31,7 +31,7 @@ class ActualizarUserRequest extends FormRequest
             "birthdate"=> "required",
             "gender"=> "required",
             "nombre_canal"=> "required",
-            "password"=> "required"
+            "password"=> "nullable"
         ];
     }
 }

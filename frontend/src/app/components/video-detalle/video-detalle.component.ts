@@ -4,6 +4,7 @@ import { VideosService } from '../../services/videos/videos.service';
 import { ComentariosService } from '../../services/videos/comentarios.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { LikesService } from '../../services/videos/likes.service';
+import { HistorialService } from '../../services/historial/historial.service';
 import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
 
@@ -47,6 +48,7 @@ export class VideoDetalleComponent implements OnInit {
     private route: ActivatedRoute,
     private likesService: LikesService,
     private videoService: VideosService,
+    private historialService: HistorialService,
     private comentariosService: ComentariosService
   ) {
     const formValues = {
@@ -64,7 +66,33 @@ export class VideoDetalleComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarInfo();
+
+    setTimeout(() => {
+      this.saveReproduccion();
+    }, 15000);
+    
   }
+
+  saveReproduccion(): void {
+    const idUser = localStorage.getItem('userId');
+    const formData = new FormData();
+    formData.append('fk_video', this.video.data.id);
+    if (idUser) {
+      formData.append('fk_user', idUser);
+    }
+
+    console.log(formData);
+    this.historialService.storeVista(formData).subscribe(
+      (response) => {
+        console.log("Reproduccion registrada");
+      },
+      (error) => {
+        // Maneja el error si ocurre
+        console.error('Error al registrar la reproduccion:', error);
+      }
+    );
+  }
+
 
 
   cargarInfo(): void {

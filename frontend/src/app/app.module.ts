@@ -25,6 +25,7 @@ import { MiPerfilComponent } from './components/mi-perfil/mi-perfil.component';
 import { RevisionVideosComponent } from './components/revision-videos/revision-videos.component';
 import { VideosRechazadosComponent } from './components/videos-rechazados/videos-rechazados.component';
 import { VideosAceptadosComponent } from './components/videos-aceptados/videos-aceptados.component';
+import { HistorialComponent } from './components/historial/historial.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { VideosAceptadosComponent } from './components/videos-aceptados/videos-a
     MiPerfilComponent,
     RevisionVideosComponent,
     VideosRechazadosComponent,
-    VideosAceptadosComponent
+    VideosAceptadosComponent,
+    HistorialComponent
   ],
   imports: [
     BrowserModule,

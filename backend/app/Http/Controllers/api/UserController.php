@@ -111,6 +111,7 @@ class UserController extends Controller
     public function edit($id)
     {
         
+        
     }
 
     /**
@@ -128,8 +129,7 @@ class UserController extends Controller
         return response()->json(['error' => 'Usuario no encontrado'], 404);
     }
 
-    // Actualiza el modelo, excluyendo la contraseña
-    $user->fill($request->except('password'));
+    $user->fill($request->except(['password'])); // Excluye la contraseña del relleno automático
 
     if ($request->hasFile('foto')) {
         $foto = $request->file('foto');

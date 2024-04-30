@@ -15,7 +15,12 @@ class CreateHistorialTable extends Migration
     {
         Schema::create('historial', function (Blueprint $table) {
             $table->id();
+            $table->integer('fk_user');
+            $table->integer('fk_video');
             $table->timestamps();
+
+            $table->foreign('fk_user')->references('id')->on('users');
+            $table->foreign('fk_video')->references('id')->on('video');
         });
     }
 
