@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PlaylistVideoService {
-  API: string = 'http://127.0.0.1:8000/api/playlist_videos/';
+  API: string = 'http://192.168.1.252:8000/api/playlist_videos/';
   data: any;
 
   constructor(private httpClient:HttpClient) { }

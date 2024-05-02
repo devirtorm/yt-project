@@ -1,0 +1,29 @@
+<app-sidebar-videos></app-sidebar-videos>
+<div class="p-3 sm:ml-64 mt-10">
+  <div
+    class="rounded-md h-24 bg-green-300 shadow-lg border-2 p-4 flex items-center justify-center"
+  >
+    <h2 class="text-4xl font-medium text-center text-white mt-3">
+      Suscripciones
+    </h2>
+  </div>
+
+  <div
+    class="grid grid-cols-1 mt-5 sm:grid-cols-2 md:grid-cols-3 gap-4 justify-start"
+  >
+    <!-- Aquí agregamos la clase justify-start -->
+    <!-- Card 1 -->
+    <div *ngFor="let canalSuscrito of canaleSuscritos; let i = index">
+      <a
+        [routerLink]="['/profile', canalSuscrito.suscriptor?.id]"
+        class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+      >
+        <h5
+          class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+        >
+        {{ canalSuscrito.suscriptor.nombre_canal }}
+        </h5>
+      </a>
+    </div>
+  </div>
+</div>

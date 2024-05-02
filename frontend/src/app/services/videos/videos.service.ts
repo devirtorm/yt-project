@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class VideosService {
 
-  API: string = 'http://127.0.0.1:8000/api/videos/';
+  API: string = 'http://192.168.1.252:8000/api/videos/';
   data: any;
 
   constructor(private httpClient: HttpClient) { }
@@ -31,7 +31,7 @@ export class VideosService {
     return this.httpClient.post(this.API, videoData, { headers: headers });
   }
 
-  getVideoById(id:string): Observable<any> {
+  getVideoById(id:number): Observable<any> {
     return this.httpClient.get(this.API+id);
   }
 

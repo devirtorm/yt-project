@@ -33,21 +33,21 @@ export class UserLoginComponent {
     this.authService.login(this.formLogin.value).subscribe(
       (response) => {
         console.log(response); // Aquí puedes manejar la respuesta
-        const userId = response.user.id;
+/*         const userId = response.user.id;
         const rol = response.user.roles[0].id;
         console.log("este es el rol" + response.user.roles[0].id);
         // Almacenar el ID en el localStorage
         localStorage.setItem('userId', userId);
-        localStorage.setItem('rol', rol);
+        localStorage.setItem('rol', rol); */
 
         Swal.fire({
           position: "top-end",
           icon: "success",
-          title: "Bienvenido" + response.user.name,
+          title: "Bienvenido " + response.user.name,
           showConfirmButton: false,
           timer: 1500,
         });
-        this.router.navigateByUrl('/');
+      
         this.toggleModal();
       },
       (error) => {

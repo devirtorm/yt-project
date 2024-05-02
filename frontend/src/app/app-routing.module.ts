@@ -14,23 +14,28 @@ import { PlaylistComponent } from './components/playlist/playlist.component';
 import { MiPerfilComponent } from './components/mi-perfil/mi-perfil.component';
 import { RevisionVideosComponent } from './components/revision-videos/revision-videos.component';
 import { HistorialComponent } from './components/historial/historial.component';
+import { TendenciasComponent } from './components/tendencias/tendencias.component';
+import { SuscripcionesComponent } from './components/suscripciones/suscripciones.component';
 
 
 const routes: Routes = [
   {path:'', pathMatch:'full', redirectTo: 'UserSignupComponent'},
   {path:'sign-up', component: UserSignupComponent},
   {path:'login', component: UserLoginComponent},
-  {path:'categorias', component: CrearCategoriaComponent, canActivate: [AuthGuard]},
-  {path:'mis-videos', component: MisVideosComponent, canActivate: [AuthGuard]},
-  {path:'solicitud-videos', component: SolicitudVideosComponent, canActivate: [AuthGuard]},
   {path:'', component: VideosComponent},
+  {path:'tendencias', component: TendenciasComponent},
   {path:'video/:id', component: VideoDetalleComponent},
   {path:'profile/:id', component: PerfilUsuarioComponent},
+  {path:'categorias', component: CrearCategoriaComponent, canActivate: [AuthGuard], data: { expectedRol: '3' }},
+  {path:'mis-videos', component: MisVideosComponent, canActivate: [AuthGuard], data: { expectedRol: '2' }},
+  {path:'solicitud-videos', component: SolicitudVideosComponent, canActivate: [AuthGuard]},
   {path:'playlist', component: PlaylistComponent, canActivate: [AuthGuard]},
-  {path:'mi-perfil', component: MiPerfilComponent, canActivate: [AuthGuard]},
-  {path:'revision-videos', component: RevisionVideosComponent, canActivate: [AuthGuard]},
-  {path:'historial', component: HistorialComponent, canActivate: [AuthGuard]},
+  {path:'mi-perfil', component: MiPerfilComponent, canActivate: [AuthGuard], data: { expectedRol: '2' || '3' }},
+  {path:'revision-videos', component: RevisionVideosComponent, canActivate: [AuthGuard], data: { expectedRol: '3' }},
+  {path:'historial', component: HistorialComponent, canActivate: [AuthGuard], data: { expectedRol: '2' || '3' }},
+  {path:'suscripciones', component: SuscripcionesComponent, canActivate: [AuthGuard], data: { expectedRol: '2' }},
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

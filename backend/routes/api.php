@@ -7,6 +7,7 @@ use App\Http\Controllers\api\LikeController;
 use App\Http\Controllers\api\PlaylistController;
 use App\Http\Controllers\api\PlaylistVideoController;
 use App\Http\Controllers\api\SearchController;
+use App\Http\Controllers\api\SuscripcionController;
 use App\Http\Controllers\api\UserController;
 use App\Http\Controllers\api\videoController;
 use App\Http\Controllers\historialController;
@@ -110,9 +111,20 @@ Route::get('/playlists/{playlist}/videos', [PlaylistController::class, 'getPlayl
 
 //################ RUTA PARA EL HISTORIAL ##################
 Route::post('/historial', [historialController::class, 'store']);
+Route::get('/historial/tendencias', [historialController::class, 'tendencias']);
 Route::get('/users/{userId}/historial', [historialController::class, 'index']);
 
 Route::get('users',[UserController::class, 'index']);   
+
+
+Route::post('/suscripciones', [SuscripcionController::class, 'store']);
+Route::get('/users/{userId}/suscripciones', [SuscripcionController::class, 'suscripcionesUsuario']);
+Route::get('users/{usuarioId}/suscriptor/{suscriptorId}', [SuscripcionController::class, 'buscarRelacion']);
+Route::get('suscripciones/count/{userId}', [SuscripcionController::class, 'countSuscriptores']);
+
+
+//Route::delete('users/{usuarioId}/suscriptor/{suscriptorId}', [SuscripcionController::class, 'eliminarRelacion']);
+Route::delete('/suscripciones/{id}', [SuscripcionController::class, 'destroy']);
 
 
 Route::group(['middleware' => ['auth:sanctum']], function () {

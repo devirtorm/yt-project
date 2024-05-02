@@ -8,7 +8,7 @@ import { Categoria } from '../auth/categoria-interface';
 })
 export class CategoriaService {
 
-  API: string = 'http://127.0.0.1:8000/api/categoria/';
+  API: string = 'http://192.168.1.252:8000/api/categoria/';
 
   constructor(private httpClient:HttpClient) { }
 

@@ -7,25 +7,22 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-
-  private API = 'http://127.0.0.1:8000/api/login';
+  private API = 'http://192.168.1.252:8000/api/login';
 
   constructor(private httpClient: HttpClient) {}
 
   login(loginData: any): Observable<any> {
-    return this.httpClient.post(this.API, loginData)
-      .pipe(
-        map((response: any) => {
-          // Si la respuesta contiene un token, lo almacenamos en el localStorage
-          if (response && response.access_token) {
-            localStorage.setItem('token', response.access_token);
-          }
-          // Devolvemos la respuesta completa
-          return response;
-        })
-      );
+    return this.httpClient.post(this.API, loginData).pipe(
+      map((response: any) => {
+        if (response && response.access_token) {
+          localStorage.setItem('token', response.access_token);
+          localStorage.setItem('rol', response.rol); // Asumiendo que la API envía un 'rol'
+        }
+        return response;
+      })
+    );
   }
-   
+
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('userId');
@@ -33,9 +30,14 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    // Comprueba si el token de acceso está presente en el localStorage
     const token = localStorage.getItem('token');
-    // Devuelve true si el token está presente y no está vacío
+    console.log("isLoggedIn checked, token:", token); // Verificar qué se obtiene aquí
     return token !== null && token !== '';
+  }
+  
+  hasRole(requiredRol: string): boolean {
+    const rol = localStorage.getItem('rol');
+    console.log("Checking role, required:", requiredRol, "current:", rol); // Verificar los roles
+    return rol === requiredRol;
   }
 }

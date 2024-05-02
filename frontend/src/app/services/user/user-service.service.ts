@@ -8,12 +8,16 @@ import { User } from './user-interface';
 })
 export class UserService {
 
-  API: string = 'http://127.0.0.1:8000/api/users/';
+  API: string = 'http://192.168.1.252:8000/api/users/';
 
   constructor(private httpClient:HttpClient) { }
 
   storeUser(userData:User):Observable<any>{
     return this.httpClient.post(this.API,userData)
+  }
+
+  listaCanaleSuscritos(idCanal:string):Observable<any>{
+    return this.httpClient.get(this.API+idCanal+'/suscripciones')
   }
 
   getUser(id:string):Observable<any>{
@@ -40,4 +44,9 @@ export class UserService {
     return this.httpClient.get(this.API+id+'/historial');  
   }
 
+  
+  estadoSuscripcion(user_fk:string,suscriptor_fk:string): Observable<any> {
+    return this.httpClient.get(this.API+user_fk+'/suscriptor/'+suscriptor_fk);  
+  }
+  
 }

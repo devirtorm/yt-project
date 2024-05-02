@@ -1,108 +1,124 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UserService } from '../../services/user/user-service.service';
+import { HistorialService } from '../../services/historial/historial.service';
 import { VideosService } from '../../services/videos/videos.service';
 import { PlaylistService } from '../../services/playlist/playlist.service';
-import { UserService } from '../../services/user/user-service.service';
 import { PlaylistVideoService } from '../../services/playlist/playlist-video.service';
-import Hashids from 'hashids';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
 
 @Component({
-  selector: 'app-videos',
-  templateUrl: './videos.component.html',
-  styleUrl: './videos.component.css',
+  selector: 'app-suscripciones',
+  templateUrl: './suscripciones.component.html',
+  styleUrl: './suscripciones.component.css'
 })
-export class VideosComponent implements OnInit {
-  videos: any = {};
-  playlists: any = {};
+export class SuscripcionesComponent implements OnInit  {
+  videos : any  = {}
+  formPlaylist: FormGroup;
+
+  canaleSuscritos: any = {};
   dropdownOpenIndex: number = -1;
   showListModal: boolean = false;
   showListModalCreatePlaylist: boolean = false;
   selectedVideoId!: string;
-  private hashids = new Hashids('kX7#5@8Uw!9Rq2Tz', 12);
-  formPlaylist: FormGroup;
 
   constructor(
+    private userService: UserService,
+    private historialService: HistorialService,
     private videoService: VideosService,
     private playlistService: PlaylistService,
     private playlistVideoService: PlaylistVideoService,
-    private userService: UserService,
     private router: Router,
     public form: FormBuilder
-    
   ) {
     const formValuesPlaylist = {
-      nombre_lista: [''],
-      descripcion: [''],
-    };
+    nombre_lista: [''],
+    descripcion: [''],
+  };
 
-    this.formPlaylist = this.form.group(formValuesPlaylist);
-  }
-
+  this.formPlaylist = this.form.group(formValuesPlaylist);
+}
   ngOnInit(): void {
     this.cargarVideos();
     this.cargarPlaylists();
+    
   }
-
-  getVideoLink(videoId: number): string {
-    const encodedId = this.hashids.encode(videoId);
-    return `/video/${encodedId}`;
-  }
-
 
   cargarVideos(): void {
-    this.videoService.obtenerVideosVerificados().subscribe((respuesta) => {
-      console.log(respuesta);
-      this.videos = respuesta;
-    });
+
+
+      this.historialService.tendencias().subscribe((respuesta) => {
+        console.log(respuesta); 
+        this.videos = respuesta;
+    })
+
+  }
+
+  formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diff = now.getTime() - date.getTime();
+    const seconds = Math.floor(diff / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+    const months = Math.floor(days / 30);
+    const years = Math.floor(months / 12);
+
+    if (years > 0) {
+      return years === 1 ? 'hace 1 año' : `hace ${years} años`;
+    } else if (months > 0) {
+      return months === 1 ? 'hace 1 mes' : `hace ${months} meses`;
+    } else if (days > 0) {
+      return days === 1 ? 'hace 1 día' : `hace ${days} días`;
+    } else if (hours > 0) {
+      return hours === 1 ? 'hace 1 hora' : `hace ${hours} horas`;
+    } else if (minutes > 0) {
+      return minutes === 1 ? 'hace 1 minuto' : `hace ${minutes} minutos`;
+    } else {
+      return seconds === 1 ? 'hace 1 segundo' : `hace ${seconds} segundos`;
+    }
   }
 
   cargarPlaylists(): void {
     const idUser = localStorage.getItem('userId');
     if (idUser) {
-      this.userService.getPlaylistsByUserId(idUser).subscribe((respuesta) => {
+      this.userService.listaCanaleSuscritos(idUser).subscribe((respuesta) => {
         console.log(respuesta);
-        console.log('videos');
-        this.playlists = respuesta;
-
-        // Obtener videos asociados a cada lista de reproducción
-        this.playlists.data.forEach((playlist: any) => {
-          this.playlistService
-            .getPlaylistVideos(playlist.id)
-            .subscribe((videos: any) => {
-              playlist.videos = videos; // Agregar la lista de videos a la lista de reproducción
-            });
-        });
+        console.log("videos");
+        this.canaleSuscritos = respuesta;
       });
     }
   }
+  
 
-  saveVideoOnlist(playlistId: string): void {
+  saveVideoOnlist(playlistId: string) : void{
     console.log(this.selectedVideoId);
-    const formData = new FormData();
+    const formData = new FormData()
     formData.append('fk_video', this.selectedVideoId);
     formData.append('fk_playlist', playlistId);
 
-    this.playlistVideoService.savePlaylistVideo(formData).subscribe(
+     this.playlistVideoService.savePlaylistVideo(formData).subscribe(
       (response) => {
         Swal.fire({
           position: 'top-end',
           icon: 'success',
-          text: 'Video agregado a playlist',
+          text: 'Tu comentario se ha publicado',
           showConfirmButton: false,
           timer: 1500,
           backdrop: false,
         });
         this.cargarPlaylists();
         this.formPlaylist.reset();
+
       },
       (error) => {
         // Maneja el error si ocurre
         console.error('Error al guardar el comentario:', error);
       }
-    );
+    ); 
   }
 
   saveData(): void {
@@ -121,18 +137,18 @@ export class VideosComponent implements OnInit {
         Swal.fire({
           position: 'top-end',
           icon: 'success',
-          text: 'Playlist creada',
+          text: 'Tu comentario se ha publicado',
           showConfirmButton: false,
           timer: 1500,
           backdrop: false,
         });
         this.cargarPlaylists();
         this.saveVideoOnlist(response.playlist.id);
-        this.toggleModal();
+        this.toggleModal()
       },
       (error) => {
         // Maneja el error si ocurre
-        console.error('Error al guardar playlist:', error);
+        console.error('Error al guardar el comentario:', error);
       }
     );
   }
@@ -157,6 +173,7 @@ export class VideosComponent implements OnInit {
 
   toggleModal() {
     this.showListModal = !this.showListModal;
+  
   }
 
   saveVideoId(videoId: string) {
@@ -166,4 +183,6 @@ export class VideosComponent implements OnInit {
   toggleModalCreatePlaylist() {
     this.showListModalCreatePlaylist = !this.showListModalCreatePlaylist;
   }
+
 }
+

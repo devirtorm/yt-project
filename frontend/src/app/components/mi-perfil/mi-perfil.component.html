@@ -46,11 +46,10 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             <!-- AQUÍ SE PONE LO DE LOS VIDEOS -->
             <div *ngFor="let video of videos; let iControl = index">
-            <div *ngFor="let video of videos; let iControl = index">
                 <a [routerLink]="['/video', video.id]"  class="block max-w-sm rounded overflow-hidden shadow-sm hover:shadow hover:c">
                   <img
                     class="w-full object-cover h-48"
-                    [src]="'http://127.0.0.1:8000/storage/' + video.miniatura"
+                    [src]="'http://192.168.1.252:8000/storage/' + video.miniatura"
                     alt="Image Description"
                   />
                   <div class="bg-white p-4 md:p-5 rounded-b-xl">

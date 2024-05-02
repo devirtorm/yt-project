@@ -111,7 +111,7 @@ export class UserSignupComponent implements OnInit {
   
 
   ngOnInit(): void {
-    console.log(this.showModal);
+    
   }
 
   toggleModal() {

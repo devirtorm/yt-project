@@ -7,32 +7,40 @@
   </div>
 
   <div *ngFor="let video of videos.data">
-    <div
-      class="rounded-md shadow-md bg-gray-300 ml-5 mt-5 flex flex-col md:flex-row p-4 md:w-4/5 mx-auto"
-    >
-      <div class="md:w-1/2 md:mr-4">
-        <a [routerLink]="['/video', video.video.id]">
-          <img
-            class="h-24"
-            [src]="'http://127.0.0.1:8000' + video.video.miniatura"
-            alt=""
-            class="rounded-md w-full"
-          />
-        </a>
-      </div>
-      <div class="md:w-1/2 mt-4 md:mt-0 d">
-        <div class="md:w-1/2 mt-4 md:mt-0 flex items-center justify-center">
-          <div class="text-center mt-20">
-            <h3 class="font-bold text-4xl">{{ video.video.titulo }}</h3>
-            <p class="font fw-medium">{{ video.video.descripcion }}</p>
-          </div>
+    <div class="mt-4 md:flex">
+      <a
+        [routerLink]="['/video', video.video.id]"
+        class="flex flex-col bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 w-full"
+      >
+        <img
+          class="object-cover w-full md:w-48 md:rounded-l-lg md:rounded-r-none"
+          [src]="'http://192.168.1.252:8000' + video.video.miniatura"
+          alt=""
+        />
+        <div class="flex flex-col justify-between p-4 leading-normal">
+          <h5
+            class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+          >
+            {{ video.video.titulo }}
+          </h5>
+          <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+            {{ video.video.descripcion }}.
+          </p>
+          <p>{{ formatDate(video.video.created_at) }}.</p>
+          <a
+            class="mb-3 font-medium text-gray-700 dark:text-gray-400"
+          >
+            <img
+              class="w-12 h-12 md:w-full md:h-auto md:rounded-full"
+              [src]="'http://192.168.1.252' + video.video.user.foto"
+              alt=""
+            />
+            <p class="md:ml-4">{{ video.video.user.nombre_canal }}.</p>
+          </a>
         </div>
-      </div>
+      </a>
     </div>
   </div>
-
-  <!--             <video class="rounded-md w-full" controls *ngIf="video.video.url">
-              <source [src]="'http://127.0.0.1:8000' + video.video.url" type="video/mp4" />
-              Tu navegador no admite la etiqueta de video.
-            </video> -->
+  
+  
 </div>

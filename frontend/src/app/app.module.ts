@@ -26,6 +26,9 @@ import { RevisionVideosComponent } from './components/revision-videos/revision-v
 import { VideosRechazadosComponent } from './components/videos-rechazados/videos-rechazados.component';
 import { VideosAceptadosComponent } from './components/videos-aceptados/videos-aceptados.component';
 import { HistorialComponent } from './components/historial/historial.component';
+import { TendenciasComponent } from './components/tendencias/tendencias.component';
+import { SuscripcionesComponent } from './components/suscripciones/suscripciones.component';
+import { AccessDeniedComponent } from './components/access-denied/access-denied.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +50,10 @@ import { HistorialComponent } from './components/historial/historial.component';
     RevisionVideosComponent,
     VideosRechazadosComponent,
     VideosAceptadosComponent,
-    HistorialComponent
+    HistorialComponent,
+    TendenciasComponent,
+    SuscripcionesComponent,
+    AccessDeniedComponent
   ],
   imports: [
     BrowserModule,

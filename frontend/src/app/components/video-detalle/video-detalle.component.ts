@@ -5,6 +5,7 @@ import { ComentariosService } from '../../services/videos/comentarios.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { LikesService } from '../../services/videos/likes.service';
 import { HistorialService } from '../../services/historial/historial.service';
+import Hashids from 'hashids';
 import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
 
@@ -41,7 +42,7 @@ export class VideoDetalleComponent implements OnInit {
   mostrandoInputComentario: boolean = false; // Variable para controlar la visibilidad del campo de entrada
   comentarioAResponderId: number | null = null;
   comentarioSeleccionado: { id: number | null, respuesta: string } = { id: null, respuesta: '' }; // Cambio en el tipo de dato del ID
-  
+  private hashids = new Hashids('kX7#5@8Uw!9Rq2Tz', 12);
 
   constructor(
     public form: FormBuilder,
@@ -51,6 +52,8 @@ export class VideoDetalleComponent implements OnInit {
     private historialService: HistorialService,
     private comentariosService: ComentariosService
   ) {
+    
+
     const formValues = {
       comentario: [''],
     };
@@ -93,23 +96,40 @@ export class VideoDetalleComponent implements OnInit {
     );
   }
 
+  decodeId(encodedId: string): number | null {
+    const decodedArray = this.hashids.decode(encodedId);
+    if (decodedArray.length === 0) {
+      return null;  // No hay ID válido para retornar
+    }
+    const firstElement = decodedArray[0];
+    // Comprobación de tipo para convertir bigint a number si es necesario
+    if (typeof firstElement === 'bigint') {
+      return Number(firstElement);  // Convertir bigint a number
+    }
+    return firstElement as number;  // Asumiendo que el valor ya es de tipo number
+  }
+  
 
 
   cargarInfo(): void {
-    const id = this.route.snapshot.paramMap.get('id'); // Obtiene el ID del video de los parámetros de la ruta
-    if (id !== null) {
-      // Verifica que id no sea null
-      this.videoService.getVideoById(id).subscribe((data: any) => {
-        this.video = data; // Almacena los datos del video recuperado del servicio
-        console.log(this.video); // Imprime los datos del video en la consola
-        this.cargarComentarios();
-        this.infoLike();
-
-      });
+    const encodedId = this.route.snapshot.paramMap.get('id'); // Obtiene el ID codificado del video de los parámetros de la ruta
+    if (encodedId !== null) {
+      const id = this.decodeId(encodedId); // Decodifica el ID
+      if (id !== null) {
+        this.videoService.getVideoById(Number(id)).subscribe((data: any) => {
+          this.video = data; // Almacena los datos del video recuperado del servicio
+          console.log(this.video); // Imprime los datos del video en la consola
+          this.cargarComentarios();
+          this.infoLike();
+        });
+      } else {
+        console.error('ID decodificado inválido'); // Manejo de error si la decodificación falla
+      }
     } else {
-      // Manejo de error o redirección si id es null
+      console.error('No se encontró ID codificado en la URL'); // Manejo de error si no hay ID en la URL
     }
   }
+  
 
   toggleInput(commentId: number) {
     if (this.comentarioSeleccionado.id !== null && this.comentarioSeleccionado.id === Number(commentId)) {

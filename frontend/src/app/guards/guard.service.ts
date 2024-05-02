@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { AuthService } from '../services/auth/auth.service';
 import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss'
@@ -10,20 +10,30 @@ import 'sweetalert2/src/sweetalert2.scss'
 export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
-  canActivate(): boolean {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     if (this.authService.isLoggedIn()) {
-      return true; // Si el usuario está autenticado, permite el acceso a la ruta
+      const requiredRol = route.data['expectedRol'];
+      if (requiredRol && this.authService.hasRole(requiredRol)) {
+        return true;
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "No autorizado",
+          text: "No tienes permisos para acceder a esta sección."
+        });
+        this.router.navigate(['/']);
+        return false;
+      }
     } else {
       Swal.fire({
-        position: "center",
-        icon: "success",
+        icon: "info",
         title: "Inicia sesión",
-        text:"Parece que no tienes acceso, inicia sesión o regístrate para disfrutar de este beneficio",
-        showConfirmButton: false,
-        timer: 3000,
+        text: "Parece que no tienes acceso, inicia sesión o regístrate para disfrutar de este beneficio"
       });
-      this.router.navigate(['/sign-up']); // Si el usuario no está autenticado, redirige a la página de inicio de sesión
+      this.router.navigate(['/login']);
       return false;
     }
   }
+  
 }
+

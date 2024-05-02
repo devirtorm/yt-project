@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Resources\HistorialResource;
 use App\Models\Historial;
 use App\Models\Playlist;
+use App\Models\Video;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class historialController extends Controller
 {
@@ -51,6 +53,23 @@ class historialController extends Controller
         return HistorialResource::collection($playlists);
     }
 
+    public function tendencias()
+    {
+        // Obtener los IDs de los videos más vistos
+        $videosMasVistosIds = DB::table('historial')
+            ->select('fk_video', DB::raw('count(*) as vistas'))
+            ->groupBy('fk_video')
+            ->orderByDesc('vistas')
+            ->limit(10) // Limitar a los 10 videos más vistos
+            ->pluck('fk_video')
+            ->toArray();
+    
+        // Obtener los detalles de los videos más vistos
+        $videosDetalles = Video::whereIn('id', $videosMasVistosIds)->get();
+    
+        // Devolver una respuesta con los detalles de los videos más vistos
+        return response()->json($videosDetalles);
+    }
     /**
      * Display the specified resource.
      *

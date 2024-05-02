@@ -39,7 +39,7 @@ export class SidebarVideosComponent {
       showConfirmButton: false,
       timer: 1500
     }).then(() => { // Después de cerrar el SweetAlert, redirige al usuario a la página de inicio
-      this.router.navigateByUrl('/');
+      this.router.navigateByUrl('/sign-up');
     });
   }
   
