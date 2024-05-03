@@ -1,40 +1,39 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
-import { UserService } from '../../services/user/user-service.service';
 import { Router } from '@angular/router';
 import { SearchService } from '../../services/buscador/search.service'; // Asegúrate de que la ruta sea correcta
 import Swal from 'sweetalert2';
 
-
-
 @Component({
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrl: './sidebar.component.css'
+  selector: 'app-menu',
+  templateUrl: './menu.component.html',
+  styleUrl: './menu.component.css'
 })
-export class SidebarComponent {
+export class MenuComponent implements OnInit {
   @ViewChild('searchInput') searchInput!: ElementRef;
-  user: any = {};
-  searchResults: any = null; 
-  rol : number = 0;
-  sidebarOpen = false;
 
-  constructor (
-    private authService: AuthService,
-    private router: Router,
-    private userService: UserService,
-    private searchService: SearchService
-  ) {}
+  rol : number = 0;
+  searchResults: any = null; 
+
+  constructor( private authService: AuthService, private router:Router, private searchService: SearchService){}
+
+  layout = {
+    profileOpen: false,
+    asideOpen: false
+  };
+  
   ngOnInit(): void {
-    this.cargarUsuario();
     this.rol = Number(localStorage.getItem('rol'));
   }
 
-  
-
-  toggleSidebar() {
-    this.sidebarOpen = !this.sidebarOpen;
+  toggleProfile() {
+    this.layout.profileOpen = !this.layout.profileOpen;
   }
+
+  toggleAside() {
+    this.layout.asideOpen = !this.layout.asideOpen;
+  }
+
   logout(): void {
     this.authService.logout(); // Llama al método logout del servicio AuthService
     Swal.fire({ // Muestra el SweetAlert
@@ -47,24 +46,6 @@ export class SidebarComponent {
       this.router.navigateByUrl('/');
     });
   }
-  
-  cargarUsuario(): void {
-    const id = localStorage.getItem('userId');
-    if (id !== null) {
-      this.userService.getUser(id).subscribe(
-        (respuesta) => {
-          console.log(respuesta);
-          this.user = respuesta;
-        },
-        (error) => {
-          console.error('Error al cargar usuario:', error);
-        }
-      );
-    } else {
-      console.error('El valor de userId en localStorage es null');
-    }
-  }
-
 
   search(): void {
     const query = this.searchInput.nativeElement.value;
@@ -80,4 +61,10 @@ export class SidebarComponent {
       }
     });
   }
+
 }
+// app.component.ts
+
+
+
+

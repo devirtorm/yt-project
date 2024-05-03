@@ -1,5 +1,10 @@
+<ng-container *ngIf="isAdmin; else userMenu">
+  <!-- Menú de administrador -->
+  <app-menu-admin></app-menu-admin>
+</ng-container>
+<ng-template #userMenu>
+  <!-- Menú de usuario normal -->
+  <app-menu></app-menu>
+</ng-template>
 
-  <app-sidebar-videos>
-
-  </app-sidebar-videos>
-  <router-outlet></router-outlet>
+<router-outlet></router-outlet>

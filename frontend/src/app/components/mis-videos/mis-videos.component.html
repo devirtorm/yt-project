@@ -1,7 +1,4 @@
-<app-sidebar-videos></app-sidebar-videos>
-<ng-progress class="fixed top-0 z-50 w-full"></ng-progress>
-
-<div  *ngIf="rol === 2" class="p-4 sm:ml-64 mt-5">
+<div *ngIf="rol === 2" class="p-4 mt-5">
   <div class="flex flex-col m-2 shadow">
     <div class="-m-1.5 overflow-x-auto">
       <div class="p-1.5 min-w-full inline-block align-middle">
@@ -107,7 +104,9 @@
                     <div class="aspect-w-16 aspect-h-9">
                       <video class="object-cover w-40 h-25" controls>
                         <source
-                          [src]="'http://192.168.1.252:8000/storage/' + video.url"
+                          [src]="
+                            'http://192.168.1.252:8000/storage/' + video.url
+                          "
                           type="video/mp4"
                         />
                         Tu navegador no admite la etiqueta de video.
@@ -135,12 +134,8 @@
                         {{ video.titulo | slice : 0 : 25 }}...
                       </p>
                     </div>
-                    <div
-                      *ngIf="
-                        video.titulo && video.titulo.length <= 20
-                      "
-                    >
-                      <p class="text-xs">{{video.titulo}}</p>
+                    <div *ngIf="video.titulo && video.titulo.length <= 20">
+                      <p class="text-xs">{{ video.titulo }}</p>
                     </div>
                   </td>
                   <td
@@ -158,7 +153,7 @@
                         video.descripcion && video.descripcion.length <= 20
                       "
                     >
-                      <p class="text-xs">{{video.descripcion}}</p>
+                      <p class="text-xs">{{ video.descripcion }}</p>
                     </div>
                   </td>
                   <td
@@ -306,6 +301,7 @@
         <div
           class="flex justify-end items-center gap-x-2 py-3 px-4 border-t dark:border-neutral-700"
         >
+          <ng-progress class="h2 to-blue-500 w-full"></ng-progress>
           <button
             type="button"
             class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800"

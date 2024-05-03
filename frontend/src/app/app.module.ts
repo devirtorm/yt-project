@@ -29,6 +29,10 @@ import { HistorialComponent } from './components/historial/historial.component';
 import { TendenciasComponent } from './components/tendencias/tendencias.component';
 import { SuscripcionesComponent } from './components/suscripciones/suscripciones.component';
 import { AccessDeniedComponent } from './components/access-denied/access-denied.component';
+import { MenuComponent } from './components/menu/menu.component';
+import { MenuAdminComponent } from './components/menu-admin/menu-admin.component';
+import { DropdownVideoComponent } from './components/dropdown-video/dropdown-video.component';
+
 
 @NgModule({
   declarations: [
@@ -53,7 +57,10 @@ import { AccessDeniedComponent } from './components/access-denied/access-denied.
     HistorialComponent,
     TendenciasComponent,
     SuscripcionesComponent,
-    AccessDeniedComponent
+    AccessDeniedComponent,
+    MenuComponent,
+    MenuAdminComponent,
+    DropdownVideoComponent
   ],
   imports: [
     BrowserModule,

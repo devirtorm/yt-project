@@ -5,6 +5,7 @@ import { ComentariosService } from '../../services/videos/comentarios.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { LikesService } from '../../services/videos/likes.service';
 import { HistorialService } from '../../services/historial/historial.service';
+import { AuthService } from '../../services/auth/auth.service';
 import Hashids from 'hashids';
 import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
@@ -12,7 +13,7 @@ import 'sweetalert2/src/sweetalert2.scss';
 interface Comment {
   id: string;
   user: {
-    name: string;
+    name: string; 
   };
   created_at: string;
   comentario: string;
@@ -43,8 +44,10 @@ export class VideoDetalleComponent implements OnInit {
   comentarioAResponderId: number | null = null;
   comentarioSeleccionado: { id: number | null, respuesta: string } = { id: null, respuesta: '' }; // Cambio en el tipo de dato del ID
   private hashids = new Hashids('kX7#5@8Uw!9Rq2Tz', 12);
+  isLogged: boolean = false
 
   constructor(
+    private authService: AuthService,
     public form: FormBuilder,
     private route: ActivatedRoute,
     private likesService: LikesService,
@@ -65,6 +68,8 @@ export class VideoDetalleComponent implements OnInit {
     this.formComentario = this.form.group(formValues);
 
     this.formRespuesta = this.form.group(formValuesRespuesta);
+
+    this.isLogged = this.authService.isLoggedIn();
   }
 
   ngOnInit(): void {
@@ -95,6 +100,8 @@ export class VideoDetalleComponent implements OnInit {
       }
     );
   }
+
+  
 
   decodeId(encodedId: string): number | null {
     const decodedArray = this.hashids.decode(encodedId);
@@ -190,10 +197,6 @@ export class VideoDetalleComponent implements OnInit {
     );
   }
   
-  
-
-
-
   saveData(): void {
     const idUser = localStorage.getItem('userId');
     const formData = new FormData();
