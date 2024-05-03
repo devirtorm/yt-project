@@ -33,6 +33,8 @@ import { MenuComponent } from './components/menu/menu.component';
 import { MenuAdminComponent } from './components/menu-admin/menu-admin.component';
 import { DropdownVideoComponent } from './components/dropdown-video/dropdown-video.component';
 
+import { RegistroUsuariosComponent } from './components/registro-usuarios/registro-usuarios.component';
+import { PapeleraComponent } from './components/papelera/papelera.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +57,8 @@ import { DropdownVideoComponent } from './components/dropdown-video/dropdown-vid
     VideosRechazadosComponent,
     VideosAceptadosComponent,
     HistorialComponent,
+    RegistroUsuariosComponent,
+    PapeleraComponent,
     TendenciasComponent,
     SuscripcionesComponent,
     AccessDeniedComponent,

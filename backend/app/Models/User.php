@@ -27,6 +27,7 @@ class User extends Authenticatable
      'foto', 
      'nombre_canal', 
      'birthdate', 
+     'estado', 
      'gender'
     ];
 

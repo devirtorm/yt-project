@@ -27,7 +27,7 @@ class ActualizarUserRequest extends FormRequest
 
         return [
             "name"=> "required",
-            "email"=> "required|email|unique:users,email," . $userId,
+            "email"=> "email",
             "birthdate"=> "required",
             "gender"=> "required",
             "nombre_canal"=> "required",

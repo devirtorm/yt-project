@@ -26,6 +26,12 @@
           placeholder="Ingrese aquí su nombre, por favor"
           required
         />
+
+        <div *ngIf="formUser.get('name')?.touched && formUser.get('name')?.errors" class="text-red-500 text-xs mt-1">
+          <div *ngIf="formUser.get('name')?.hasError('required')">El nombre es obligatorio.</div>
+          <div *ngIf="formUser.get('name')?.hasError('pattern')">El nombre solo debe contener letras.</div>
+        </div> 
+
       </div>
       <div class="mb-5">
         <label
@@ -41,6 +47,10 @@
           placeholder="correo@ejemplo.com"
           required
         />
+        <div *ngIf="formUser.get('email')?.touched && formUser.get('email')?.errors" class="text-red-500 text-xs mt-1">
+          <div *ngIf="formUser.get('email')?.hasError('required')">El correo es obligatorio.</div>
+          <div *ngIf="formUser.get('email')?.hasError('email')">El correo debe ser váildo.</div>
+        </div> 
       </div>
       <div class="mb-5">
         <label
@@ -55,6 +65,11 @@
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500"
           required
         />
+
+        <div *ngIf="formUser.get('birthdate')?.touched && formUser.get('birthdate')?.errors" class="text-red-500 text-xs mt-1">
+          <div *ngIf="formUser.get('birthdate')?.hasError('birthdate')">El campo es obligatorio.</div>
+        </div> 
+
       </div>
       <div class="mb-5">
         <label
@@ -79,6 +94,7 @@
         >
         <input
           type="text"
+          required
           id="nombre_canal"
           formControlName="nombre_canal"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500"
@@ -87,7 +103,14 @@
         />
       </div>
 
+      <label
+          for="email"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Nombre de canal</label
+        >
+
       <div class="flex items-center">
+        
         <input
           id="default-radio-1"
           type="radio"
@@ -121,6 +144,7 @@
       <div class="w-1/2">
         <button
           type="submit"
+          [disabled]="!formUser.valid"
           class="block text-white bg-indigo-600 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 w-full mt-5"
         >
           Guardar
@@ -196,6 +220,12 @@
                 placeholder="Ingrese aquí su nombre, por favor"
                 required
               />
+
+              <div *ngIf="formLogin.get('email')?.errors && formLogin.get('email')?.touched" class="text-red-500 text-xs mt-1">
+                <div *ngIf="formLogin.get('email')?.hasError('required')">El correo electrónico es obligatorio.</div>
+                <div *ngIf="formLogin.get('email')?.hasError('email')">Ingrese un correo electrónico válido.</div>
+              </div>
+
             </div>
             <div class="mb-5">
               <label
@@ -212,13 +242,20 @@
                 pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"
                 required
               />
+
+              <div *ngIf="formLogin.get('password')?.errors && formLogin.get('password')?.touched" class="text-red-500 text-xs mt-1">
+                <div *ngIf="formLogin.get('password')?.hasError('required')">La contraseña es obligatoria.</div>
+                <div *ngIf="formLogin.get('password')?.hasError('minlength')">La contraseña debe tener al menos 6 caracteres.</div>
+                <div *ngIf="formLogin.get('password')?.hasError('pattern')">La contraseña solo debe contener letras y números.</div>
+              </div>
+
             </div>
           </div>
 
           <div
             class="flex justify-end items-center gap-x-2 py-3 px-4 bg-gray-50 border-t dark:bg-gray-800 dark:border-gray-700"
           >
-            <button
+            <button 
               type="button"
               class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800"
               (click)="toggleModal()"
@@ -226,11 +263,12 @@
               Cancelar
             </button>
             <button
-              class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
-              type="submit"
-            >
-              Iniciar sesión
-            </button>
+  class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+  type="submit"
+  [disabled]="!formLogin.valid"
+>
+  Iniciar sesión
+</button>
           </div>
         </div>
       </form>

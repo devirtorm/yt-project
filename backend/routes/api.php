@@ -31,6 +31,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('users',[UserController::class, 'store']); // crear usuario
+Route::get('users',[UserController::class, 'index']); // Mostrar usuarios
 Route::put('/users/{id}', [UserController::class, 'update']); //Actualizar el usuario
 Route::post('login',[authController::class, 'access']); // login
 Route::post('videos',[videoController::class, 'upload']); // Guardar video
@@ -128,7 +129,7 @@ Route::delete('/suscripciones/{id}', [SuscripcionController::class, 'destroy']);
 
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    
+    Route::get('users',[UserController::class, 'index']);   
     
     //Para dar like
 

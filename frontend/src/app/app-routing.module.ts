@@ -16,6 +16,8 @@ import { RevisionVideosComponent } from './components/revision-videos/revision-v
 import { HistorialComponent } from './components/historial/historial.component';
 import { TendenciasComponent } from './components/tendencias/tendencias.component';
 import { SuscripcionesComponent } from './components/suscripciones/suscripciones.component';
+import { RegistroUsuariosComponent } from './components/registro-usuarios/registro-usuarios.component';
+import { PapeleraComponent } from './components/papelera/papelera.component';
 
 
 const routes: Routes = [
@@ -32,6 +34,8 @@ const routes: Routes = [
   {path:'playlist', component: PlaylistComponent, canActivate: [AuthGuard],  data: { expectedRol: '2'}},
   {path:'mi-perfil', component: MiPerfilComponent, canActivate: [AuthGuard], data: { expectedRol: '2' || '3' }},
   {path:'revision-videos', component: RevisionVideosComponent, canActivate: [AuthGuard], data: { expectedRol: '3' }},
+  {path:'registro-usuarios', component: RegistroUsuariosComponent, canActivate: [AuthGuard]},
+  {path:'papelera', component: PapeleraComponent, canActivate: [AuthGuard]},
   {path:'historial', component: HistorialComponent, canActivate: [AuthGuard], data: { expectedRol: '2' || '3' }},
   {path:'suscripciones', component: SuscripcionesComponent, canActivate: [AuthGuard], data: { expectedRol: '2' }},
 ];

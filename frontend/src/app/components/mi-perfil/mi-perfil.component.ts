@@ -55,7 +55,7 @@ export class MiPerfilComponent implements OnInit {
       formData.append('nombre_canal', this.editUser.value.nombre_canal);
       formData.append('birthdate', this.editUser.value.birthdate);
       formData.append('gender', this.editUser.value.gender);
-      formData.append('_method', 'PUT');
+      formData.append('_method', 'patch');
 
       
       const id = localStorage.getItem('userId');
