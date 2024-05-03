@@ -111,9 +111,13 @@ Route::get('/playlists/{playlist}/videos', [PlaylistController::class, 'getPlayl
 
 //################ RUTA PARA EL HISTORIAL ##################
 Route::post('/historial', [historialController::class, 'store']);
+Route::get('/users/{userId}/historial', [historialController::class, 'index']);
+
+Route::get('users',[UserController::class, 'index']);   
+
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-       
+    Route::get('users',[UserController::class, 'index']);   
     
     //Para dar like
 

@@ -13,6 +13,7 @@ import { PlaylistComponent } from './components/playlist/playlist.component';
 
 import { MiPerfilComponent } from './components/mi-perfil/mi-perfil.component';
 import { RevisionVideosComponent } from './components/revision-videos/revision-videos.component';
+import { HistorialComponent } from './components/historial/historial.component';
 import { RegistroUsuariosComponent } from './components/registro-usuarios/registro-usuarios.component';
 import { PapeleraComponent } from './components/papelera/papelera.component';
 
@@ -31,7 +32,8 @@ const routes: Routes = [
   {path:'mi-perfil', component: MiPerfilComponent, canActivate: [AuthGuard]},
   {path:'revision-videos', component: RevisionVideosComponent, canActivate: [AuthGuard]},
   {path:'registro-usuarios', component: RegistroUsuariosComponent, canActivate: [AuthGuard]},
-  {path:'papelera', component: PapeleraComponent, canActivate: [AuthGuard]}
+  {path:'papelera', component: PapeleraComponent, canActivate: [AuthGuard]},
+  {path:'historial', component: HistorialComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({

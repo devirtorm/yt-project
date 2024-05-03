@@ -1,0 +1,38 @@
+<app-sidebar-videos></app-sidebar-videos>
+<div class="p-3 sm:ml-64 mt-10">
+  <div class="rounded-md h-24 bg-blue-400 p-3">
+    <h2 class="text-4xl font-medium text-center text-white mt-5">
+      Historial de reproducción
+    </h2>
+  </div>
+
+  <div *ngFor="let video of videos.data">
+    <div
+      class="rounded-md shadow-md bg-gray-300 ml-5 mt-5 flex flex-col md:flex-row p-4 md:w-4/5 mx-auto"
+    >
+      <div class="md:w-1/2 md:mr-4">
+        <a [routerLink]="['/video', video.video.id]">
+          <img
+            class="h-24"
+            [src]="'http://127.0.0.1:8000' + video.video.miniatura"
+            alt=""
+            class="rounded-md w-full"
+          />
+        </a>
+      </div>
+      <div class="md:w-1/2 mt-4 md:mt-0 d">
+        <div class="md:w-1/2 mt-4 md:mt-0 flex items-center justify-center">
+          <div class="text-center mt-20">
+            <h3 class="font-bold text-4xl">{{ video.video.titulo }}</h3>
+            <p class="font fw-medium">{{ video.video.descripcion }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--             <video class="rounded-md w-full" controls *ngIf="video.video.url">
+              <source [src]="'http://127.0.0.1:8000' + video.video.url" type="video/mp4" />
+              Tu navegador no admite la etiqueta de video.
+            </video> -->
+</div>

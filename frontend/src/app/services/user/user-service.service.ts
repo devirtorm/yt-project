@@ -31,10 +31,13 @@ export class UserService {
   getVideoByUserPk(id:string): Observable<any> {
     return this.httpClient.get(this.API+id+'/videos');
   }
-  
 
   getPlaylistsByUserId(id:string): Observable<any> {
     return this.httpClient.get(this.API+id+'/playlists');  
+  }
+
+  getHistoryByUserId(id:string): Observable<any> {
+    return this.httpClient.get(this.API+id+'/historial');  
   }
 
   getUsers(): Observable<any> {

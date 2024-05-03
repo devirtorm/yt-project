@@ -25,6 +25,7 @@ import { MiPerfilComponent } from './components/mi-perfil/mi-perfil.component';
 import { RevisionVideosComponent } from './components/revision-videos/revision-videos.component';
 import { VideosRechazadosComponent } from './components/videos-rechazados/videos-rechazados.component';
 import { VideosAceptadosComponent } from './components/videos-aceptados/videos-aceptados.component';
+import { HistorialComponent } from './components/historial/historial.component';
 import { RegistroUsuariosComponent } from './components/registro-usuarios/registro-usuarios.component';
 import { PapeleraComponent } from './components/papelera/papelera.component';
 
@@ -48,6 +49,7 @@ import { PapeleraComponent } from './components/papelera/papelera.component';
     RevisionVideosComponent,
     VideosRechazadosComponent,
     VideosAceptadosComponent,
+    HistorialComponent,
     RegistroUsuariosComponent,
     PapeleraComponent
   ],
