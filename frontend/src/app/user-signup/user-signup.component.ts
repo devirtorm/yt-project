@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user/user-service.service';
 import { AuthService } from '../services/auth/auth.service';
@@ -24,21 +24,22 @@ export class UserSignupComponent implements OnInit {
   ) {
     // Agregar los roles al formulario
     const formValues = {
-      name: [''],
-      email: [''],
-      birthdate: [''],
-      password: [''],
-      nombre_canal: [''],
-      gender: [''],
-      roles: [''],
+      name: ['', [Validators.required, Validators.pattern(/^[a-zA-Z ]+$/)]], // Solo letras y espacios permitidos
+      email: ['', [Validators.required, Validators.email]],  // Validación de email estándar
+      birthdate: ['', Validators.required],  // Fecha de nacimiento requerida
+      password: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9]*$/)]],  // Solo letras y números en contraseña
+      nombre_canal: ['', [Validators.required, Validators.pattern(/^[a-zA-Z ]+$/)]], // Solo letras y espacios permitidos
+      gender: ['', Validators.required],  // Género requerido
+      roles: [''],   // Rol requerido
     };
+  
+    // Valores y validaciones para el formulario de login
     const formValuesLogin = {
-      email: [''],
-      password: [''],
+      email: ['', [Validators.required, Validators.email]],         // Validación de email estándar
+      password: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9]*$/)]],  // Solo letras y números en contraseña
     };
-
+  
     this.formLogin = this.formulario.group(formValuesLogin);
-
     this.formUser = this.formulario.group(formValues);
   }
 
@@ -112,6 +113,7 @@ export class UserSignupComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.showModal);
+    
   }
 
   toggleModal() {

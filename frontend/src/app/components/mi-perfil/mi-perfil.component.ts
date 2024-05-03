@@ -8,6 +8,7 @@ import 'sweetalert2/src/sweetalert2.scss';
 import { error } from 'jquery';
 
 
+
 @Component({
   selector: 'app-mi-perfil',
   templateUrl: './mi-perfil.component.html',
@@ -15,7 +16,7 @@ import { error } from 'jquery';
 })
 export class MiPerfilComponent implements OnInit {
 
-  videos: any;
+    videos: any;
   user: any;
   showEditModal: boolean = false;
   videoSeleccionado: any = {};
@@ -54,7 +55,7 @@ export class MiPerfilComponent implements OnInit {
       formData.append('nombre_canal', this.editUser.value.nombre_canal);
       formData.append('birthdate', this.editUser.value.birthdate);
       formData.append('gender', this.editUser.value.gender);
-      formData.append('_method', 'PUT');
+      formData.append('_method', 'patch');
 
       
       const id = localStorage.getItem('userId');
@@ -152,6 +153,20 @@ onFileSelected(event: any, controlName: string): void {
       // Manejo de error o redirección si id es null
     }
   }
+  
 
 
+  cargarVideos(): void {
+    console.log(this.user.data.id);
+    this.userService.getVideoByUserId(this.user.data.id).subscribe(
+      (data: any) => { // Aquí estás tipando los datos recibidos como un arreglo de comentarios
+        this.videos = data;
+        console.log(this.videos);
+      },
+      (error) => {
+        console.error('Error al cargar comentarios:', error);
+      }
+    );
+  }
+  
 }

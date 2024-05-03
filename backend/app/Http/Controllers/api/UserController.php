@@ -20,7 +20,6 @@ class UserController extends Controller
     {
         return UserResource::collection(User::all());
 
-        // Pasar los usuarios a la vista para ser renderizados
     }
 
     //Muestra videos de un usuario especifico
@@ -72,6 +71,7 @@ class UserController extends Controller
         try {
             $user = new User();
             $user->fill($validatedData);
+            $user->estado = 1;
             $user->password = bcrypt($request->password);
             $user->save();
     
@@ -129,8 +129,19 @@ class UserController extends Controller
         return response()->json(['error' => 'Usuario no encontrado'], 404);
     }
 
-    $user->fill($request->except(['password'])); // Excluye la contraseña del relleno automático
+    // Se actualizan los campos excepto la contraseña y el email
+    $user->fill($request->except(['password', 'email']));
 
+    // Manejar el cambio de email solo si es diferente al actual
+    if ($request->filled('email') && $user->email !== $request->email) {
+        // Asegúrate de que el nuevo email no esté ya en uso por otro usuario
+        if (User::where('email', $request->email)->exists()) {
+            return response()->json(['error' => 'El email ya está en uso'], 409);
+        }
+        $user->email = $request->email;
+    }
+
+    // Manejar la carga de la foto
     if ($request->hasFile('foto')) {
         $foto = $request->file('foto');
         $nombreFoto = uniqid() . '.' . $foto->getClientOriginalExtension();
@@ -138,11 +149,12 @@ class UserController extends Controller
         $user->foto = 'archivos/images/' . $nombreFoto;
     }
 
-    // Verifica si la contraseña ha sido proporcionada y no está vacía
+    // Actualizar la contraseña solo si se proporciona una nueva
     if ($request->filled('password')) {
         $user->password = bcrypt($request->password);
     }
 
+    $user->estado = 1;
     $user->save();
 
     return response()->json([

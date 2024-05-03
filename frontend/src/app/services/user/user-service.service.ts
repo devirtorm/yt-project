@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from './user-interface';
 
@@ -35,6 +35,29 @@ export class UserService {
 
   getPlaylistsByUserId(id:string): Observable<any> {
     return this.httpClient.get(this.API+id+'/playlists');  
+  }
+
+  getUsers(): Observable<any> {
+    // Obtener el token de autenticación del localStorage
+    const token = localStorage.getItem('token');
+    
+    // Crear HttpHeaders, incluyendo el token si existe
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`  // Usa 'Authorization' con 'Bearer'
+    });
+
+    // Realizar la solicitud GET incluyendo los headers
+    return this.httpClient.get(`${this.API}`, { headers: headers });
+  }
+
+  // Método para obtener usuarios inactivos
+  getUsersInactive(): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.httpClient.get(this.API, { headers });
   }
 
 }

@@ -1,0 +1,358 @@
+<div class="container mx-auto p-3 flex justify-center items-center h-screen">
+    <div
+      class="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 p-8 w-full md:w-1/2"
+    >
+      <h1 class="text-center text-indigo-600 text-3xl font-bold mb-8">
+        Registro de administradores
+      </h1>
+      <form
+        [formGroup]="formUser"
+        (ngSubmit)="saveData()"
+        class="max-w-md mx-auto"
+      >
+        <div class="mb-5">
+          <label
+            for="email"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Nombre</label
+          >
+          <input
+            type="text"
+            id="name"
+            formControlName="name"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500"
+            placeholder="Ingrese aquí su nombre, por favor"
+            required
+          />
+        </div>
+        <div class="mb-5">
+          <label
+            for="email"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Correo electrónico</label
+          >
+          <input
+            type="text"
+            id="email"
+            formControlName="email"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500"
+            placeholder="correo@ejemplo.com"
+            required
+          />
+        </div>
+        <div class="mb-5">
+          <label
+            for="Fecha de nacimiento"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Fecha de nacimiento</label
+          >
+          <input
+            type="date"
+            id="birthdate"
+            formControlName="birthdate"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500"
+            required
+          />
+        </div>
+        <div class="mb-5">
+          <label
+            for="Contraseña"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Contraseña</label
+          >
+          <input
+            type="password"
+            id="password"
+            formControlName="password"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500"
+            required
+          />
+        </div>
+
+        <div class="mb-5">
+            <label
+              for="email"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >Nombre de canal</label
+            >
+            <input
+              type="text"
+              id="nombre_canal"
+              formControlName="nombre_canal"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500"
+              placeholder="Ingrese aquí el nombre de su canal"
+              required
+            />
+          </div>
+  
+        <div class="flex items-center">
+          <input
+            id="default-radio-1"
+            type="radio"
+            value="0"
+            formControlName="gender"
+            class="w-4 h-4 text-indigo-600 bg-gray-100 border-gray-300 focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+          />
+          <label
+            for="default-radio-1"
+            class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            >Masculino</label
+          >
+        </div>
+        <div class="flex items-center mb-1">
+          <input
+            checked
+            id="default-radio-2"
+            type="radio"
+            value="1"
+            formControlName="gender"
+            class="w-4 h-4 text-indigo-600 bg-gray-100 border-gray-300 focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+          />
+          <label
+            for="default-radio-2"
+            class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            >Femenino</label
+          >
+        </div>
+        <div class="flex items-center mb-4">
+            <input
+              checked
+              id="default-radio-2"
+              type="radio"
+              value="3"
+              formControlName="gender"
+              class="w-4 h-4 text-indigo-600 bg-gray-100 border-gray-300 focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            />
+            <label
+              for="default-radio-2"
+              class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >Otro</label
+            >
+          </div>
+  
+        <hr class="mb-3" />
+        <div class="w-1/2">
+          <button
+            type="submit"
+            class="block text-white bg-indigo-600 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 w-full mt-5"
+          >
+            Guardar
+          </button>
+        </div>
+        <div class="my-5">
+        </div>
+      </form>
+    </div>
+
+
+    <div class="flex flex-col">
+        <div class="-m-1.5 overflow-x-auto">
+          <div class="p-1.5 min-w-full inline-block align-middle">
+            <div class="overflow-hidden">
+              <table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
+                <thead>
+                  <tr>
+                    <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Nombre</th>
+                    <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Correo</th>
+                    <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Fecha de nacimiento</th>
+                    <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Género</th>
+                    <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Nombre del canal</th>
+                    <th scope="col" class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Acción</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
+                  <tr *ngFor="let user of users?.data">
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">{{ user.name }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{{ user.email }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{{ user.birthdate }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{{ user.gender }} </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{{ user.nombre_canal }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
+                      <button *ngIf="user.estado == 1" (click)="suspender(user.id)" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-red-600 hover:text-red-800 dark:text-red-500 dark:hover:text-red-400">
+                        Suspender
+                      </button>
+                      <button *ngIf="user.estado == 0" (click)="habilitar(user.id)" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 dark:text-blue-500 dark:hover:text-blue-400">
+                        Habilitar
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+  </div>
+
+  <div
+  *ngIf="showEditModal"
+  id="modal-update-categoria"
+  class="overflow-y-auto fixed top-0 left-0 z-50 w-full h-full bg-gray-800 bg-opacity-50 flex items-center justify-center"
+>
+  <div class="sm:max-w-lg sm:w-full m-3 sm:mx-auto">
+    <div
+      class="flex flex-col bg-white border shadow-sm rounded-xl pointer-events-auto dark:bg-neutral-800 dark:border-neutral-700 dark:shadow-neutral-700/70"
+    >
+      <form [formGroup]="editUser" (ngSubmit)="editData()" >
+        <div
+          class="flex justify-between items-center py-3 px-4 border-b dark:border-neutral-700"
+        >
+          <h3 class="font-bold text-gray-800 dark:text-white">Editar video</h3>
+          <button
+            type="button"
+            class="flex justify-center items-center size-7 text-sm font-semibold rounded-full border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-neutral-700"
+            (click)="toggleEditModal()"
+          >
+            <span class="sr-only">Close</span>
+            <svg
+              class="flex-shrink-0 size-4"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M18 6 6 18"></path>
+              <path d="m6 6 12 12"></path>
+            </svg>
+          </button>
+        </div>
+        <div class="p-4 sm:p-10 overflow-y-auto">
+          <div class="mb-5">
+            <label
+              for="nombre de categoria"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >Nombre</label
+            >
+            <input
+              type="text"
+              id="nameEditar"
+              formControlName="name"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Ingrese su nombre"
+              required
+            />
+          </div>
+          <div class="mb-5">
+            <label
+              for="nombre de categoria"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >Correo electronico</label
+            >
+            <input
+              type="email"
+              id="emailEditar"
+              formControlName="email"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Ingrese su email"
+              required
+            />
+          </div>
+          <div class="mb-5">
+            <label
+              for="nombre de categoria"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >Editar foto de perfil</label
+            >
+            <input
+              type="file"
+              id="foto"
+              formControlName="foto"
+              (change)="onFileSelected($event, 'foto')"
+              class="block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 file:bg-gray-50 file:border-0 file:me-4 file:py-2 file:px-4 dark:file:bg-neutral-700 dark:file:text-neutral-400"
+            />
+          </div>
+          
+          <div class="mb-5">
+            <label
+              for="nombre de categoria"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >Contraseña</label
+            >
+            <input
+              type="text"
+              id="passwordEditar"
+              formControlName="password"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Ingrese su nueva contraseña contraseña"
+            />
+          </div>
+
+          <div *ngIf="user" class="mb-5">
+            <label
+              for="nombre de categoria"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >Establezca un nombre de canal</label
+            >
+            <input
+              type="text"
+              id="nombre_canalEditar"
+              formControlName="nombre_canal"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Ingrese un nombre de canal"
+              required
+            />
+          </div>
+
+          <div class="mb-5">
+            <label
+              for="nombre de categoria"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >Fecha de cumpleaños</label
+            >
+            <input
+              type="date"
+              id="birthdateEditar"
+              formControlName="birthdate"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              required
+            />
+          </div>
+
+          <div class="mb-5">
+            <label
+              for="nombre de categoria"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >Género</label
+            >
+            <!-- Select -->
+              <select formControlName="gender" id="gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option selected>Elija una opción</option>
+                <option value="0">Hombre</option>
+                <option value="1">Mujer</option>
+                <option value="2">Otro</option>
+              </select>
+              <!-- End Select -->
+          </div>
+
+
+        </div>
+        <div
+          class="flex justify-end items-center gap-x-2 py-3 px-4 border-t dark:border-neutral-700"
+        >
+          <button
+            type="button"
+            class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800"
+            (click)="toggleEditModal()"
+          >
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+          >
+            Actualizar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  
+  
