@@ -1,3 +1,5 @@
+;
+import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component'
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -35,6 +37,7 @@ import { DropdownVideoComponent } from './components/dropdown-video/dropdown-vid
 
 import { RegistroUsuariosComponent } from './components/registro-usuarios/registro-usuarios.component';
 import { PapeleraComponent } from './components/papelera/papelera.component';
+import { LikedVideosComponent } from './components/liked-videos/liked-videos.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +67,9 @@ import { PapeleraComponent } from './components/papelera/papelera.component';
     AccessDeniedComponent,
     MenuComponent,
     MenuAdminComponent,
-    DropdownVideoComponent
+    DropdownVideoComponent,
+    NotFoundPageComponent,
+    LikedVideosComponent
   ],
   imports: [
     BrowserModule,

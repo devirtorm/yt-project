@@ -18,26 +18,28 @@ import { TendenciasComponent } from './components/tendencias/tendencias.componen
 import { SuscripcionesComponent } from './components/suscripciones/suscripciones.component';
 import { RegistroUsuariosComponent } from './components/registro-usuarios/registro-usuarios.component';
 import { PapeleraComponent } from './components/papelera/papelera.component';
-
+import { AccessDeniedComponent } from './components/access-denied/access-denied.component';
+import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
 
 const routes: Routes = [
-  {path:'', pathMatch:'full', redirectTo: 'UserSignupComponent'},
-  {path:'sign-up', component: UserSignupComponent},
-  {path:'login', component: UserLoginComponent},
-  {path:'', component: VideosComponent},
-  {path:'tendencias', component: TendenciasComponent},
-  {path:'video/:id', component: VideoDetalleComponent},
-  {path:'profile/:id', component: PerfilUsuarioComponent},
-  {path:'categorias', component: CrearCategoriaComponent, canActivate: [AuthGuard], data: { expectedRol: '3' }},
-  {path:'mis-videos', component: MisVideosComponent, canActivate: [AuthGuard], data: { expectedRol: '2' }},
-  {path:'solicitud-videos', component: SolicitudVideosComponent, canActivate: [AuthGuard], data: { expectedRol: '3' }},
-  {path:'playlist', component: PlaylistComponent, canActivate: [AuthGuard],  data: { expectedRol: '2'}},
-  {path:'mi-perfil', component: MiPerfilComponent, canActivate: [AuthGuard], data: { expectedRol: '2' || '3' }},
-  {path:'revision-videos', component: RevisionVideosComponent, canActivate: [AuthGuard], data: { expectedRol: '3' }},
-  {path:'registro-usuarios', component: RegistroUsuariosComponent, canActivate: [AuthGuard]},
-  {path:'papelera', component: PapeleraComponent, canActivate: [AuthGuard]},
-  {path:'historial', component: HistorialComponent, canActivate: [AuthGuard], data: { expectedRol: '2' || '3' }},
-  {path:'suscripciones', component: SuscripcionesComponent, canActivate: [AuthGuard], data: { expectedRol: '2' }},
+  { path: '', pathMatch: 'full', component: VideosComponent }, // Ruta raíz que renderiza VideosComponent
+  { path: 'sign-up', component: UserSignupComponent },
+  { path: 'login', component: UserLoginComponent },
+  { path: 'tendencias', component: TendenciasComponent },
+  { path: 'video/:id', component: VideoDetalleComponent },
+  { path: 'profile/:id', component: PerfilUsuarioComponent },
+  { path: 'categorias', component: CrearCategoriaComponent, canActivate: [AuthGuard], data: { expectedRol: '3' }},
+  { path: 'mis-videos', component: MisVideosComponent, canActivate: [AuthGuard], data: { expectedRol: '2' }},
+  { path: 'solicitud-videos', component: SolicitudVideosComponent, canActivate: [AuthGuard], data: { expectedRol: '3' }},
+  { path: 'playlist', component: PlaylistComponent, canActivate: [AuthGuard],  data: { expectedRol: '2'}},
+  { path: 'mi-perfil', component: MiPerfilComponent, canActivate: [AuthGuard], data: { expectedRol: '2' || '3' }},
+  { path: 'revision-videos', component: RevisionVideosComponent, canActivate: [AuthGuard], data: { expectedRol: '3' }},
+  { path: 'historial', component: HistorialComponent, canActivate: [AuthGuard], data: { expectedRol: '2' || '3' }},
+  { path: 'suscripciones', component: SuscripcionesComponent, canActivate: [AuthGuard], data: { expectedRol: '2' }},
+  { path: 'registro-usuarios', component: RegistroUsuariosComponent, canActivate: [AuthGuard], data: { expectedRol: '3' }},
+  { path: 'access-denied', component: AccessDeniedComponent},
+  
+  { path: '**', component: NotFoundPageComponent } // Ruta para cualquier otra ruta no definida
 ];
 
 

@@ -31,13 +31,11 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     const token = localStorage.getItem('token');
-    console.log("isLoggedIn checked, token:", token); // Verificar qué se obtiene aquí
     return token !== null && token !== '';
   }
   
   hasRole(requiredRol: string): boolean {
     const rol = localStorage.getItem('rol');
-    console.log("Checking role, required:", requiredRol, "current:", rol); // Verificar los roles
     return rol === requiredRol;
   }
 }

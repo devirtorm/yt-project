@@ -90,12 +90,13 @@ export class UserSignupComponent implements OnInit {
         Swal.fire({
           position: "top-end",
           icon: "success",
-          title: "Bienvenido" + response.user.name,
+          title: "Bienvenido " + response.user.name,
           showConfirmButton: false,
           timer: 1500,
+        }).then(() => {
+          location.href = "/";
         });
         this.showModal = !this.showModal;
-        this.router.navigateByUrl('/');
       },
       (error) => {
         console.error(error);

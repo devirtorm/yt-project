@@ -154,7 +154,7 @@ class UserController extends Controller
         $user->password = bcrypt($request->password);
     }
 
-    $user->estado = 1;
+    $user->estado = $request->estado;
     $user->save();
 
     return response()->json([
@@ -163,6 +163,9 @@ class UserController extends Controller
         'data' => $user
     ]);
 }
+
+
+
 
     /**
      * Remove the specified resource from storage.

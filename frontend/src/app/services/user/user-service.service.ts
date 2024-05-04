@@ -24,8 +24,17 @@ export class UserService {
     return this.httpClient.get(this.API+id)
   }
 
-  updateUser(userId: string, formData: FormData): Observable<any> {
-    return this.httpClient.post(this.API+userId,formData)
+  updateUser(userId: string, newData: any): Observable<any> {
+    const headers = new HttpHeaders();
+    // Configura el encabezado Content-Type como multipart/form-data
+    headers.append('Content-Type', 'multipart/form-data');
+
+
+    return this.httpClient.post(this.API+userId,newData, { headers: headers })
+  }
+
+  updateState(userId: string, accion:number): Observable<any> {
+    return this.httpClient.patch(this.API+userId,{estado:accion})
   }
 
   getVideoByUserId(id:string): Observable<any> {

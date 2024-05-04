@@ -43,10 +43,8 @@ export class RegistroUsuariosComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         // Crear un objeto FormData y añadir el campo estado
-        const datosActualizar = new FormData();
-        datosActualizar.append('estado', "0");
   
-        this.userService.updateUser(id, datosActualizar).subscribe(
+        this.userService.updateState(id, 0).subscribe(
           response => {
             Swal.fire(
               "Suspendido!",
@@ -77,19 +75,19 @@ export class RegistroUsuariosComponent {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Suspender",
+      confirmButtonText: "Habilitar",
       cancelButtonText: "Cancelar"
     }).then((result) => {
       if (result.isConfirmed) {
-        // Crear un objeto FormData y añadir el campo estado
-        const datosActualizar = new FormData();
-        datosActualizar.append('estado', "1");
+
+
+        
   
-        this.userService.updateUser(id, datosActualizar).subscribe(
+        this.userService.updateState(id,1).subscribe(
           response => {
             Swal.fire(
               "Suspendido!",
-              "El usuario ha sido habilitado exitosamente.",
+              "El usuario se ha habilitado exitosamente.",
               "success"
             );
             this.loadUsers(); // Recargar la lista de usuarios para reflejar los cambios.

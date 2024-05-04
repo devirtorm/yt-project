@@ -32,7 +32,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('users',[UserController::class, 'store']); // crear usuario
 Route::get('users',[UserController::class, 'index']); // Mostrar usuarios
-Route::put('/users/{id}', [UserController::class, 'update']); //Actualizar el usuario
+Route::patch('/users/{id}', [UserController::class, 'update']); //Actualizar el usuario
 Route::post('login',[authController::class, 'access']); // login
 Route::post('videos',[videoController::class, 'upload']); // Guardar video
 Route::get('videos',[videoController::class, 'index']); // ver lista de videos

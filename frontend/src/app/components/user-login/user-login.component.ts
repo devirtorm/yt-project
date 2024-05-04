@@ -49,11 +49,12 @@ export class UserLoginComponent {
           Swal.fire({
             position: "top-end",
             icon: "success",
-            title: "Bienvenido" + response.user.name,
+            title: "Bienvenido " + response.user.name,
             showConfirmButton: false,
             timer: 1500,
+          }).then(() => {
+            location.href = "/";
           });
-          this.router.navigateByUrl('/');
           this.toggleModal();
         },
         (error) => {

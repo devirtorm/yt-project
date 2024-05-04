@@ -39,8 +39,15 @@ export class MiPerfilComponent implements OnInit {
       nombre_canal: [''], 
       birthdate: [''],
       gender: [''],
-      foto: [null] // Para archivos
+      foto: [''] // Para archivos
     });
+  }
+
+  onFileSelected(event: any, controlName: string): void {
+    if (event.target.files && event.target.files.length) {
+      const file = event.target.files[0];
+      this.editUser.get('foto')?.setValue(file);
+    }
   }
 
   editData(): void {
@@ -55,18 +62,13 @@ export class MiPerfilComponent implements OnInit {
       formData.append('nombre_canal', this.editUser.value.nombre_canal);
       formData.append('birthdate', this.editUser.value.birthdate);
       formData.append('gender', this.editUser.value.gender);
-      formData.append('_method', 'patch');
-
-      
       const id = localStorage.getItem('userId');
       if (id) {
         formData.append('fk_user', id);
       }
-      
-      formData.append(
-        'foto',
-        this.editUser.value.foto
-      );
+      formData.append('foto', this.editUser.get('foto')?.value);
+
+      formData.append('_method', 'patch');
   
       // Imprimir los valores de FormData antes de enviar
       console.log('Valores del FormData que se enviarán:');
@@ -101,7 +103,7 @@ export class MiPerfilComponent implements OnInit {
           });
         }
       );
-     
+      
   }
 
   toggleEditModal(user?: any): void {
@@ -121,15 +123,6 @@ export class MiPerfilComponent implements OnInit {
       this.videoSeleccionado = {};
     }
   }
-
-
-
-onFileSelected(event: any, controlName: string): void {
-  if (event.target.files && event.target.files.length) {
-    const file = event.target.files[0];
-    this.formVideo.get(controlName)?.setValue(file);
-  }
-}
 
 
   cargarInfo(): void {

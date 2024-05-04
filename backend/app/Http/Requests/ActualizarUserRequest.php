@@ -26,12 +26,15 @@ class ActualizarUserRequest extends FormRequest
         $userId = $this->route('id');
 
         return [
-            "name"=> "required",
+            "name"=> "",
             "email"=> "email",
-            "birthdate"=> "required",
-            "gender"=> "required",
-            "nombre_canal"=> "required",
-            "password"=> "nullable"
+            "birthdate"=> "",
+            "gender"=> "",
+            "nombre_canal"=> "",
+            "password"=> "nullable",
+            "estado"=> "",
+            "foto" => "required"
+
         ];
     }
 }

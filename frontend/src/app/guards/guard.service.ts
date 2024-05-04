@@ -16,21 +16,11 @@ export class AuthGuard implements CanActivate {
       if (requiredRol && this.authService.hasRole(requiredRol)) {
         return true;
       } else {
-        Swal.fire({
-          icon: "error",
-          title: "No autorizado",
-          text: "No tienes permisos para acceder a esta sección."
-        });
-        this.router.navigate(['/']);
+        this.router.navigate(['/access-denied']);
         return false;
       }
     } else {
-      Swal.fire({
-        icon: "info",
-        title: "Inicia sesión",
-        text: "Parece que no tienes acceso, inicia sesión o regístrate para disfrutar de este beneficio"
-      });
-      this.router.navigate(['/login']);
+      this.router.navigate(['/access-denied']);
       return false;
     }
   }
