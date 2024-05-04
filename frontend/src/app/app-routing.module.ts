@@ -37,7 +37,7 @@ const routes: Routes = [
   { path: 'revision-videos', component: RevisionVideosComponent, canActivate: [AuthGuard], data: { expectedRol: '3' }},
   { path: 'historial', component: HistorialComponent, canActivate: [AuthGuard], data: { expectedRol: '2' || '3' }},
   { path: 'suscripciones', component: SuscripcionesComponent, canActivate: [AuthGuard], data: { expectedRol: '2' }},
-  { path: 'suscripciones', component: LikedVideosComponent, canActivate: [AuthGuard], data: { expectedRol: '2' }},
+  { path: 'liked-videos', component: LikedVideosComponent, canActivate: [AuthGuard], data: { expectedRol: '2' }},
   { path: 'registro-usuarios', component: RegistroUsuariosComponent, canActivate: [AuthGuard], data: { expectedRol: '3' }},
   { path: 'access-denied', component: AccessDeniedComponent},
   

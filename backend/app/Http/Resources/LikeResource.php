@@ -21,6 +21,8 @@ class LikeResource extends JsonResource
             'like' => $this->like,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'user' => new UserResource($this->whenLoaded('user')),
+            'video' => new VideoResource($this->whenLoaded('video')),
         ];
     }
 }

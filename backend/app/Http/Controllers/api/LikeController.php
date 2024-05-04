@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\LikeResource;
 use App\Models\Like;
 use App\Models\Video;
 use Illuminate\Http\Request;
@@ -76,9 +77,9 @@ class LikeController extends Controller
     // Método para obtener todos los likes de un usuario
     public function getUserLikes($userId)
     {
-        $likes = Like::where('fk_usuario', $userId)->get();
-
-        return response()->json($likes, 200);
+        $likes = Like::with('user')->with('video')->where('fk_usuario', $userId)->get();
+    
+        return LikeResource::collection($likes);
     }
 
     // Método para obtener todos los likes de un video
