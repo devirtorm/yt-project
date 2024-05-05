@@ -42,7 +42,7 @@ const routes: Routes = [
   { path: 'estadisticas', component: EstadisticasComponent, canActivate: [AuthGuard], data: { expectedRol: '3'}},
   { path: 'registro-usuarios', component: RegistroUsuariosComponent, canActivate: [AuthGuard], data: { expectedRol: '3' }},
   { path: 'access-denied', component: AccessDeniedComponent},
-  
+  {path:'papelera', component: PapeleraComponent, canActivate: [AuthGuard]},
   { path: '**', component: NotFoundPageComponent } // Ruta para cualquier otra ruta no definida
 ];
 

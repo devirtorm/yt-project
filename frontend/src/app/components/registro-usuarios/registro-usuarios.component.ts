@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user/user-service.service';
 import { AuthService } from '../../services/auth/auth.service';
@@ -115,12 +115,11 @@ export class RegistroUsuariosComponent {
   ) {
     // Agregar los roles al formulario
     const formValues = {
-      name: [''],
-      email: [''],
-      birthdate: [''],
-      password: [''],
-      nombre_canal: [''],
-      gender: [''],
+      name: ['',[Validators.required, Validators.pattern(/^[a-zA-Z ]+$/)]] ,
+      email: ['',[Validators.required, Validators.email]],
+      birthdate: ['',[Validators.required]],
+      password: ['',[Validators.required,Validators.minLength(5), Validators.pattern(/^[a-zA-Z0-9]*$/)]],
+      gender: ['',[Validators.required]],
       roles: ['']
     };
     const formValuesLogin = {
@@ -209,7 +208,6 @@ export class RegistroUsuariosComponent {
       name: [''],
       email: [''],
       password: [''],
-      nombre_canal: [''], 
       birthdate: [''],
       gender: [''],
       foto: [null] // Para archivos
@@ -225,7 +223,6 @@ export class RegistroUsuariosComponent {
     if (this.editUser.value.password) { // Solo añadir si hay una nueva contraseña
       formData.append('password', this.editUser.value.password);
     }
-    formData.append('nombre_canal', this.editUser.value.nombre_canal);
     formData.append('birthdate', this.editUser.value.birthdate);
     formData.append('gender', this.editUser.value.gender);
     formData.append('_method', 'PUT');

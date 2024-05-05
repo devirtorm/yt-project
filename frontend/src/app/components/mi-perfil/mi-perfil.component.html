@@ -127,18 +127,24 @@
         <div class="p-4 sm:p-10 overflow-y-auto">
           <div class="mb-5">
             <label
-              for="nombre de categoria"
+              for="email"
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >Nombre</label
             >
             <input
               type="text"
-              id="nameEditar"
+              id="name"
               formControlName="name"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Ingrese su nombre"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500"
+              placeholder="Ingrese aquí su nombre, por favor"
               required
             />
+    
+            <div *ngIf="editUser.get('name')?.touched && editUser.get('name')?.errors" class="text-red-500 text-xs mt-1">
+              <div *ngIf="editUser.get('name')?.hasError('required')">El nombre es obligatorio.</div>
+              <div *ngIf="editUser.get('name')?.hasError('pattern')">El nombre solo debe contener letras.</div>
+            </div> 
+    
           </div>
           <div class="mb-5">
             <label
@@ -154,12 +160,16 @@
               placeholder="Ingrese su email"
               required 
             />
+            <div *ngIf="editUser.get('email')?.touched && editUser.get('email')?.errors" class="text-red-500 text-xs mt-1">
+              <div *ngIf="editUser.get('email')?.hasError('required')">El correo es obligatorio.</div>
+              <div *ngIf="editUser.get('email')?.hasError('email')">El correo debe ser váildo.</div>
+            </div> 
           </div>
           <div class="mb-5">
             <label
               for="nombre de categoria"
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >Editar foto de perfil</label
+              >Editar foto de perfil (opcional)</label
             >
             <input
               type="file"
@@ -175,7 +185,7 @@
             <label
               for="nombre de categoria"
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >Contraseña</label
+              >Contraseña (opcional)</label
             >
             <input
               type="text"
@@ -184,13 +194,18 @@
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Ingrese su nueva contraseña contraseña"
             />
+            <div *ngIf="editUser.get('password')?.errors && editUser.get('password')?.touched" class="text-red-500 text-xs mt-1">
+              <div *ngIf="editUser.get('password')?.hasError('minlength')">La contraseña debe tener al menos 6 caracteres.</div>
+              <div *ngIf="editUser.get('password')?.hasError('pattern')">La contraseña solo debe contener letras y números.</div>
+            </div>
+            <p style="color: gray;"><b>*Si no desea cambiar la constraseña, mantenga este campo vacío*</b></p>
           </div>
 
           <div class="mb-5">
             <label
               for="nombre de categoria"
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >Establezca un nombre de canal</label
+              >Establezca un nombre de canal (opcional)</label
             >
             <input
               type="text"
@@ -198,8 +213,10 @@
               formControlName="nombre_canal"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Ingrese un nombre de canal"
-              required
             />
+            <div *ngIf="editUser.get('nombre_canal')?.errors && editUser.get('nombre_canal')?.touched" class="text-red-500 text-xs mt-1">
+              <div *ngIf="editUser.get('nombre_canal')?.hasError('pattern')">El canal puede contener solo letras y números.</div>
+            </div>
           </div>
 
           <div class="mb-5">
@@ -224,8 +241,8 @@
               >Género</label
             >
             <!-- Select -->
-              <select formControlName="gender" id="gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option selected>Elija una opción</option>
+              <select required formControlName="gender" id="gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option value="" selected>Elija una opción</option>
                 <option value="0">Hombre</option>
                 <option value="1">Mujer</option>
                 <option value="2">Otro</option>
@@ -246,6 +263,7 @@
             Cancelar
           </button>
           <button
+          [disabled]="!editUser.valid"
             type="submit"
             class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
           >

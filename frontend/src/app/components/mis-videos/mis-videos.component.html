@@ -257,9 +257,12 @@
               id="categoriaEditar"
               formControlName="titulo"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Ingrese aquí el nombre de la categoria, por favor"
+              placeholder="Ingrese aquí el titulo del video, por favor"
               required
             />
+            <div *ngIf="formVideo.get('titulo')?.touched && formVideo.get('titulo')?.errors" class="text-red-500 text-xs mt-1">
+              <div *ngIf="formVideo.get('titulo')?.hasError('required')">El titulo debe ser obligatorio.</div>
+            </div> 
           </div>
           <div class="mb-5">
             <label
@@ -269,17 +272,22 @@
             >
             <input
               type="text"
-              id="descripcion"
+              id="descripcion" 
+              required
               formControlName="descripcion"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Ingrese aquí una descripción para su video, por favor"
             />
+            <div *ngIf="formVideo.get('descripcion')?.touched && formVideo.get('descripcion')?.errors" class="text-red-500 text-xs mt-1">
+              <div *ngIf="formVideo.get('descripcion')?.hasError('required')">La descripción es obligatoria.</div>
+            </div>
           </div>
           <div class="mb-5">
             <label for="small-file-input">Elije una miniatura</label>
             <input
               type="file"
               id="miniatura"
+              required
               formControlName="miniatura"
               accept=".jpg,.jpeg,.png"
               (change)="onFileSelected($event, 'miniatura')"
@@ -289,8 +297,9 @@
           <div class="mb-5">
             <label for="small-file-input">Selecciona algún video</label>
             <input
-              type="file"
+              type="file" 
               id="url"
+              required
               formControlName="url"
               accept=".mp4"
               (change)="onFileSelected($event, 'url')"
@@ -311,6 +320,7 @@
           </button>
           <button
             type="submit"
+            [disabled]="!formVideo.valid"
             class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
           >
             Guardar
@@ -373,6 +383,9 @@
               placeholder="Escribe una descripción, por favor"
               required
             />
+            <div *ngIf="editVideo.get('titulo')?.touched && editVideo.get('titulo')?.errors" class="text-red-500 text-xs mt-1">
+              <div *ngIf="editVideo.get('titulo')?.hasError('required')">El titulo debe ser obligatorio.</div>
+            </div>
           </div>
           <div class="mb-5">
             <label
@@ -388,6 +401,9 @@
               placeholder="Escribe una descripción, por favor"
               required
             />
+            <div *ngIf="editVideo.get('descripcion')?.touched && editVideo.get('descripcion')?.errors" class="text-red-500 text-xs mt-1">
+              <div *ngIf="editVideo.get('descripcion')?.hasError('required')">La descripción es obligatoria.</div>
+            </div>
           </div>
           <div class="mb-5">
             <label for="small-file-input">Elije una miniatura</label>
@@ -428,9 +444,10 @@
           </button>
           <button
             type="submit"
+            [disabled]="!editVideo.valid"
             class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
           >
-            Registrar
+            Editar
           </button>
         </div>
       </form>

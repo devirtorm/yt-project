@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { VideosService } from '../../services/videos/videos.service';
 import { UserService } from '../../services/user/user-service.service';
 import { Router } from '@angular/router';
@@ -33,7 +33,25 @@ export class MisVideosComponent implements OnInit {
     private userService: UserService,
     private progress: NgProgress,
     private router: Router
-  ) {}
+  ) {
+    const formValues = {
+      titulo: ['', [Validators.required]], 
+      descripcion: ['', [Validators.required]],
+      miniatura: ['', Validators.required], 
+      url: ['', [Validators.required]],  
+    };
+
+    const formValuesEditar = {
+      titulo: ['', [Validators.required]], 
+      descripcion: ['', [Validators.required]],
+      miniatura: ['', Validators.required], 
+      url: ['', [Validators.required]],
+    };
+
+    this.formVideo = this.formulario.group(formValues);
+    this.editVideo = this.formulario.group(formValuesEditar);
+  }
+  
 
   ngOnInit(): void {
     this.rol = Number(localStorage.getItem('rol'));

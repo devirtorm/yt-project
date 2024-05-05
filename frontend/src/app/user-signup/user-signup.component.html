@@ -1,4 +1,4 @@
-<div class="container min-h-screen flex justify-center items-center p-3">
+<div class="container mx-auto p-3 flex justify-center items-center h-screen">
   <div
     class="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 p-8 w-full md:w-1/2"
   >
@@ -9,7 +9,6 @@
       [formGroup]="formUser"
       (ngSubmit)="saveData()"
       class="max-w-md mx-auto"
-      
     >
       <div class="mb-5">
         <label
@@ -21,7 +20,6 @@
           type="text"
           id="name"
           formControlName="name"
-          pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500"
           placeholder="Ingrese aquí su nombre, por favor"
           required
@@ -65,7 +63,7 @@
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500"
           required
         />
-
+        
         <div *ngIf="formUser.get('birthdate')?.touched && formUser.get('birthdate')?.errors" class="text-red-500 text-xs mt-1">
           <div *ngIf="formUser.get('birthdate')?.hasError('birthdate')">El campo es obligatorio.</div>
         </div> 
@@ -81,74 +79,48 @@
           type="password"
           id="password"
           formControlName="password"
+          placeholder="Crea tu contraseña"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500"
           required
         />
+
+        <div *ngIf="formUser.get('password')?.errors && formUser.get('password')?.touched" class="text-red-500 text-xs mt-1">
+          <div *ngIf="formUser.get('password')?.hasError('required')">La contraseña es obligatoria.</div>
+          <div *ngIf="formUser.get('password')?.hasError('minlength')">La contraseña debe tener al menos 5 caracteres.</div>
+          <div *ngIf="formUser.get('password')?.hasError('pattern')">La contraseña solo debe contener letras y números.</div>
+        </div>
+
       </div>
 
       <div class="mb-5">
-        <label
-          for="email"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >Nombre de canal</label
-        >
-        <input
-          type="text"
-          required
-          id="nombre_canal"
-          formControlName="nombre_canal"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500"
-          placeholder="Ingrese aquí el nombre de su canal"
-          required
-        />
+        <label for="Contraseña" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Género</label>
+        <div class="flex items-center">
+          <input id="default-radio-1" type="radio" value="0" formControlName="gender" class="w-4 h-4 text-indigo-600 bg-gray-100 border-gray-300 focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+          <label for="default-radio-1" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Masculino</label>
+        </div>
+        <div class="flex items-center mb-1">
+          <input id="default-radio-2" type="radio" value="1" formControlName="gender" class="w-4 h-4 text-indigo-600 bg-gray-100 border-gray-300 focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+          <label for="default-radio-2" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Femenino</label>
+        </div>
+        <div class="flex items-center mb-4">
+          <input id="default-radio-3" type="radio" value="2" formControlName="gender" class="w-4 h-4 text-indigo-600 bg-gray-100 border-gray-300 focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+          <label for="default-radio-3" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Otro</label>
+        </div>
+        <div *ngIf="formUser.get('gender')?.errors && formUser.get('gender')?.touched" class="text-red-500 text-xs mt-1">
+          <div *ngIf="formUser.get('gender')?.hasError('required')">Seleccionar una opción de género es obligatorio.</div>
+        </div>
       </div>
 
-      <label
-          for="email"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >Nombre de canal</label
-        >
-
-      <div class="flex items-center">
-        
-        <input
-          id="default-radio-1"
-          type="radio"
-          value="0"
-          formControlName="gender"
-          class="w-4 h-4 text-indigo-600 bg-gray-100 border-gray-300 focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-        />
-        <label
-          for="default-radio-1"
-          class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-          >Masculino</label
-        >
-      </div>
-      <div class="flex items-center mb-4">
-        <input
-          checked
-          id="default-radio-2"
-          type="radio"
-          value="1"
-          formControlName="gender"
-          class="w-4 h-4 text-indigo-600 bg-gray-100 border-gray-300 focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-        />
-        <label
-          for="default-radio-2"
-          class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-          >Femenino</label
-        >
-      </div>
 
       <hr class="mb-3" />
       <div class="w-1/2">
         <button
-          type="submit"
-          [disabled]="!formUser.valid"
-          class="block text-white bg-indigo-600 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 w-full mt-5"
-        >
-          Guardar
-        </button>
+  class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+  type="submit"
+  [disabled]="!formUser.valid"
+>
+  Registrarme
+</button>
       </div>
       <div class="my-5">
       </div>
@@ -234,19 +206,18 @@
                 >Contraseña</label
               >
               <input
-                type="password"
+                type="text"
                 id="passwordLogin"
                 formControlName="password"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Ingrese aquí su nombre, por favor"
-                pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"
                 required
               />
 
               <div *ngIf="formLogin.get('password')?.errors && formLogin.get('password')?.touched" class="text-red-500 text-xs mt-1">
                 <div *ngIf="formLogin.get('password')?.hasError('required')">La contraseña es obligatoria.</div>
-                <div *ngIf="formLogin.get('password')?.hasError('minlength')">La contraseña debe tener al menos 6 caracteres.</div>
                 <div *ngIf="formLogin.get('password')?.hasError('pattern')">La contraseña solo debe contener letras y números.</div>
+                
               </div>
 
             </div>
