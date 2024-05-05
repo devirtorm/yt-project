@@ -38,6 +38,9 @@ import { DropdownVideoComponent } from './components/dropdown-video/dropdown-vid
 import { RegistroUsuariosComponent } from './components/registro-usuarios/registro-usuarios.component';
 import { PapeleraComponent } from './components/papelera/papelera.component';
 import { LikedVideosComponent } from './components/liked-videos/liked-videos.component';
+import { EstadisticasComponent } from './components/estadisticas/estadisticas.component';
+import { GraficasComponent } from './components/graficas/graficas.component';
+import { ReportesComponent } from './components/reportes/reportes.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +72,10 @@ import { LikedVideosComponent } from './components/liked-videos/liked-videos.com
     MenuAdminComponent,
     DropdownVideoComponent,
     NotFoundPageComponent,
-    LikedVideosComponent
+    LikedVideosComponent,
+    EstadisticasComponent,
+    GraficasComponent,
+    ReportesComponent
   ],
   imports: [
     BrowserModule,

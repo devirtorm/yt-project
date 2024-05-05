@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\EstadisticasLikeResource;
 use App\Http\Resources\LikeResource;
 use App\Models\Like;
 use App\Models\Video;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class LikeController extends Controller
 {
@@ -54,6 +56,24 @@ class LikeController extends Controller
         $like->save();
 
         return response()->json(['message' => 'Like agregado con éxito'], 200);
+    }
+
+    public function topVideos()
+    {
+        // Consultar los 10 videos más vistos
+        $topVideos = Like::groupBy('fk_video')
+                        ->select('fk_video', DB::raw('count(*) as likes'))
+                        ->orderByDesc('likes')
+                        ->limit(10)
+                        ->get();
+    
+        // Para cada video, obtener la información del video a través de la relación
+        foreach ($topVideos as $video) {
+            $video->load('video'); // Cargar la relación 'video' para obtener la información del video
+        }
+    
+        // Devolver los 10 videos más vistos como recursos HistorialResource
+        return EstadisticasLikeResource::collection($topVideos);
     }
 
 

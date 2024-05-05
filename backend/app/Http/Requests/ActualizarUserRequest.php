@@ -33,7 +33,7 @@ class ActualizarUserRequest extends FormRequest
             "nombre_canal"=> "",
             "password"=> "nullable",
             "estado"=> "",
-            "foto" => "required"
+            "foto" => ""
 
         ];
     }

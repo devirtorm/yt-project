@@ -58,7 +58,6 @@ export class MisVideosComponent implements OnInit {
 
   saveVideo(): void {
     const progressRef = this.progress.ref();
-    progressRef.start();
     console.log(this.formVideo.value);
     if (this.formVideo.valid) {
   
@@ -73,7 +72,7 @@ export class MisVideosComponent implements OnInit {
       if (id) {
         formData.append('fk_user', id);
       }
-  
+      progressRef.start();
       this.videoService.storeVideo(formData).subscribe(
         () => {
           this.formVideo.reset();

@@ -6,6 +6,7 @@ import { FormGroup, FormBuilder } from '@angular/forms'; // Importa FormBuilder
 import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
 import { error } from 'jquery';
+import { NgProgress } from 'ngx-progressbar';
 
 
 
@@ -22,12 +23,14 @@ export class MiPerfilComponent implements OnInit {
   videoSeleccionado: any = {};
   editUser!: FormGroup; // Elimina el signo de exclamación
   formVideo!: FormGroup;
+  
 
   constructor(
     private userService: UserService,
     private videosService: VideosService,
     private route: ActivatedRoute,
-    private fb: FormBuilder // Inyecta FormBuilder
+    private fb: FormBuilder,
+    private progress: NgProgress,
   ) {}
 
   ngOnInit(): void {
@@ -51,7 +54,7 @@ export class MiPerfilComponent implements OnInit {
   }
 
   editData(): void {
-    
+      const progressRef = this.progress.ref();
       const formData = new FormData();
       
       formData.append('name', this.editUser.value.name);
@@ -75,13 +78,14 @@ export class MiPerfilComponent implements OnInit {
       formData.forEach((value, key) => {
         console.log(`${key}:`, value);
       });
-  
+      progressRef.start();
       // Envío de datos
       this.userService.updateUser(id || '', formData).subscribe(
         () => {
           console.log('Perfil actualizado exitosamente');
           this.toggleEditModal();  // Cerrar el modal después de editar
           this.cargarVideos();  // Recargar la lista de videos si es necesario
+          progressRef.complete();
 
           Swal.fire({
             position: "top-end",
@@ -126,11 +130,14 @@ export class MiPerfilComponent implements OnInit {
 
 
   cargarInfo(): void {
+    const progressRef = this.progress.ref();
+    progressRef.start();
     const id = localStorage.getItem('userId'); // Obtiene el ID del video de los parámetros de la ruta
     if (id !== null) {
       // Verifica que id no sea null
       this.userService.getUser(id).subscribe(
         (data: any) => {
+          progressRef.complete();
           // Manejo de la respuesta exitosa
           this.user = data; // Almacena los datos del usuario recuperados del servicio
           console.log(this.user); // Imprime los datos del usuario en la consola
@@ -150,11 +157,13 @@ export class MiPerfilComponent implements OnInit {
 
 
   cargarVideos(): void {
+    const progressRef = this.progress.ref();
     console.log(this.user.data.id);
     this.userService.getVideoByUserId(this.user.data.id).subscribe(
       (data: any) => { // Aquí estás tipando los datos recibidos como un arreglo de comentarios
         this.videos = data;
         console.log(this.videos);
+        progressRef.complete();
       },
       (error) => {
         console.error('Error al cargar comentarios:', error);

@@ -114,6 +114,8 @@ Route::get('/playlists/{playlist}/videos', [PlaylistController::class, 'getPlayl
 Route::post('/historial', [historialController::class, 'store']);
 Route::get('/historial/tendencias', [historialController::class, 'tendencias']);
 Route::get('/users/{userId}/historial', [historialController::class, 'index']);
+Route::get('/reportes/top-videos', [historialController::class, 'topVideos']);
+Route::get('/reportes/top-videos-likes', [LikeController::class, 'topVideos']);
 
 Route::get('users',[UserController::class, 'index']);   
 

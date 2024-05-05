@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\EstadisticasVideoResource;
 use App\Http\Resources\HistorialResource;
 use App\Models\Historial;
 use App\Models\Playlist;
@@ -52,6 +53,25 @@ class historialController extends Controller
         // Devolver una respuesta con las playlists encontradas
         return HistorialResource::collection($playlists);
     }
+
+    public function topVideos()
+    {
+        // Consultar los 10 videos más vistos
+        $topVideos = Historial::groupBy('fk_video')
+                        ->select('fk_video', DB::raw('count(*) as views'))
+                        ->orderByDesc('views')
+                        ->limit(10)
+                        ->get();
+    
+        // Para cada video, obtener la información del video a través de la relación
+        foreach ($topVideos as $video) {
+            $video->load('video'); // Cargar la relación 'video' para obtener la información del video
+        }
+    
+        // Devolver los 10 videos más vistos como recursos HistorialResource
+        return EstadisticasVideoResource::collection($topVideos);
+    }
+    
 
     public function tendencias()
     {
