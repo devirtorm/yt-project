@@ -96,6 +96,7 @@ Route::get('search/all', [SearchController::class, 'searchAll']);
 Route::get('videos/{videoId}/comentarios', [VideoController::class, 'showComentarios']);
 
 Route::post('likes', [LikeController::class, 'addLike']);
+Route::post('/likes/dislike', [LikeController::class, 'addDislike']);
 Route::delete('likes', [LikeController::class, 'removeLike']);
 Route::get('/users/{userId}/likes', [LikeController::class, 'getUserLikes']);
 Route::get('/videos/{videoId}/likes', [LikeController::class, 'getVideoLikes']);

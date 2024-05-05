@@ -37,8 +37,9 @@ export class VideoDetalleComponent implements OnInit {
   dropdownOpenIndex: number = -1;
   dropdownOpenReplies: number = -1;
   videoHasLike: boolean = false;
+  videoHasDislike: boolean = false;
   userId: string | null = localStorage.getItem('userId');
-  isLiked: boolean = false;
+  isLiked: any = false;
   nuevoComentario: string = ''; // Variable para almacenar el nuevo comentario
   mostrandoInputComentario: boolean = false; // Variable para controlar la visibilidad del campo de entrada
   comentarioAResponderId: number | null = null;
@@ -153,14 +154,15 @@ export class VideoDetalleComponent implements OnInit {
         .subscribe(
           (data: any) => {
             this.like = data;
+            console.log('info de like');
             console.log(this.like);
             // Actualiza isLiked basado en si hay un "me gusta" o no
-            this.isLiked = this.like !== null;
+            this.isLiked = this.like.like !== null ? this.like.like : null;
           },
           (error) => {
             console.error('Error al cargar comentarios:', error);
-            // En caso de error, establece isLiked en false
-            this.isLiked = false;
+            // En caso de error o si no hay like/dislike previo, establece isLiked en null
+            this.isLiked = null;
           }
         );
     }
@@ -389,36 +391,29 @@ export class VideoDetalleComponent implements OnInit {
     );
   }
 
-/*   saveDislike(): void {
+  saveDislike(): void {
     const idUser = localStorage.getItem('userId');
     const formData = new FormData();
     formData.append('fk_video', this.video.data.id);
-    formData.append('like', '0'); // Indica que es un "no me gusta"
+    formData.append('like', ''); // Aquí enviamos false como un booleano
     if (idUser) {
-      formData.append('fk_usuario', idUser);
+      
     }
-  
-    console.log(formData);
-  
-    // Primero, elimina cualquier "me gusta" existente
-    if (this.isLiked) {
-      this.likesService.deleteLikeByUserAndVideo(this.userId, this.video.data.id).subscribe(
-        () => {
-          console.log('Me gusta eliminado correctamente');
-          this.isLiked = false; // Actualiza el estado de "me gusta"
-          // Luego, guarda el "no me gusta"
-          this.saveDislikeRequest(formData);
-        },
-        (error) => {
-          console.error('Error al eliminar el me gusta:', error);
-        }
-      );
-    } else {
-      // Si no hay "me gusta" existente, solo guarda el "no me gusta"
-      this.saveDislikeRequest(formData);
-    }
-  } */
-  
+
+    this.likesService.saveDisikeByVideoId(this.video.data.id, idUser).subscribe(
+      (response) => {
+        console.log(response);
+        this.videoHasDislike = !this.videoHasDislike;
+        this.infoLike(); // Actualiza la información de "me gusta"
+      },
+      (error) => {
+        // Maneja el error si ocurre
+        console.error('Error al guardar el comentario:', error);
+      }
+    );
+  }
+
+
   private saveDislikeRequest(formData: FormData): void {
     this.likesService.saveLikeByVideoId(formData).subscribe(
       (response) => {

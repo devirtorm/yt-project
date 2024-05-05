@@ -58,6 +58,36 @@ class LikeController extends Controller
         return response()->json(['message' => 'Like agregado con éxito'], 200);
     }
 
+    public function addDislike(Request $request)
+    {
+        $request->validate([
+            'fk_usuario' => 'required|exists:users,id', // Validar que el usuario existe
+            'fk_video' => 'required|exists:video,id', // Validar que el video existe
+            'like' => 'required|boolean', // El like debe ser booleano
+        ]);
+
+        // Buscar si ya existe un like del usuario para el video
+        $existingLike = Like::where('fk_usuario', $request->fk_usuario)
+            ->where('fk_video', $request->fk_video)
+            ->first();
+
+        // Si ya existe un like del usuario para el video
+        if ($existingLike) {
+            // Si el like enviado es verdadero, simplemente retornamos un mensaje indicando que ya existe
+            $existingLike->delete();
+            return response()->json(['message' => 'DisLike eliminado con éxito'], 200);
+        }
+
+        // Si no existe un like del usuario para el video, creamos uno nuevo
+        $like = new Like();
+        $like->fk_usuario = $request->fk_usuario;
+        $like->fk_video = $request->fk_video;
+        $like->like = false; // Se establece como verdadero, ya que este es el primer like del usuario para el video
+        $like->save();
+
+        return response()->json(['message' => 'DisLike agregado con éxito'], 200);
+    }
+
     public function topVideos()
     {
         // Consultar los 10 videos más vistos

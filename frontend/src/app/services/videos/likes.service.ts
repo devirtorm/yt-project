@@ -20,6 +20,10 @@ export class LikesService {
     return this.httpClient.post(this.API,likeData)
   }
 
+  saveDisikeByVideoId(fk_video: any, fk_usuario:any): Observable<any> {
+    return this.httpClient.post(this.API+'dislike',{like: false, fk_video: fk_video, fk_usuario: fk_usuario})
+  }
+
   deleteLikeByUserAndVideo(userId: string, videoId: string): Observable<any> {
     const url = `${this.API}delete`; // Cambia '/delete' por la ruta correcta de tu API
     const params = { fk_usuario: userId, fk_video: videoId };
