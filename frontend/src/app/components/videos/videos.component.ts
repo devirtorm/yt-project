@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { VideosService } from '../../services/videos/videos.service';
 import { PlaylistService } from '../../services/playlist/playlist.service';
 import { UserService } from '../../services/user/user-service.service';
@@ -34,8 +34,8 @@ export class VideosComponent implements OnInit {
     
   ) {
     const formValuesPlaylist = {
-      nombre_lista: [''],
-      descripcion: [''],
+      nombre_lista: ['', [Validators.required, Validators.pattern(/^[a-zA-Z ]+$/)]],
+      descripcion: ['', [Validators.required, Validators.pattern(/^[a-zA-Z ]+$/)]],
     };
 
     this.formPlaylist = this.form.group(formValuesPlaylist);

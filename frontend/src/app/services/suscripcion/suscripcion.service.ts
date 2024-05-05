@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class SuscripcionService {
 
 
-  API: string = 'http://192.168.1.252:8000/api/suscripciones/';
+  API: string = 'http://192.168.1.78:8000/api/suscripciones/';
 
   constructor(private httpClient:HttpClient) { }
 

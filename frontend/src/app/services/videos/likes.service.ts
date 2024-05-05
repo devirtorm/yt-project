@@ -6,7 +6,7 @@ import { Like } from './comentarioInterface';
   providedIn: 'root'
 })
 export class LikesService {
-  API: string = 'http://192.168.1.252:8000/api/likes/';
+  API: string = 'http://192.168.1.78:8000/api/likes/';
   data: any;
 
   constructor(private httpClient: HttpClient) { }

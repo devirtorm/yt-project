@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user/user-service.service';
 import { VideosService } from '../../services/videos/videos.service';
 import { ActivatedRoute } from '@angular/router';
-import { FormGroup, FormBuilder } from '@angular/forms'; // Importa FormBuilder
+import { FormGroup, FormBuilder, Validators } from '@angular/forms'; // Importa FormBuilder
 import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
 import { error } from 'jquery';
@@ -28,9 +28,19 @@ export class MiPerfilComponent implements OnInit {
     private videosService: VideosService,
     private route: ActivatedRoute,
     private fb: FormBuilder // Inyecta FormBuilder
-  ) {}
+  ) {
+    this.editUser = this.fb.group({
+      name: ['', [Validators.required, Validators.pattern(/^[a-zA-Z ]+$/)]],
+      email: ['', [Validators.required, Validators.email]],
+      birthdate: ['', Validators.required],
+      password: ['', [Validators.minLength(5), Validators.pattern(/^[a-zA-Z0-9]*$/)]],
+      nombre_canal: ['', [Validators.minLength(5), Validators.pattern(/^[a-zA-Z0-9]*$/)]],
+      gender: ['', Validators.required]
+    });
+  }
 
   ngOnInit(): void {
+    console.log(this.editUser.errors);
     this.cargarInfo();
     this.editUser = this.fb.group({ // Inicializa editVideo
       name: [''], // Inicializa con valores vacíos o valores actuales del usuario
@@ -44,7 +54,6 @@ export class MiPerfilComponent implements OnInit {
   }
 
   editData(): void {
-    
       const formData = new FormData();
       
       formData.append('name', this.editUser.value.name);

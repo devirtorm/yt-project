@@ -27,10 +27,9 @@ export class UserSignupComponent implements OnInit {
       name: ['', [Validators.required, Validators.pattern(/^[a-zA-Z ]+$/)]], // Solo letras y espacios permitidos
       email: ['', [Validators.required, Validators.email]],  // Validación de email estándar
       birthdate: ['', Validators.required],  // Fecha de nacimiento requerida
-      password: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9]*$/)]],  // Solo letras y números en contraseña
-      nombre_canal: ['', [Validators.required, Validators.pattern(/^[a-zA-Z ]+$/)]], // Solo letras y espacios permitidos
-      gender: ['', Validators.required],  // Género requerido
-      roles: [''],   // Rol requerido
+      password: ['', [Validators.required,Validators.minLength(5), Validators.pattern(/^[a-zA-Z0-9]*$/)]],  // Solo letras y números en contraseña
+      gender: ['', Validators.required],  // Género   requerido
+      roles: ['']   // Rol requerido
     };
   
     // Valores y validaciones para el formulario de login
@@ -44,6 +43,7 @@ export class UserSignupComponent implements OnInit {
   }
 
   saveData(): any {
+    console.log(this.formUser.valid);
     this.formUser.patchValue({
       roles: 2 // Aquí asignamos el valor 1 al campo roles
     });
@@ -112,7 +112,7 @@ export class UserSignupComponent implements OnInit {
   
 
   ngOnInit(): void {
-    console.log(this.showModal);
+    
     
   }
 
