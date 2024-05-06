@@ -53,6 +53,7 @@ class ComentarioController extends Controller
 
         return response()->json($comentario->respuestas);
     }
+    
 
     /**
      * Update the specified resource in storage.

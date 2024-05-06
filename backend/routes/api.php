@@ -94,6 +94,8 @@ Route::get('search/all', [SearchController::class, 'searchAll']);
 
 //Mostrar los comentarios de un video
 Route::get('videos/{videoId}/comentarios', [VideoController::class, 'showComentarios']);
+Route::get('videos/{videoId}/comentarios-video', [VideoController::class, 'comentariosPorVideo']);
+
 
 Route::post('likes', [LikeController::class, 'addLike']);
 Route::post('/likes/dislike', [LikeController::class, 'addDislike']);

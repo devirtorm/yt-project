@@ -38,8 +38,12 @@ export class VideosService {
 
 
   getCommentsByVideoId(id:string): Observable<any> {
-    return this.httpClient.get(this.API+id+'/comentarios');
+    return this.httpClient.get(this.API+id+'/comentarios-video');
   }
+
+/*   getCommentsByVideoId(id:string): Observable<any> {
+    return this.httpClient.get(this.API+id+'/comentarios');
+  } */
 
   getVideos(): Observable<any> {
     return this.httpClient.get(this.API);

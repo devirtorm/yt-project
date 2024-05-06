@@ -33,10 +33,23 @@ class videoController extends Controller
     return response()->json(['comentarios' => $video->comentarios], 200);
     }
 
+
+
+public function comentariosPorVideo($videoId)
+{
+    $comentarios = Comentario::with(['respuestas.user', 'user', 'respuestas.respuestas.user'])
+        ->where('fk_video', $videoId)
+        ->get();
+
+    return response()->json($comentarios);
+}
+
+
     public function comentario(){
         $comentarios = Comentario::with('video')->get();
         return response()->json(['data' => $comentarios], 200);
     }
+
 
     //Mostrar videos con estado igual a 1
     public function showActiveVideos()

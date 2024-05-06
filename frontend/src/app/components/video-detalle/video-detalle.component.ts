@@ -10,7 +10,8 @@ import Hashids from 'hashids';
 import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
 
-interface Comment {
+
+/* interface Comment {
   id: string;
   user: {
     name: string; 
@@ -19,6 +20,35 @@ interface Comment {
   comentario: string;
   fk_user: string;
   fk_video: string;
+} */
+interface User {
+  id: string;
+  name: string;
+  email?: string;
+}
+
+interface Respuesta {
+  id: string;
+  fk_comentario: string;
+  fk_user: string;
+  respuesta: string;
+  fk_respuesta_padre?: string;
+  user: User;
+  respuestas: Respuesta[];
+}
+
+interface Comment {
+  id: string;
+  fk_video: string;
+  fk_user: string;
+  comentario: string;
+  created_at: string;
+  user: User;
+  respuestas?: Respuesta[];
+}
+
+interface CommentDictionary {
+  [key: string]: Respuesta[];
 }
 
 @Component({
@@ -27,10 +57,11 @@ interface Comment {
   styleUrl: './video-detalle.component.css',
 })
 export class VideoDetalleComponent implements OnInit {
+  nivel: number = 0; // O el valor inicial que desees
   video: any; // Variable para almacenar los datos del video
   like: any = {};
-  comments: { comentarios: Comment[] } = { comentarios: [] };
-  respuestaPorComentario: { [commentId: string]: any[] } = {};
+  comments: Comment[] = [];
+  respuestaPorComentario: CommentDictionary = {}; 
   respuestas: any = {};
   formComentario: FormGroup;
   formRespuesta: FormGroup;
@@ -170,19 +201,38 @@ export class VideoDetalleComponent implements OnInit {
   
 
   cargarComentarios(): void {
-    console.log(this.video.data.id);
     this.videoService.getCommentsByVideoId(this.video.data.id).subscribe(
-      (data: { comentarios: Comment[] }) => { // Aquí estás tipando los datos recibidos como un arreglo de comentarios
+      (data: Comment[]) => {
         this.comments = data;
-        this.comments.comentarios.forEach(comment => {
-          this.cargarRespuestas(this.video.data.id, comment.id);
+        this.comments.forEach(comment => {
+          this.respuestaPorComentario[comment.id] = this.agruparRespuestas(comment.respuestas || []);
         });
         console.log(this.comments);
+        console.log(this.respuestaPorComentario);
       },
       (error) => {
         console.error('Error al cargar comentarios:', error);
       }
     );
+  }
+
+  private agruparRespuestas(respuestas: Respuesta[]): Respuesta[] {
+    const map = new Map<string, Respuesta>();
+    const resultado: Respuesta[] = [];
+
+    respuestas.forEach(respuesta => {
+      map.set(respuesta.id, { ...respuesta, respuestas: [] });
+    });
+
+    respuestas.forEach(respuesta => {
+      if (respuesta.fk_respuesta_padre && map.has(respuesta.fk_respuesta_padre)) {
+        map.get(respuesta.fk_respuesta_padre)?.respuestas?.push(map.get(respuesta.id)!);
+      } else {
+        resultado.push(map.get(respuesta.id)!);
+      }
+    });
+
+    return resultado;
   }
 
   cargarRespuestas(videoId:string, commentId: string): void {
@@ -330,7 +380,7 @@ export class VideoDetalleComponent implements OnInit {
           backdrop: false,
         });
         this.comentariosService.BorrarComentario(id).subscribe((respuesta) => {
-          this.comments.comentarios.splice(index, 1); // Eliminar la categoría del arreglo de categorías
+          //this.comments.comentarios.splice(index, 1); // Eliminar la categoría del arreglo de categorías
         });
       }
     });
