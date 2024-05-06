@@ -1,7 +1,10 @@
 <div class="container mx-auto p-4 lg:w-3/5">
   <div *ngIf="video" class="flex flex-col">
     <video class="rounded-md" controls *ngIf="video.data?.url">
-      <source [src]="'http://192.168.1.252:8000' + video.data.url" type="video/mp4" />
+      <source
+        [src]="'http://192.168.1.252:8000' + video.data.url"
+        type="video/mp4"
+      />
       Tu navegador no admite la etiqueta de video.
     </video>
     <h3 class="font-bold mt-4 text-lg sm:text-xl">
@@ -15,18 +18,21 @@
       />
       <div class="mt-2 sm:mt-0 sm:ml-4">
         <h3 class="text-sm sm:text-base">
-          <a [routerLink]="['/profile', video?.data?.user?.id]">{{ video.data.user.name }}</a>
+          <a [routerLink]="['/profile', video?.data?.user?.id]">{{
+            video.data.user.name
+          }}</a>
         </h3>
         <p class="text-xs sm:text-sm font-semibold">10k Suscriptores</p>
       </div>
       <div class="flex-grow mt-4 sm:mt-0"></div>
       <button
+      *ngIf="isLogged"
         type="button"
         class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 mb-2"
       >
         Suscribirse
       </button>
-      <div class="inline-flex mt-4 sm:mt-0 rounded-md shadow-sm" role="group">
+      <div *ngIf="isLogged" class="inline-flex mt-4 sm:mt-0 rounded-md shadow-sm" role="group">
         <button
           type="button"
           (click)="saveLike()"
@@ -77,10 +83,17 @@
         </button>
       </div>
     </div>
-    <div class="mt-4 bg-gray-200 border-2 p-4 rounded-md dark:bg-neutral-700 dark:border-neutral-600">
+    <div
+      class="mt-4 bg-gray-200 border-2 p-4 rounded-md dark:bg-neutral-700 dark:border-neutral-600"
+    >
       <h3>{{ video.data.descripcion }}</h3>
     </div>
-    <form *ngIf="isLogged" [formGroup]="formComentario" (ngSubmit)="saveData()" class="mt-4 flex flex-col sm:flex-row sm:items-center space-y-3 sm:space-y-0">
+    <form
+      *ngIf="isLogged"
+      [formGroup]="formComentario"
+      (ngSubmit)="saveData()"
+      class="mt-4 flex flex-col sm:flex-row sm:items-center space-y-3 sm:space-y-0"
+    >
       <div class="flex-grow relative">
         <input
           id="comentario"
@@ -89,7 +102,9 @@
           class="peer py-3 pe-0 ps-8 block w-full bg-transparent border-t-transparent border-b-2 border-x-transparent border-b-gray-200 text-sm focus:border-t-transparent focus:border-x-transparent focus:border-b-blue-500 focus:ring-0 disabled:opacity-50 disabled:pointer-events-none dark:border-b-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 dark:focus:border-b-neutral-600"
           placeholder="Agrega un comentario..."
         />
-        <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-2 peer-disabled:opacity-50 peer-disabled:pointer-events-none">
+        <div
+          class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-2 peer-disabled:opacity-50 peer-disabled:pointer-events-none"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -115,12 +130,17 @@
     </form>
 
     <ul>
-      <li *ngFor="let comment of comments; let i = index" class="relative mt-4 p-4 bg-gray-100 rounded-lg dark:bg-neutral-800">
+      <li
+        *ngFor="let comment of comments; let i = index"
+        class="relative mt-4 p-4 bg-gray-100 rounded-lg dark:bg-neutral-800"
+      >
         <div>
           <div class="flex items-center justify-between">
             <div class="flex items-center">
               <p class="font-bold text-sm mr-3">{{ comment.user.name }}</p>
-              <p class="text-xs text-gray-600 dark:text-neutral-400">{{ formatDate(comment.created_at) }}</p>
+              <p class="text-xs text-gray-600 dark:text-neutral-400">
+                {{ formatDate(comment.created_at) }}
+              </p>
             </div>
             <div class="relative">
               <button
@@ -153,7 +173,13 @@
                 >
                   <li>
                     <button
-                      (click)="editarComentario(comment.id, comment.comentario, comment.fk_video)"
+                      (click)="
+                        editarComentario(
+                          comment.id,
+                          comment.comentario,
+                          comment.fk_video
+                        )
+                      "
                       class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                     >
                       Modificar
@@ -169,23 +195,41 @@
                   </li>
                 </ul>
                 <ul
-              *ngIf="userId != comment.fk_user"
-              class="py-2 text-sm text-gray-700 dark:text-gray-200"
-              aria-labelledby="dropdownMenuIconButton"
-            >
-              <li>
-                <a
-                  href="#"
-                  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >Reportar</a
+                  *ngIf="userId != comment.fk_user"
+                  class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                  aria-labelledby="dropdownMenuIconButton"
                 >
-              </li>
-            </ul>
+                  <li>
+                    <a
+                      href="#"
+                      class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                      >Reportar</a
+                    >
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
-          <p class="text-sm font-medium mt-2">{{ comment.comentario }}</p>
-          <form *ngIf="comentarioSeleccionado && comentarioSeleccionado.id === +comment.id" [formGroup]="formRespuesta" (ngSubmit)="saveRespuesta(comment.id)" class="mt-2">
+          <p class="text-sm font-medium mt-2">
+            {{ comment.comentario }}
+            <button
+            *ngIf="isLogged"
+              class="ml-3 text-gray-500 text-xs"
+              (click)="GuardarRespuestaRespuesta(null, comment.id)"
+            >
+              Responder
+            </button>
+          </p>
+
+          <form
+            *ngIf="
+              comentarioSeleccionado &&
+              comentarioSeleccionado.id === +comment.id
+            "
+            [formGroup]="formRespuesta"
+            (ngSubmit)="saveRespuesta(comment.id)"
+            class="mt-2"
+          >
             <div class="relative">
               <input
                 id="respuesta"
@@ -194,7 +238,9 @@
                 class="peer py-3 pe-0 ps-8 block w-full bg-transparent border-t-transparent border-b-2 border-x-transparent border-b-gray-200 text-sm focus:border-t-transparent focus:border-x-transparent focus:border-b-blue-500 focus:ring-0 disabled:opacity-50 disabled:pointer-events-none dark:border-b-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600 dark:focus:border-b-neutral-600"
                 placeholder="Responde a este comentario..."
               />
-              <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-2 peer-disabled:opacity-50 peer-disabled:pointer-events-none">
+              <div
+                class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-2 peer-disabled:opacity-50 peer-disabled:pointer-events-none"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -219,29 +265,171 @@
             </button>
           </form>
         </div>
-        <ul *ngIf="respuestaPorComentario[comment.id].length > 0" class="mt-4 space-y-3 ml-6 border-l-2 border-blue-600 pl-3">
-          <li *ngFor="let respuesta of respuestaPorComentario[comment.id] || []" class="p-3 bg-gray-100 rounded-xl dark:bg-neutral-800">
-            <p *ngIf="respuesta.user" class="text-xs mb-3 font-bold">{{ respuesta.user?.name }}</p>
-            <p class="text-xs mb-3 font-medium">{{ respuesta.respuesta }}</p>
-            <ul class="space-y-3 ml-6 border-l-2 border-blue-600 pl-3" *ngIf="respuesta.respuestas.length > 0">
-              <ng-container *ngTemplateOutlet="nestedReplies; context: { $implicit: respuesta.respuestas }"></ng-container>
+        <ul
+          *ngIf="respuestaPorComentario[comment.id].length > 0"
+          class="mt-4 space-y-3 ml-6 border-l-2 border-blue-300 rounded-b-lg pl-3"
+        >
+          <li
+            *ngFor="let respuesta of respuestaPorComentario[comment.id] || []"
+            class="p-3 bg-gray-100 rounded-xl dark:bg-neutral-800"
+          >
+            <div
+              class="text-xs mb-2 font-medium border-1 bg-gray-300 p-3 w-50 border-gray-500 rounded-lg"
+            >
+              <p *ngIf="respuesta.user" class="text-xs mb-1 font-bold">
+                {{ respuesta.user.name }}
+              </p>
+              {{ respuesta.respuesta }} <br />
+              <ng-container *ngIf="isLogged">
+                <button
+                  (click)="
+                    GuardarRespuestaRespuesta(
+                      respuesta.id,
+                      respuesta.fk_comentario
+                    )
+                  "
+                  class="ml-3 text-gray-500 text-xs"
+                >
+                  Responder
+                </button>
+  
+                <ng-container *ngIf="userId == respuesta.fk_user">
+                  <button
+                    (click)="
+                      editarRespuesta(
+                        respuesta.id,
+                        respuesta.respuesta,
+                        respuesta.fk_respuesta_padre
+                      )
+                    "
+                    class="ml-3 text-gray-500 text-xs"
+                  >
+                    Editar
+                  </button>
+                  <button
+                    (click)="
+                      GuardarRespuestaRespuesta(
+                        respuesta.id,
+                        respuesta.fk_comentario
+                      )
+                    "
+                    class="ml-3 text-gray-500 text-xs"
+                  >
+                    Eliminar
+                  </button>
+                </ng-container>
+              </ng-container>
+              <ng-container *ngIf="userId !== respuesta.fk_user">
+                <button
+                  (click)="
+                    GuardarRespuestaRespuesta(
+                      respuesta.id,
+                      respuesta.fk_comentario
+                    )
+                  "
+                  class="ml-3 text-gray-500 text-xs"
+                >
+                  Reportar
+                </button>
+              </ng-container>
+            </div>
+
+            <ul
+              class="space-y-3 ml-6 border-l-2 border-blue-300 pl-3 rounded-b-lg"
+              *ngIf="respuesta.respuestas.length > 0"
+            >
+              <ng-container
+                *ngTemplateOutlet="
+                  nestedReplies;
+                  context: { $implicit: respuesta.respuestas }
+                "
+              ></ng-container>
             </ul>
           </li>
         </ul>
       </li>
     </ul>
-    
-    <ng-template #nestedReplies let-respuestas>
+
+    <ng-template #nestedReplies let-respuestas let-i>
       <ul class="space-y-3">
-        <li class="p-3 bg-gray-100 rounded-xl dark:bg-neutral-800" *ngFor="let respuesta of respuestas">
-          <p *ngIf="respuesta.user" class="text-xs mb-3 font-bold">{{ respuesta.user?.name }}</p>
-          <p class="text-xs mb-3 font-medium">{{ respuesta.respuesta }}</p>
-          <ul class="space-y-3 ml-6 border-l-2 border-blue-600 pl-3" *ngIf="respuesta.respuestas?.length > 0">
-            <ng-container *ngTemplateOutlet="nestedReplies; context: { $implicit: respuesta.respuestas }"></ng-container>
+        <li
+          class="p-3 bg-gray-100 rounded-xl dark:bg-neutral-800"
+          *ngFor="let respuesta of respuestas"
+        >
+          <div
+            class="text-xs mb-2 font-medium border-1 bg-gray-300 p-3 w-50 border-gray-500 rounded-lg"
+          >
+            <p *ngIf="respuesta.user" class="text-xs mb-1 font-bold">
+              {{ respuesta.user?.name }}
+            </p>
+            {{ respuesta.respuesta }} <br />
+            <ng-container *ngIf="isLogged">
+              <button
+                (click)="
+                  GuardarRespuestaRespuesta(
+                    respuesta.id,
+                    respuesta.fk_comentario
+                  )
+                "
+                class="ml-3 text-gray-500 text-xs"
+              >
+                Responder
+              </button>
+
+              <ng-container *ngIf="userId == respuesta.fk_user">
+                <button
+                (click)="
+                editarRespuesta(
+                  respuesta.id,
+                  respuesta.respuesta,
+                  respuesta.fk_respuesta_padre
+                )
+              "
+                  class="ml-3 text-gray-500 text-xs"
+                >
+                  Editar
+                </button>
+                <button
+                  (click)="
+                    GuardarRespuestaRespuesta(
+                      respuesta.id,
+                      respuesta.fk_comentario
+                    )
+                  "
+                  class="ml-3 text-gray-500 text-xs"
+                >
+                  Eliminar
+                </button>
+              </ng-container>
+            </ng-container>
+
+            <ng-container *ngIf="userId != respuesta.fk_user">
+              <button
+                (click)="
+                  GuardarRespuestaRespuesta(
+                    respuesta.id,
+                    respuesta.fk_comentario
+                  )
+                "
+                class="ml-3 text-gray-500 text-xs"
+              >
+                Reportar
+              </button>
+            </ng-container>
+          </div>
+          <ul
+            class="space-y-3 ml-6 border-l-2 border-blue-300 pl-3 rounded-b-lg"
+            *ngIf="respuesta.respuestas?.length > 0"
+          >
+            <ng-container
+              *ngTemplateOutlet="
+                nestedReplies;
+                context: { $implicit: respuesta.respuestas }
+              "
+            ></ng-container>
           </ul>
         </li>
       </ul>
     </ng-template>
-    
   </div>
 </div>

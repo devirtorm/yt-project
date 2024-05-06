@@ -12,6 +12,7 @@ class RespuestasComentarios extends Model
     protected $table = 'respuestas_comentarios';
 
     protected $fillable = [
+        'id',
         'respuesta',
         'fk_comentario',
         'fk_user',

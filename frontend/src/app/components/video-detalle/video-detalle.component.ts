@@ -9,6 +9,7 @@ import { AuthService } from '../../services/auth/auth.service';
 import Hashids from 'hashids';
 import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
+import { RespuestasService } from '../../services/videos/respuestas.service';
 
 
 /* interface Comment {
@@ -77,9 +78,12 @@ export class VideoDetalleComponent implements OnInit {
   comentarioSeleccionado: { id: number | null, respuesta: string } = { id: null, respuesta: '' }; // Cambio en el tipo de dato del ID
   private hashids = new Hashids('kX7#5@8Uw!9Rq2Tz', 12);
   isLogged: boolean = false
+  dropdownStatus: { [key: string]: { [key: string]: boolean } } = {};
+  
 
   constructor(
     private authService: AuthService,
+    private respuestaService:RespuestasService,
     public form: FormBuilder,
     private route: ActivatedRoute,
     private likesService: LikesService,
@@ -339,6 +343,14 @@ export class VideoDetalleComponent implements OnInit {
     }
   }
 
+  toggleDropdownRespuesta(index: number, type: string) {
+    if (!this.dropdownStatus[index]) {
+      this.dropdownStatus[index] = {};
+    }
+    this.dropdownStatus[index][type] = !this.dropdownStatus[index][type];
+  }
+
+
   toggleDropdown(index: number) {
     if (this.dropdownOpenIndex === index) {
       this.dropdownOpenIndex = -1; // Cierra el dropdown si ya está abierto
@@ -439,6 +451,71 @@ export class VideoDetalleComponent implements OnInit {
         console.error('Error al guardar el comentario:', error);
       }
     );
+  }
+
+  async editarRespuesta(id: any, respuesta: string, fk_padre:any) {
+    const idUser = localStorage.getItem('userId');
+
+    const inputValue = respuesta;
+    const { value: valorRespuesta } = await Swal.fire({
+      title: 'Edita tu respuesta',
+      input: 'text',
+      cancelButtonText: 'Cancelar ',
+      confirmButtonText: 'Aceptar',
+      inputValue,
+      showCancelButton: true,
+    });
+    if (valorRespuesta) {
+      const formData = new FormData();
+      formData.append('respuesta', valorRespuesta);
+      formData.append('respuesta', valorRespuesta);
+      formData.append('fk_respuesta_padre', fk_padre);
+      formData.append('_method', 'patch');
+
+      this.respuestaService.editReply(id, formData).subscribe(() => {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          text: 'Tu comentario se ha editado',
+          showConfirmButton: false,
+          timer: 1500,
+          backdrop: false,
+        });
+        this.cargarComentarios();
+        this.dropdownOpenIndex = -1;
+      });
+    }
+  }
+
+  async GuardarRespuestaRespuesta(id: any, fk_comentario: string) {
+    const idUser = localStorage.getItem('userId');
+    const { value: valorComentario } = await Swal.fire({
+      title: 'Respuesta a el comentario',
+      input: 'text',
+      cancelButtonText: 'Cancelar ',
+      confirmButtonText: 'Aceptar',
+      showCancelButton: true,
+    });
+    if (valorComentario) {
+      const formData = new FormData();
+      formData.append('respuesta', valorComentario);
+      formData.append('fk_user', idUser??'');
+      formData.append('fk_comentario', fk_comentario??'');
+      formData.append('fk_respuesta_padre', id??'');
+      console.log(valorComentario)
+       this.comentariosService.saveReplyByCommentId(formData).subscribe(() => {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          text: 'Tu comentario se ha editado',
+          showConfirmButton: false,
+          timer: 1500,
+          backdrop: false,
+        });
+        this.cargarComentarios();
+        this.dropdownOpenIndex = -1;
+      }); 
+    }
   }
 
   saveDislike(): void {

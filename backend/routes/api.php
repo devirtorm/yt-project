@@ -6,6 +6,7 @@ use App\Http\Controllers\api\ComentarioController;
 use App\Http\Controllers\api\LikeController;
 use App\Http\Controllers\api\PlaylistController;
 use App\Http\Controllers\api\PlaylistVideoController;
+use App\Http\Controllers\api\RespuestasController;
 use App\Http\Controllers\api\SearchController;
 use App\Http\Controllers\api\SuscripcionController;
 use App\Http\Controllers\api\UserController;
@@ -82,6 +83,7 @@ Route::get('comentarios/respuestas',[RespuestasComentariosController::class, 'in
 Route::get('comentarios/respuestas/{respuesta}',[RespuestasComentariosController::class, 'show']); // Mostrar una respuesta
 Route::put('comentarios/respuestas/{respuesta}',[RespuestasComentariosController::class, 'update']); // Actualizar una respuesta
 Route::delete('comentarios/respuestas/{respuesta}',[RespuestasComentariosController::class, 'destroy']); //Eliminar una respuesta
+Route::patch('respuestas/{id}', [RespuestasController::class, 'update']);
 
 //Las respuestas de un comentario
 Route::get('/comentarios/{id}/respuestas', [ComentarioController::class, 'respuestas']);
