@@ -17,7 +17,7 @@ export class MisVideosComponent implements OnInit {
   showModal: boolean = false;
   showEditModal: boolean = false;
   rol : number = 0;
-
+  categorias: any={};
   videoSeleccionado: any = {}; //los campos para editar
   editVideo!: FormGroup;
 
@@ -38,7 +38,8 @@ export class MisVideosComponent implements OnInit {
       titulo: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9áéíóúüñÁÉÍÓÚÜÑ ]*$/)]], 
       descripcion: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9áéíóúüñÁÉÍÓÚÜÑ ]*$/)]],
       miniatura: ['', Validators.required], 
-      url: ['', [Validators.required]],  
+      url: ['', [Validators.required]],
+      categoria: ['', [Validators.required]],  
     };
 
     const formValuesEditar = {
@@ -46,6 +47,7 @@ export class MisVideosComponent implements OnInit {
       descripcion: ['', [Validators.required]],
       miniatura: ['', Validators.required], 
       url: ['', [Validators.required]],
+      categoria: ['', [Validators.required]]
     };
 
     this.formVideo = this.formulario.group(formValues);
@@ -55,12 +57,26 @@ export class MisVideosComponent implements OnInit {
 
   ngOnInit(): void {
     this.rol = Number(localStorage.getItem('rol'));
+  this.videoService.getCategorias().subscribe(
+    (data) => {
+      this.categorias = data;
+      console.log(data);
+    },
+    (error) => {
+      console.error('Error al obtener las categorías:', error);
+    }
+
+    
+  );
+  
+    this.rol = Number(localStorage.getItem('rol'));
 
     this.editVideo = this.formulario.group({
       titulo: [''],
       descripcion: [''],
       url: [''],
-      miniatura: ['']
+      miniatura: [''],
+      categoria: ['']
     });
 
     // Inicializar el formulario con los controles necesarios
@@ -69,6 +85,7 @@ export class MisVideosComponent implements OnInit {
       descripcion: [''],
       url: [''],
       miniatura: [''],
+      categoria: ['']
     });
 
     this.cargarVideos();
@@ -86,7 +103,7 @@ export class MisVideosComponent implements OnInit {
       formData.append('miniatura', this.formVideo.get('miniatura')?.value || '');
       formData.append('url', this.formVideo.get('url')?.value || '');
       formData.append('estado', '1');
-      formData.append('fk_categoria', '1');
+      formData.append('fk_categoria', this.formVideo.get('categoria')?.value || '');
       if (id) {
         formData.append('fk_user', id);
       }
@@ -130,7 +147,7 @@ export class MisVideosComponent implements OnInit {
           title: 'Motivo de Rechazo',
           text: incidencia[0].motivo, // Asegúrate que esto coincida con cómo se reciben los datos
           icon: 'info',
-          confirmButtonText: 'Ok'
+          confirmButtonText: 'Entendido'
         });
       },
       error: (error) => {
@@ -208,7 +225,7 @@ export class MisVideosComponent implements OnInit {
       formData.append('titulo', this.editVideo.get('titulo')?.value || '');
       formData.append('descripcion', this.editVideo.get('descripcion')?.value || '');
       formData.append('estado', '1');
-      formData.append('fk_categoria', '1');
+      formData.append('fk_categoria', this.editVideo.get('categoria')?.value || '');
       formData.append('_method', 'PUT');
 
       

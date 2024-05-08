@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class HistorialService {
 
 
-  API: string = 'http://192.168.1.66:8000/api/historial/';
+  API: string = 'http://172.31.2.74:8000/api/historial/';
 
   constructor(private httpClient:HttpClient) { }
 

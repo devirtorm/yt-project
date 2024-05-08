@@ -12,7 +12,7 @@
         <a [routerLink]="getVideoLink(video.id)">
           <img
             class="w-full object-cover h-48"
-            [src]="'http://192.168.1.66:8000/storage/' + video.miniatura"
+            [src]="'http://172.31.2.74:8000/storage/' + video.miniatura"
             alt="Image Description"
           />
         </a>
@@ -22,7 +22,7 @@
             <!-- Alineamos verticalmente el texto y la imagen -->
             <img
               class="w-8 h-8 rounded-full mr-2"
-              [src]="'http://192.168.1.66:8000/storage/' + video?.user?.foto"
+              [src]="'http://172.31.2.74:8000/storage/' + video?.user?.foto"
               alt="user photo"
             />
             <div>

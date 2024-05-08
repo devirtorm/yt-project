@@ -7,7 +7,7 @@ import { Comentario } from './comentarioInterface';
 })
 export class RespuestasService {
 
-  API: string = 'http://192.168.1.66:8000/api/respuestas/';
+  API: string = 'http://172.31.2.74:8000/api/respuestas/';
   data: any;
 
   constructor(private httpClient: HttpClient) { }

@@ -7,8 +7,9 @@ import { Observable } from 'rxjs';
 })
 export class VideosService {
 
-  API: string = 'http://192.168.1.66:8000/api/videos/';
-  APIncidencias: string = 'http://192.168.1.66:8000/api/incidencias/';
+  API: string = 'http://172.31.2.74:8000/api/videos/';
+  APIcategoria: string = 'http://172.31.2.74:8000/api/categoria/';
+  APIncidencias: string = 'http://172.31.2.74:8000/api/incidencias/';
 
   data: any;
 
@@ -33,8 +34,12 @@ export class VideosService {
     return this.httpClient.post(this.API, videoData, { headers: headers });
   }
 
+  getCategorias(): Observable<any> {
+    return this.httpClient.get(this.APIcategoria);
+  }
+
   storeIncidencia(incidenciaData: { motivo: string, fk_user: number, fk_video: string }): Observable<any> {
-    const API_INCIDENCIAS = 'http://192.168.1.66:8000/api/incidencias';
+    const API_INCIDENCIAS = 'http://172.31.2.74:8000/api/incidencias';
     return this.httpClient.post(API_INCIDENCIAS, incidenciaData);
   }
 
