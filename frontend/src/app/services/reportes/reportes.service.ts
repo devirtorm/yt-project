@@ -15,6 +15,10 @@ export class ReportesService {
     return this.httpClient.get(this.API+'top-videos');
   }
 
+  obtenerMenosVistos(): Observable<any> {
+    return this.httpClient.get(this.API+'leastViewedVideos');
+  }
+
   obtenerMasLikes(): Observable<any> {
     return this.httpClient.get(this.API+'top-videos-likes');
   }

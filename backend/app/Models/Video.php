@@ -34,4 +34,9 @@ class Video extends Model
     {
         return $this->hasMany(Comentario::class, 'fk_video');
     }
+
+    public function vistas()
+    {
+        return $this->hasMany(Historial::class, 'fk_video');
+    }
 }

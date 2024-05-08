@@ -10,6 +10,10 @@ import Swal from 'sweetalert2';
   styleUrl: './menu.component.css'
 })
 export class MenuComponent implements OnInit {
+  query: string = '';
+  results: any[] = [];
+  isLoading: boolean = false;
+
   @ViewChild('searchInput') searchInput!: ElementRef;
 
   rol : number = 0;
@@ -24,6 +28,12 @@ export class MenuComponent implements OnInit {
   
   ngOnInit(): void {
     this.rol = Number(localStorage.getItem('rol'));
+  }
+  search(): void {
+    const query = this.searchInput.nativeElement.value;
+    if (!query.trim()) return;
+
+    this.router.navigate(['/search-results'], { queryParams: { query } });
   }
 
   toggleProfile() {
@@ -47,24 +57,24 @@ export class MenuComponent implements OnInit {
     });
   }
 
-  search(): void {
-    const query = this.searchInput.nativeElement.value;
-    console.log('Búsqueda con query:', query); // Para depurar
-    if (!query.trim()) return;
-    this.searchService.search(query).subscribe({
-      next: (response) => {
-        console.log('Resultados de la búsqueda:', response); // Para depurar
-        this.searchResults = response;
-      },
-      error: (error) => {
-        console.error('Error durante la búsqueda:', error);
-      }
-    });
+
+
+  onSearch(): void {
+    if (this.query.trim()) {
+      this.isLoading = true;
+      this.searchService.search(this.query).subscribe({
+        next: (data) => {
+          this.results = data.results; // Ajustar según estructura de tu API
+          this.isLoading = false;
+        },
+        error: (err) => {
+          console.error('Error en la búsqueda:', err);
+          this.isLoading = false;
+        }
+      });
+    }
   }
+
 
 }
 // app.component.ts
-
-
-
-

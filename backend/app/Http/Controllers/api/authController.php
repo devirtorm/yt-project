@@ -7,6 +7,7 @@ use App\Http\Requests\AccessRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Validation\ValidationException;
 
 class authController extends Controller
@@ -29,4 +30,10 @@ class authController extends Controller
             'user' => $user
         ]);
     }
+
+
+
 }
+
+    
+

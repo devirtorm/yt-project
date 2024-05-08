@@ -26,6 +26,7 @@
     "datatables.net-dt": "^2.0.5",
     "flowbite": "^2.3.0",
     "hashids": "^2.3.0",
+    "html2canvas": "^1.4.1",
     "jquery": "^3.7.1",
     "jspdf": "^2.5.1",
     "ngx-progressbar": "^11.1.0",

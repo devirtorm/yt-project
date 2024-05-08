@@ -59,5 +59,10 @@ class User extends Authenticatable
         return $this->hasMany(Video::class, 'fk_user');
     }
 
+    public function suscriptores()
+    {
+        return $this->hasMany(Suscripciones::class, 'user_fk');
+    }
+
     
 }

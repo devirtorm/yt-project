@@ -3,6 +3,7 @@
 use App\Http\Controllers\api\authController;
 use App\Http\Controllers\api\CategoriaController;
 use App\Http\Controllers\api\ComentarioController;
+use App\Http\Controllers\api\forgotPassword;
 use App\Http\Controllers\api\LikeController;
 use App\Http\Controllers\api\PlaylistController;
 use App\Http\Controllers\api\PlaylistVideoController;
@@ -35,6 +36,9 @@ Route::post('users',[UserController::class, 'store']); // crear usuario
 Route::get('users',[UserController::class, 'index']); // Mostrar usuarios
 Route::patch('/users/{id}', [UserController::class, 'update']); //Actualizar el usuario
 Route::post('login',[authController::class, 'access']); // login
+Route::post('/forgot-password',[forgotPassword::class, 'forgotPassword']); //verifyPin
+Route::post('/verify-pin',[forgotPassword::class, 'verifyPin']); //verifyPin
+
 Route::post('videos',[videoController::class, 'upload']); // Guardar video
 Route::get('videos',[videoController::class, 'index']); // ver lista de videos
 Route::get('comentarios',[videoController::class, 'comentario']); // ver lista de videos
@@ -82,7 +86,7 @@ Route::post('comentarios/respuestas',[RespuestasComentariosController::class, 's
 Route::get('comentarios/respuestas',[RespuestasComentariosController::class, 'index']); // Mostrar todas las respuestas
 Route::get('comentarios/respuestas/{respuesta}',[RespuestasComentariosController::class, 'show']); // Mostrar una respuesta
 Route::put('comentarios/respuestas/{respuesta}',[RespuestasComentariosController::class, 'update']); // Actualizar una respuesta
-Route::delete('comentarios/respuestas/{respuesta}',[RespuestasComentariosController::class, 'destroy']); //Eliminar una respuesta
+Route::delete('respuestas/{respuesta}',[RespuestasComentariosController::class, 'destroy']); //Eliminar una respuesta
 Route::patch('respuestas/{id}', [RespuestasController::class, 'update']);
 
 //Las respuestas de un comentario
@@ -120,6 +124,7 @@ Route::post('/historial', [historialController::class, 'store']);
 Route::get('/historial/tendencias', [historialController::class, 'tendencias']);
 Route::get('/users/{userId}/historial', [historialController::class, 'index']);
 Route::get('/reportes/top-videos', [historialController::class, 'topVideos']);
+Route::get('/reportes/leastViewedVideos', [historialController::class, 'leastViewedVideos']);
 Route::get('/reportes/top-videos-likes', [LikeController::class, 'topVideos']);
 
 Route::get('users',[UserController::class, 'index']);   
@@ -133,10 +138,10 @@ Route::get('suscripciones/count/{userId}', [SuscripcionController::class, 'count
 
 //Route::delete('users/{usuarioId}/suscriptor/{suscriptorId}', [SuscripcionController::class, 'eliminarRelacion']);
 Route::delete('/suscripciones/{id}', [SuscripcionController::class, 'destroy']);
+Route::get('users',[UserController::class, 'index']);   
 
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::get('users',[UserController::class, 'index']);   
     
     //Para dar like
 

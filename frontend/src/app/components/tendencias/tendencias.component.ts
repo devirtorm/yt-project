@@ -6,6 +6,7 @@ import { PlaylistService } from '../../services/playlist/playlist.service';
 import { PlaylistVideoService } from '../../services/playlist/playlist-video.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import Hashids from 'hashids';
 import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
 
@@ -23,6 +24,8 @@ export class TendenciasComponent implements OnInit {
   showListModal: boolean = false;
   showListModalCreatePlaylist: boolean = false;
   selectedVideoId!: string;
+
+  private hashids = new Hashids('kX7#5@8Uw!9Rq2Tz', 12);
 
   constructor(
     private userService: UserService,
@@ -80,6 +83,12 @@ export class TendenciasComponent implements OnInit {
     } else {
       return seconds === 1 ? 'hace 1 segundo' : `hace ${seconds} segundos`;
     }
+  }
+
+  
+  getVideoLink(videoId: number): string {
+    const encodedId = this.hashids.encode(videoId);
+    return `/video/${encodedId}`;
   }
 
   cargarPlaylists(): void {

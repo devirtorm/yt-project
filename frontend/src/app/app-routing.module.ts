@@ -22,6 +22,9 @@ import { AccessDeniedComponent } from './components/access-denied/access-denied.
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
 import { LikedVideosComponent } from './components/liked-videos/liked-videos.component';
 import { EstadisticasComponent } from './components/estadisticas/estadisticas.component';
+import { SearchResultsComponent } from './components/search-results/search-results.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: VideosComponent }, // Ruta raíz que renderiza VideosComponent
@@ -43,7 +46,11 @@ const routes: Routes = [
   { path: 'registro-usuarios', component: RegistroUsuariosComponent, canActivate: [AuthGuard], data: { expectedRol: '3' }},
   { path: 'access-denied', component: AccessDeniedComponent},
   {path:'papelera', component: PapeleraComponent, canActivate: [AuthGuard]},
-  { path: '**', component: NotFoundPageComponent } // Ruta para cualquier otra ruta no definida
+  { path: 'search-results', component: SearchResultsComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
+
+  { path: '**', component: NotFoundPageComponent }, // Ruta para cualquier otra ruta no definida
 ];
 
 

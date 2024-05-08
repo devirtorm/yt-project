@@ -16,7 +16,7 @@ export class RespuestasService {
     return this.httpClient.post(this.API+id, formData);
   }
 
-  BorrarComentario(id:any):Observable<any>{
+  deleteReply(id:any):Observable<any>{
     return this.httpClient.delete(this.API+id)
   }
 

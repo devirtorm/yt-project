@@ -453,6 +453,34 @@ export class VideoDetalleComponent implements OnInit {
     );
   }
 
+  borrarRespuestas(id: string) {
+    Swal.fire({
+      title: 'Estas seguro',
+      text: 'Tu respuesta se eliminara permanentemente',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Borrar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          text: 'Tu respuesta se ha eliminado',
+          showConfirmButton: false,
+          timer: 1500,
+          backdrop: false,
+        });
+        this.respuestaService.deleteReply(id).subscribe((respuesta) => {
+          this.cargarComentarios();
+        });
+      }
+    });
+  }
+
+
   async editarRespuesta(id: any, respuesta: string, fk_padre:any) {
     const idUser = localStorage.getItem('userId');
 

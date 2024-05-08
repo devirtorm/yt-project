@@ -22,7 +22,7 @@
         </svg>
       </button>
       <div>
-        <h2 class="text-2xl font-medium mr-4 text-blue-500">WeTube</h2>
+        <a href="/"><h2 class="text-2xl font-medium mr-4 text-blue-500">WeTube</h2></a>
       </div>
     </div>
     <div class="w-1/2 space-y-3">
@@ -54,6 +54,7 @@
     <div>
       <div class="relative">
         <button
+          *ngIf="rol"
           type="button"
           (click)="toggleProfile()"
           class="h-9 w-9 overflow-hidden rounded-full"

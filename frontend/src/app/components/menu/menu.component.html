@@ -22,7 +22,7 @@
         </svg>
       </button>
       <div>
-        <h2 class="text-2xl font-medium mr-4 text-blue-500">WeTube</h2>
+        <a href="/"><h2 class="text-2xl font-medium mr-4 text-blue-500">WeTube</h2></a>
       </div>
     </div>
     <div class="w-1/2 space-y-3">
@@ -41,7 +41,7 @@
         <!-- Contenedor de Resultados de Búsqueda -->
         <div *ngIf="searchResults" class="absolute w-full bg-white shadow-md mt-12 z-10">
           <ul *ngIf="searchResults.users.length > 0">
-            <li *ngFor="let user of searchResults.users">{{ user.name }}</li>
+            <li *ngFor="let user of searchResults.users"> <a [href]="'/profile/'+user.id" target="_blank">{{ user.name }}</a></li>
           </ul>
           <ul *ngIf="searchResults.videos.length > 0">
             <li *ngFor="let video of searchResults.videos">{{ video.titulo }}</li>
@@ -54,12 +54,14 @@
     <div>
       <div class="relative">
         <button
+          *ngIf="rol"
           type="button"
           (click)="toggleProfile()"
           class="h-9 w-9 overflow-hidden rounded-full"
         >
           <img src="https://plchldr.co/i/40x40?bg=111111" alt="plchldr.co" />
         </button>
+        <a href="/login" class="font-medium text-blue-600 mr-10">Inicar sesión</a>
 
         <!-- dropdown profile -->
         <div

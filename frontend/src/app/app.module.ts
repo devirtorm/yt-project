@@ -41,6 +41,9 @@ import { LikedVideosComponent } from './components/liked-videos/liked-videos.com
 import { EstadisticasComponent } from './components/estadisticas/estadisticas.component';
 import { GraficasComponent } from './components/graficas/graficas.component';
 import { ReportesComponent } from './components/reportes/reportes.component';
+import { SearchResultsComponent } from './components/search-results/search-results.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +78,10 @@ import { ReportesComponent } from './components/reportes/reportes.component';
     LikedVideosComponent,
     EstadisticasComponent,
     GraficasComponent,
-    ReportesComponent
+    ReportesComponent,
+    SearchResultsComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,

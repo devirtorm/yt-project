@@ -71,6 +71,25 @@ class historialController extends Controller
         // Devolver los 10 videos más vistos como recursos HistorialResource
         return EstadisticasVideoResource::collection($topVideos);
     }
+
+    
+    public function leastViewedVideos()
+{
+    // Consultar los 10 videos menos vistos
+    $leastViewedVideos = Historial::groupBy('fk_video')
+                        ->select('fk_video', DB::raw('count(*) as views'))
+                        ->orderBy('views') // Ordenar ascendentemente para obtener los menos vistos
+                        ->limit(10)
+                        ->get();
+
+    // Para cada video, obtener la información del video a través de la relación
+    foreach ($leastViewedVideos as $video) {
+        $video->load('video'); // Cargar la relación 'video' para obtener la información del video
+    }
+
+    // Devolver los 10 videos menos vistos como recursos HistorialResource
+    return EstadisticasVideoResource::collection($leastViewedVideos);
+}
     
 
     public function tendencias()

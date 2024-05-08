@@ -1,81 +1,45 @@
-<div class="flex items-center justify-center h-screen">
-    <form class="m-3 lg:w-1/3 sm:w-full " [formGroup]="formLogin" (ngSubmit)="saveData()">
-        <div
-          class="relative flex flex-col bg-white border shadow-sm rounded-xl overflow-hidden dark:bg-gray-800 dark:border-gray-700"
-        >
-    
-          <div class="p-4 sm:p-10 overflow-y-auto">
-            <div class="mb-6 text-center">
-              <h3
-                class="mb-2 text-xl font-bold text-gray-800 dark:text-gray-200"
-              >
-                Iniciar sesión
-              </h3>
-              <p class="text-gray-500">Completa los campos para ingresar</p>
-            </div>
-            <div class="mb-5">
-              <label
-                for="email"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Correo electrónico</label
-              >
-              <input
-                type="text"
-                id="emailLogin"
-                formControlName="email"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Ingrese aquí su nombre, por favor"
-                required
-              />
-
-              <div *ngIf="formLogin.get('email')?.errors && formLogin.get('email')?.touched" class="text-red-500 text-xs mt-1">
-                <div *ngIf="formLogin.get('email')?.hasError('required')">El correo electrónico es obligatorio.</div>
-                <div *ngIf="formLogin.get('email')?.hasError('email')">Ingrese un correo electrónico válido.</div>
-              </div>
-
-            </div>
-            <div class="mb-5">
-              <label
-                for="email"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Contraseña</label
-              >
-              <input
-                type="text"
-                id="passwordLogin"
-                formControlName="password"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Ingrese aquí su nombre, por favor"
-                required
-              />
-
-              <div *ngIf="formLogin.get('password')?.errors && formLogin.get('password')?.touched" class="text-red-500 text-xs mt-1">
-                <div *ngIf="formLogin.get('password')?.hasError('required')">La contraseña es obligatoria.</div>
-                <div *ngIf="formLogin.get('password')?.hasError('minlength')">La contraseña debe tener al menos 3 caracteres.</div>
-                <div *ngIf="formLogin.get('password')?.hasError('maxlength')">La contraseña no debe exceder los 12 caracteres.</div>
-                <div *ngIf="formLogin.get('password')?.hasError('pattern')">La contraseña solo debe contener letras y números.</div>
-              </div>
-
+<section class="bg-gray-50 dark:bg-gray-900">
+  <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+    <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+      WeTube
+    </a>
+    <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+      <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+        <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">Iniciar sesión</h1>
+        <form [formGroup]="formLogin" (ngSubmit)="saveData()" class="space-y-4 md:space-y-6">
+          <div>
+            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Correo electrónico</label>
+            <input type="text" id="email" formControlName="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ingrese su correo electrónico" required>
+            <div *ngIf="formLogin.get('email')?.errors && formLogin.get('email')?.touched" class="text-red-500 text-xs mt-1">
+              <div *ngIf="formLogin.get('email')?.hasError('required')">El correo electrónico es obligatorio.</div>
+              <div *ngIf="formLogin.get('email')?.hasError('email')">Ingrese un correo electrónico válido.</div>
             </div>
           </div>
-    
-          <div
-            class="flex justify-end items-center gap-x-2 py-3 px-4 dark:bg-gray-800 dark:border-gray-700"
-          >
-            <button
-              class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
-              type="submit"
-            >
-              Iniciar sesión
-            </button>
-            <a
-            routerLink="/sign-up"
-            class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-slate-500 text-white hover:bg-slate-700 disabled:opacity-50 disabled:pointer-events-none"
-            type="submit"
-          >
-            Registrarme!
-        </a>
+          <div>
+            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
+            <input type="password" id="password" formControlName="password" placeholder="Ingrese su contraseña" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+            <div *ngIf="formLogin.get('password')?.errors && formLogin.get('password')?.touched" class="text-red-500 text-xs mt-1">
+              <div *ngIf="formLogin.get('password')?.hasError('required')">La contraseña es obligatoria.</div>
+              <div *ngIf="formLogin.get('password')?.hasError('minlength')">La contraseña debe tener al menos 3 caracteres.</div>
+              <div *ngIf="formLogin.get('password')?.hasError('maxlength')">La contraseña no debe exceder los 12 caracteres.</div>
+              <div *ngIf="formLogin.get('password')?.hasError('pattern')">La contraseña solo debe contener letras y números.</div>
+            </div>
           </div>
-        </div>
-      </form>
-</div>
+          <div class="flex items-center justify-between">
+            <div class="flex items-start">
+              <div class="flex items-center h-5">
+                <input id="remember" aria-describedby="remember" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" required>
+              </div>
+              <div class="ml-3 text-sm">
+                <label for="remember" class="text-gray-500 dark:text-gray-300">Recordarme</label>
+              </div>
+            </div>
+            <a href="/forgot-password" class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">¿Olvidó su contraseña?</a>
+          </div>
+          <button type="submit" class="w-full text-white bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Iniciar sesión</button>
+          <p class="text-sm font-light text-gray-500 dark:text-gray-400">¿No tiene una cuenta? <a href="#" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Regístrese</a></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
