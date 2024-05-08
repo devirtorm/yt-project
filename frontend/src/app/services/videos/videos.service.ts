@@ -8,6 +8,8 @@ import { Observable } from 'rxjs';
 export class VideosService {
 
   API: string = 'http://192.168.1.66:8000/api/videos/';
+  APIncidencias: string = 'http://192.168.1.66:8000/api/incidencias/';
+
   data: any;
 
   constructor(private httpClient: HttpClient) { }
@@ -29,6 +31,16 @@ export class VideosService {
 
     // Realiza la solicitud POST con los datos y los encabezados adecuados
     return this.httpClient.post(this.API, videoData, { headers: headers });
+  }
+
+  storeIncidencia(incidenciaData: { motivo: string, fk_user: number, fk_video: string }): Observable<any> {
+    const API_INCIDENCIAS = 'http://192.168.1.66:8000/api/incidencias';
+    return this.httpClient.post(API_INCIDENCIAS, incidenciaData);
+  }
+
+  // Método en tu servicio Angular
+  getIncidenciasPorVideoYUsuario(userId: string, videoId: string): Observable<any> {
+    return this.httpClient.get(`${this.APIncidencias}user/${userId}/video/${videoId}`);
   }
 
   getVideoById(id:number): Observable<any> {

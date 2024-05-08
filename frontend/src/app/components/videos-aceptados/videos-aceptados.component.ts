@@ -126,9 +126,10 @@ export class VideosAceptadosComponent {
     };
 
     Swal.fire({
-      title: "Estas seguro?",
+      title: "Motivo de rechazo",
       text: "El video sera rechazado y no podrá ser mostrado",
       icon: "warning",
+      input:"text",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",

@@ -24,7 +24,7 @@ export class UserSignupComponent implements OnInit {
   ) {
     // Agregar los roles al formulario
     const formValues = {
-      name: ['', [Validators.required, Validators.pattern(/^[a-zA-Z ]+$/)]], // Solo letras y espacios permitidos
+      name: ['', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ ]+$/)]], // Solo letras y espacios permitidos
       email: ['', [Validators.required, Validators.email]],  // Validación de email estándar
       birthdate: ['', Validators.required],  // Fecha de nacimiento requerida
       password: ['', [Validators.required,Validators.minLength(5), Validators.pattern(/^[a-zA-Z0-9]*$/)]],  // Solo letras y números en contraseña

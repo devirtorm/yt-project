@@ -34,8 +34,8 @@ export class VideosComponent implements OnInit {
     
   ) {
     const formValuesPlaylist = {
-      nombre_lista: ['', [Validators.required, Validators.pattern(/^[a-zA-Z ]+$/)]],
-      descripcion: ['', [Validators.required, Validators.pattern(/^[a-zA-Z ]+$/)]],
+      nombre_lista: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9áéíóúüñÁÉÍÓÚÜÑ ]*$/)]],
+      descripcion: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9áéíóúüñÁÉÍÓÚÜÑ ]*$/)]],
     };
 
     this.formPlaylist = this.form.group(formValuesPlaylist);

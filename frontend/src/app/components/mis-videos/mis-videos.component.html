@@ -6,35 +6,8 @@
           class="border rounded-lg divide-y bg-white divide-gray-200 dark:border-neutral-700 dark:divide-neutral-700"
         >
           <div class="py-3 px-4 flex justify-between items-center">
-            <div class="relative max-w-xs">
-              <label for="hs-table-search" class="sr-only">Search</label>
-              <input
-                type="text"
-                name="hs-table-search"
-                id="hs-table-search"
-                class="py-2 px-3 ps-9 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                placeholder="Busca alguno de tus videos"
-              />
-
-              <div
-                class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-3"
-              >
-                <svg
-                  class="size-4 text-gray-400 dark:text-neutral-500"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <circle cx="11" cy="11" r="8"></circle>
-                  <path d="m21 21-4.3-4.3"></path>
-                </svg>
-              </div>
+            <div class="relative max-w-xs text-gray-500 font-medium">
+                Da click en "Rechazado" si tienes videos rechazados para saber el motivo.
             </div>
 
             <div>
@@ -159,23 +132,9 @@
                   <td
                     class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200"
                   >
-                    <p
-                      [style.color]="
-                        video.estado === '1'
-                          ? 'green'
-                          : video.estado === '0'
-                          ? 'red'
-                          : 'gray'
-                      "
-                    >
-                      {{
-                        video.estado === "1"
-                          ? "Aceptado"
-                          : video.estado === "0"
-                          ? "Rechazado"
-                          : "En espera"
-                      }}
-                    </p>
+                  <span *ngIf="video.estado === '1'" style="color: green;">Aceptado</span>
+                  <a *ngIf="video.estado === '0'" (click)="showIncidenciaModal(video.id)" style="color: red; cursor: pointer;">Rechazado</a>
+                  <span *ngIf="video.estado !== '1' && video.estado !== '0'" style="color: gray;">En espera</span>
                   </td>
                   <td
                     class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium"
@@ -262,6 +221,7 @@
             />
             <div *ngIf="formVideo.get('titulo')?.touched && formVideo.get('titulo')?.errors" class="text-red-500 text-xs mt-1">
               <div *ngIf="formVideo.get('titulo')?.hasError('required')">El titulo debe ser obligatorio.</div>
+              <div *ngIf="formVideo.get('titulo')?.hasError('pattern')">Solo se aceptan números y letras.</div>
             </div> 
           </div>
           <div class="mb-5">
@@ -280,6 +240,7 @@
             />
             <div *ngIf="formVideo.get('descripcion')?.touched && formVideo.get('descripcion')?.errors" class="text-red-500 text-xs mt-1">
               <div *ngIf="formVideo.get('descripcion')?.hasError('required')">La descripción es obligatoria.</div>
+              <div *ngIf="formVideo.get('descripcion')?.hasError('pattern')">Solo se aceptan números y letras.</div>
             </div>
           </div>
           <div class="mb-5">
