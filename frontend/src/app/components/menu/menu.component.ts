@@ -16,7 +16,7 @@ export class MenuComponent implements OnInit {
 
   @ViewChild('searchInput') searchInput!: ElementRef;
 
-  rol : number = 0;
+  rol : any
   searchResults: any = null; 
 
   constructor( private authService: AuthService, private router:Router, private searchService: SearchService){}

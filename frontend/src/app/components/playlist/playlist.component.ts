@@ -75,6 +75,39 @@ export class PlaylistComponent implements OnInit {
     }
   }
 
+  deleteVideoFromPlaylist(id:string){
+    Swal.fire({
+      title: "Estas seguro",
+      text: "Borraras definitivamente este video de tu lista",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Borrar",
+      cancelButtonText: "Cancelar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Borrado!",
+          icon: "success",
+          text: "Video eliminado tu lista",
+          confirmButtonText:"Borrar"
+        });
+        this.playlistVideoService.deleteVideoFromPlaylist(id).subscribe(
+          (respuesta) => {
+            console.log(respuesta);
+            this.cargarPlaylists();
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+      
+      }
+  })
+  }
+
+
   toggleAccordion(event: MouseEvent, playlistIndex: number, videoIndex: number) {
     event.preventDefault();
     const video = this.playlists.data[playlistIndex].videos[videoIndex];

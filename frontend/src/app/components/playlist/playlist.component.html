@@ -1,12 +1,7 @@
+<div class="bg-blue-300 shadow-lg w-full h-36 flex items-center justify-center"> <h2 class="text-white text-2xl">Listas de reproducción</h2> </div>
   
 <div class="p-4 mt-10  ">
   <div class="container mx-auto">
-    <div class="rounded-md h-24 bg-blue-400 p-3">
-      <h2 class="text-4xl font-medium text-center text-white mt-5">
-        Playlists
-      </h2>
-    </div>
-
     <div class="mt-3" *ngFor="let playlist of playlists.data; let playlistIndex = index">
 
         <div id="accordion-color" data-accordion="collapse" data-active-classes="bg-white dark:bg-gray-800 text-blue-600 dark:text-white mb-5">
@@ -27,6 +22,7 @@
             <h2 id="accordion-color-heading-{{playlistIndex + 2}}">
               <button type="button" (click)="toggleAccordion($event, playlistIndex, videoIndex)" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-gray-200 focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-800 dark:border-gray-700 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800 gap-3">
                 <span>{{video.titulo}}</span>
+                <button (click)="deleteVideoFromPlaylist(video.id)">Eliminar de lista</button>
                 <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
                 </svg>
@@ -36,7 +32,7 @@
                 <div class="flex flex-row">
                     <div *ngIf="video" class="p-4 w-3/5">
                         <video class="rounded-md w-full" controls *ngIf="video.url">
-                            <source [src]="'http://192.168.1.66:8000' + video.url" type="video/mp4" />
+                            <source [src]="'http://172.31.1.182:8000' + video.url" type="video/mp4" />
                             Tu navegador no admite la etiqueta de video.
                         </video>
                     </div>

@@ -7,7 +7,7 @@
         <img
           class="rounded-full mt-3 w-36 h-36 mb-4 sm:mb-0 sm:mr-8"
           
-          [src]="'http://192.168.1.66:8000/storage/' + user?.data?.foto"
+          [src]="'http://172.31.1.182:8000/storage/' + user?.data?.foto"
           alt="Extra large avatar"
         />
         <div class="text-center sm:text-left">
@@ -50,7 +50,7 @@
                 <a [routerLink]="['/video', video.id]"  class="block max-w-sm rounded overflow-hidden shadow-sm hover:shadow hover:c">
                   <img
                     class="w-full object-cover h-48"
-                    [src]="'http://192.168.1.66:8000/storage/' + video.miniatura"
+                    [src]="'http://172.31.1.182:8000/storage/' + video.miniatura"
                     alt="Image Description"
                   />
                   <div class="bg-white p-4 md:p-5 rounded-b-xl">

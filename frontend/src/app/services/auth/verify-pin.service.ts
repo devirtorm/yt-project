@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class VerifyPinService {
-  private API = 'http://192.168.1.66:8000/api/verify-pin';
+  private API = 'http://172.31.1.182:8000/api/verify-pin';
 
   constructor(private httpClient: HttpClient) {}
 

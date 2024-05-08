@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ReportesService {
-  API: string = 'http://192.168.1.66:8000/api/reportes/';
+  API: string = 'http://172.31.1.182:8000/api/reportes/';
   data: any;
 
   constructor(private httpClient:HttpClient) { }
@@ -21,6 +21,10 @@ export class ReportesService {
 
   obtenerMasLikes(): Observable<any> {
     return this.httpClient.get(this.API+'top-videos-likes');
+  }
+
+  obtenerMenosLikes(): Observable<any> {
+    return this.httpClient.get(this.API+'leastLikedVideos');
   }
 
 

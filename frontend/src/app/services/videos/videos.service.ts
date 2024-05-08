@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class VideosService {
 
-  API: string = 'http://192.168.1.66:8000/api/videos/';
-  APIncidencias: string = 'http://192.168.1.66:8000/api/incidencias/';
+  API: string = 'http://172.31.1.182:8000/api/videos/';
+  APIncidencias: string = 'http://172.31.1.182:8000/api/incidencias/';
 
   data: any;
 
@@ -24,17 +24,16 @@ export class VideosService {
     
   }
 
-  storeVideo(videoData: FormData): Observable<any> {
-    const headers = new HttpHeaders();
+  storeVideo(videoData: FormData): Observable<HttpEvent<any>> {
     // Configura el encabezado Content-Type como multipart/form-data
-    headers.append('Content-Type', 'multipart/form-data');
+    const headers = new HttpHeaders();
 
     // Realiza la solicitud POST con los datos y los encabezados adecuados
-    return this.httpClient.post(this.API, videoData, { headers: headers });
+    return this.httpClient.post(this.API, videoData, { headers: headers, reportProgress: true, observe: 'events' });
   }
 
   storeIncidencia(incidenciaData: { motivo: string, fk_user: number, fk_video: string }): Observable<any> {
-    const API_INCIDENCIAS = 'http://192.168.1.66:8000/api/incidencias';
+    const API_INCIDENCIAS = 'http://172.31.1.182:8000/api/incidencias';
     return this.httpClient.post(API_INCIDENCIAS, incidenciaData);
   }
 

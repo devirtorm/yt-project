@@ -39,7 +39,9 @@
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
             ],
             "scripts": [
-              "node_modules/preline/preline.js"
+              "node_modules/preline/preline.js",
+              "node_modules/pdfmake/build/pdfmake.min.js",
+              "node_modules/pdfmake/build/vfs_fonts.js"
             ]
           },
           "configurations": {

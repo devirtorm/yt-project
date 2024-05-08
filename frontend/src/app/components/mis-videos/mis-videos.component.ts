@@ -5,7 +5,8 @@ import { UserService } from '../../services/user/user-service.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss'
-import { NgProgress } from 'ngx-progressbar';
+import { HttpEvent, HttpEventType, HttpResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-mis-videos',
@@ -23,6 +24,11 @@ export class MisVideosComponent implements OnInit {
 
   videos: any = {};
   videosOriginales: any = {};
+  uploadProgress = 0;
+  progress = 0;
+  uploadSub: Subscription | undefined;
+
+
   
 
 
@@ -31,7 +37,7 @@ export class MisVideosComponent implements OnInit {
     private formulario: FormBuilder,
     private videoService: VideosService,
     private userService: UserService,
-    private progress: NgProgress,
+    //private progress: NgProgress,
     private router: Router
   ) {
     const formValues = {
@@ -74,12 +80,10 @@ export class MisVideosComponent implements OnInit {
     this.cargarVideos();
   }
 
-  saveVideo(): void {
-    const progressRef = this.progress.ref();
-    console.log(this.formVideo.value);
-    if (this.formVideo.valid) {
   
-      const id = localStorage.getItem('userId');
+  saveVideo(): void {
+    const id = localStorage.getItem('userId');
+    if (this.formVideo.valid) {
       const formData = new FormData();
       formData.append('titulo', this.formVideo.get('titulo')?.value || '');
       formData.append('descripcion', this.formVideo.get('descripcion')?.value || '');
@@ -90,35 +94,44 @@ export class MisVideosComponent implements OnInit {
       if (id) {
         formData.append('fk_user', id);
       }
-      progressRef.start();
-      this.videoService.storeVideo(formData).subscribe(
-        () => {
-          this.formVideo.reset();
-          this.toggleModal();
-          this.cargarVideos();
-          Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "Tu video se ha subido correctamente",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          progressRef.complete();
+
+      this.uploadSub = this.videoService.storeVideo(formData).subscribe(
+        (event: HttpEvent<any>) => {
+          if (event.type === HttpEventType.UploadProgress) {
+            console.log('Evento de progreso de carga:', event);
+            if (event.total !== undefined) {
+              this.progress = Math.round(100 * event.loaded / event.total);
+            }
+          } else if (event instanceof HttpResponse) {
+            this.formVideo.reset();
+            this.cargarVideos();
+            this.showModal = !this.showModal;
+            this.uploadSub = undefined;
+            this.progress = 0;
+
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'Tu video se ha subido correctamente',
+              showConfirmButton: false,
+              timer: 1500
+            });
+          }
         },
         (error) => {
           console.error('Error al guardar el video:', error);
           Swal.fire({
-            position: "top-end",
-            icon: "error",
-            title: "No hemos podido guardar tu video",
+            position: 'top-end',
+            icon: 'error',
+            title: 'No hemos podido guardar tu video',
             showConfirmButton: false,
-            timer: 1500,
+            timer: 1500
           });
         }
-        
       );
     }
   }
+  
 
   showIncidenciaModal(videoId: string): void {
     // Suponiendo que ti una forma de obtener el userId, quizás del servicio de autenticación o una propiedad

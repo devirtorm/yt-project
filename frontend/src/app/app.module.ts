@@ -45,6 +45,7 @@ import { SearchResultsComponent } from './components/search-results/search-resul
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { UpdatePasswordComponent } from './components/update-password/update-password.component';
+import { ProgressBarModule } from 'primeng/progressbar';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,7 @@ import { UpdatePasswordComponent } from './components/update-password/update-pas
     SearchResultsComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
-    UpdatePasswordComponent
+    UpdatePasswordComponent,
   ],
   imports: [
     BrowserModule,

@@ -78,7 +78,7 @@
                       <video class="object-cover w-40 h-25" controls>
                         <source
                           [src]="
-                            'http://192.168.1.66:8000/storage/' + video.url
+                            'http://172.31.1.182:8000/storage/' + video.url
                           "
                           type="video/mp4"
                         />
@@ -93,7 +93,7 @@
                       <img
                         class="object-cover w-40 h-25"
                         [src]="
-                          'http://192.168.1.66:8000/storage/' + video.miniatura
+                          'http://172.31.1.182:8000/storage/' + video.miniatura
                         "
                         alt=""
                       />
@@ -268,10 +268,14 @@
             />
           </div>
         </div>
+        <div class="progress">
+          <div class="progress-bar color-barra" role="progressbar" [style.width.%]="progress">{{ progress }}%</div>
+      </div>    
+        
         <div
           class="flex justify-end items-center gap-x-2 py-3 px-4 border-t dark:border-neutral-700"
-        >
-          <ng-progress class="h2 to-blue-500 w-full"></ng-progress>
+        >    
+            
           <button
             type="button"
             class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800"

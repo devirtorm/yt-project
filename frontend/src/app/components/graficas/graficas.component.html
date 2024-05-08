@@ -10,46 +10,12 @@
       </h2>
       <div id="accordion-color-body-1" class="hidden" aria-labelledby="accordion-color-heading-1">
         <div class="p-5 border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
-            <div class="grid grid-cols-2 gap-4">
+            <div id="todo" class="grid grid-cols-2 gap-4">
               <div class="w-100 h-100">
-                <canvas id="MyChart" class="w-60">{{ chart }}</canvas>
-              </div>
-              <div class="w-100 h-100">
-                <div class="flex flex-col">
-                    <div class="-m-1.5 overflow-x-auto">
-                      <div class="p-1.5 min-w-full inline-block align-middle">
-                        <div class="overflow-hidden">
-                            <table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700 text-sm">
-                                <thead>
-                                  <tr>
-                                    <th scope="col" class="px-2 py-2 text-start font-medium text-gray-500 uppercase dark:text-neutral-500">No.</th>
-                                    <th scope="col" class="px-2 py-2 text-start font-medium text-gray-500 uppercase dark:text-neutral-500">Títulos</th>
-                                    <th scope="col" class="px-2 py-2 text-start font-medium text-gray-500 uppercase dark:text-neutral-500">No. Vistas</th>
-                                  </tr>
-                                </thead>
-                                <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
-                                  <tr *ngFor="let video of videos.data; let i = index">
-                                    <td class="px-2 py-1 whitespace-nowrap text-gray-800 dark:text-neutral-200">
-                                      {{i}}
-                                    </td>
-                                    <td class="px-2 py-1 whitespace-nowrap text-gray-800 dark:text-neutral-200">
-                                      {{ video.video_info.titulo }}
-                                    </td>
-                                    <td class="px-2 py-1 whitespace-nowrap text-gray-800 dark:text-neutral-200">
-                                      {{ video.views }}
-                                    </td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                              
-                              
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                <canvas id="MyChart">{{ chart }}</canvas>
               </div>
             </div>
-            <button (click)="downloadPDF()">Descargar PDF</button>
+            <button (click)="imprimirReporteVistas()">Imprimir reporte</button>
           </div>
       </div>
     <h2 id="accordion-color-heading-2">
@@ -64,43 +30,10 @@
       <div class="p-5 border border-b-0 border-gray-200 dark:border-gray-700">
         <div id="menosVistos" class="grid grid-cols-2 gap-4">
           <div class="w-100 h-100">
-            <canvas id="menosVistosChart" class="w-60">{{ chart }}</canvas>
-          </div>
-          <div class="w-100 h-100">
-            <div class="flex flex-col">
-                <div class="-m-1.5 overflow-x-auto">
-                  <div class="p-1.5 min-w-full inline-block align-middle">
-                    <div class="overflow-hidden">
-                        <table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700 text-sm">
-                            <thead>
-                              <tr>
-                                <th scope="col" class="px-2 py-2 text-start font-medium text-gray-500 uppercase dark:text-neutral-500">No.</th>
-                                <th scope="col" class="px-2 py-2 text-start font-medium text-gray-500 uppercase dark:text-neutral-500">Títulos</th>
-                                <th scope="col" class="px-2 py-2 text-start font-medium text-gray-500 uppercase dark:text-neutral-500">No. de vistas</th>
-                              </tr>
-                            </thead>
-                            <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
-                              <tr *ngFor="let video of menosVistos.data; let i = index">
-                                <td class="px-2 py-1 whitespace-nowrap text-gray-800 dark:text-neutral-200">
-                                  {{i}}
-                                </td>
-                                <td class="px-2 py-1 whitespace-nowrap text-gray-800 dark:text-neutral-200">
-                                  {{ video.video_info.titulo }}
-                                </td>
-                                <td class="px-2 py-1 whitespace-nowrap text-gray-800 dark:text-neutral-200">
-                                  {{ video.views }}
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                          
-                          
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <canvas id="menosVistosChart">{{ chart }}</canvas>
           </div>
         </div>
+        <button (click)="imprimirReporteMenosVistas()">Imprimir reporte</button>
       </div>
     </div>
     <h2 id="accordion-color-heading-3">
@@ -152,15 +85,25 @@
               </div>
           </div>
         </div>
-        <button (click)="downloadLikesPDF()">Descargar PDF</button>
+        <button (click)="imprimirReporteMasLikes()">Descargar PDF</button>
+      </div>
+    </div>
+    <h2 id="accordion-color-heading-4">
+      <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-gray-200 focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-800 dark:border-gray-700 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800 gap-3" data-accordion-target="#accordion-color-body-4" aria-expanded="false" aria-controls="accordion-color-body-4">
+        <span>Videos con menos me gusta</span>
+        <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+        </svg>
+      </button>
+    </h2>
+    <div id="accordion-color-body-4" class="hidden" aria-labelledby="accordion-color-heading-4">
+      <div  class="p-5 border border-t-0 border-gray-200 dark:border-gray-700">
+        <div id="MenosLikesChart" class="grid grid-cols-2 gap-4">
+          <div class="w-100 h-100">
+            <canvas id="MenoslikesGrafica">{{ chart }}</canvas>
+          </div>
+        </div>
+        <button (click)="imprimirReporteMenosLikes()">Imprimir reporte</button>
       </div>
     </div>
   </div>
-  
-
-
-
-<div class="chart-container">
-    <h3>Videos con mas me gusta</h3>
-    <canvas  id="" >{{ chart }}</canvas>
-</div>
