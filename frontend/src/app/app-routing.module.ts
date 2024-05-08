@@ -25,6 +25,7 @@ import { EstadisticasComponent } from './components/estadisticas/estadisticas.co
 import { SearchResultsComponent } from './components/search-results/search-results.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { UpdatePasswordComponent } from './components/update-password/update-password.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: VideosComponent }, // Ruta raíz que renderiza VideosComponent
@@ -49,6 +50,8 @@ const routes: Routes = [
   { path: 'search-results', component: SearchResultsComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
+  { path: 'update-password', component: UpdatePasswordComponent },
+
 
   { path: '**', component: NotFoundPageComponent }, // Ruta para cualquier otra ruta no definida
 ];

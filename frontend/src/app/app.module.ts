@@ -44,6 +44,7 @@ import { ReportesComponent } from './components/reportes/reportes.component';
 import { SearchResultsComponent } from './components/search-results/search-results.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { UpdatePasswordComponent } from './components/update-password/update-password.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
     ReportesComponent,
     SearchResultsComponent,
     ForgotPasswordComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    UpdatePasswordComponent
   ],
   imports: [
     BrowserModule,

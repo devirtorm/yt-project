@@ -6,7 +6,7 @@ import { Comentario } from './comentarioInterface';
   providedIn: 'root'
 })
 export class ComentariosService {
-  API: string = 'http://192.168.1.252:8000/api/comentarios/';
+  API: string = 'http://192.168.1.66:8000/api/comentarios/';
   data: any;
 
   constructor(private httpClient: HttpClient) { }

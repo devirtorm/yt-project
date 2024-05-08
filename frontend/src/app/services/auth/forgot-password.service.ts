@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ForgotPasswordService {
-  private API = 'http://192.168.1.252:8000/api/forgot-password';
+  private API = 'http://192.168.1.66:8000/api/forgot-password';
 
   constructor(private httpClient: HttpClient) {}
 
@@ -15,5 +15,10 @@ export class ForgotPasswordService {
     console.log(email);
     return this.httpClient.post(this.API,{email:email})
   }
+
+  resetPassword(formData: FormData): Observable<any> {
+    return this.httpClient.post(this.API,formData)
+  }
+
 
 }

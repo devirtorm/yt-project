@@ -37,6 +37,7 @@ Route::get('users',[UserController::class, 'index']); // Mostrar usuarios
 Route::patch('/users/{id}', [UserController::class, 'update']); //Actualizar el usuario
 Route::post('login',[authController::class, 'access']); // login
 Route::post('/forgot-password',[forgotPassword::class, 'forgotPassword']); //verifyPin
+Route::put('/forgot-password',[forgotPassword::class, 'resetPassword']); //verifyPin
 Route::post('/verify-pin',[forgotPassword::class, 'verifyPin']); //verifyPin
 
 Route::post('videos',[videoController::class, 'upload']); // Guardar video

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ReportesService {
-  API: string = 'http://192.168.1.252:8000/api/reportes/';
+  API: string = 'http://192.168.1.66:8000/api/reportes/';
   data: any;
 
   constructor(private httpClient:HttpClient) { }

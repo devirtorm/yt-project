@@ -40,6 +40,7 @@ export class ResetPasswordComponent {
         // Aquí puedes enviar el PIN al servidor para confirmación
         this.verifypinService.verifyPin(pin).subscribe(
           (response) => {
+            localStorage.setItem('resetPin', pin);
             Swal.fire({
               position: "center",
               icon: "success",
@@ -47,7 +48,7 @@ export class ResetPasswordComponent {
               showConfirmButton: false,
               timer: 1500,
             }).then(() => {
-              location.href = "/reset-password";
+              location.href = "/update-password";
             });
           },
           (error) => {
