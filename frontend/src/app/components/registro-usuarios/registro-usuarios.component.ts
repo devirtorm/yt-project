@@ -115,7 +115,7 @@ export class RegistroUsuariosComponent {
   ) {
     // Agregar los roles al formulario
     const formValues = {
-      name: ['',[Validators.required, Validators.pattern(/^[a-zA-Z ]+$/)]] ,
+      name: ['',[Validators.required, Validators.pattern(/^[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ ]+$/)]] ,
       email: ['',[Validators.required, Validators.email]],
       birthdate: ['',[Validators.required]],
       password: ['',[Validators.required,Validators.minLength(5), Validators.pattern(/^[a-zA-Z0-9]*$/)]],

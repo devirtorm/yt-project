@@ -35,8 +35,8 @@ export class MisVideosComponent implements OnInit {
     private router: Router
   ) {
     const formValues = {
-      titulo: ['', [Validators.required]], 
-      descripcion: ['', [Validators.required]],
+      titulo: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9áéíóúüñÁÉÍÓÚÜÑ ]*$/)]], 
+      descripcion: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9áéíóúüñÁÉÍÓÚÜÑ ]*$/)]],
       miniatura: ['', Validators.required], 
       url: ['', [Validators.required]],  
     };
@@ -119,7 +119,27 @@ export class MisVideosComponent implements OnInit {
       );
     }
   }
-  
+
+  showIncidenciaModal(videoId: string): void {
+    // Suponiendo que ti una forma de obtener el userId, quizás del servicio de autenticación o una propiedad
+    const userId = localStorage.getItem('userId'); // Asegúrate de reemplazar esto con la lógica adecuada para obtener el userId actual
+  if(userId){
+    this.videoService.getIncidenciasPorVideoYUsuario(userId, videoId).subscribe({
+      next: (incidencia) => {
+        Swal.fire({
+          title: 'Motivo de Rechazo',
+          text: incidencia[0].motivo, // Asegúrate que esto coincida con cómo se reciben los datos
+          icon: 'info',
+          confirmButtonText: 'Ok'
+        });
+      },
+      error: (error) => {
+        console.error('Error al obtener la incidencia', error);
+        Swal.fire('Error', 'No se pudo cargar el motivo de rechazo.', 'error');
+      }
+    });
+  }
+}
 
   cargarVideos(): void {
 

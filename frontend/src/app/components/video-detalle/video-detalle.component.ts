@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { VideosService } from '../../services/videos/videos.service';
 import { ComentariosService } from '../../services/videos/comentarios.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LikesService } from '../../services/videos/likes.service';
 import { HistorialService } from '../../services/historial/historial.service';
 import { AuthService } from '../../services/auth/auth.service';
@@ -59,7 +59,7 @@ export class VideoDetalleComponent implements OnInit {
     
 
     const formValues = {
-      comentario: [''],
+      comentario: ['', [Validators.required]]
     };
 
     const formValuesRespuesta = {
@@ -346,7 +346,7 @@ export class VideoDetalleComponent implements OnInit {
       input: 'text',
       cancelButtonText: 'Cancelar ',
       confirmButtonText: 'Aceptar',
-      inputValue,
+      inputValue, 
       showCancelButton: true,
     });
     if (valorComentario) {

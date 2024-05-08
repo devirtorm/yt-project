@@ -3,6 +3,7 @@
 use App\Http\Controllers\api\authController;
 use App\Http\Controllers\api\CategoriaController;
 use App\Http\Controllers\api\ComentarioController;
+use App\Http\Controllers\api\incidenciaController;
 use App\Http\Controllers\api\LikeController;
 use App\Http\Controllers\api\PlaylistController;
 use App\Http\Controllers\api\PlaylistVideoController;
@@ -109,6 +110,10 @@ Route::delete('playlists/{playlist}', [PlaylistController::class, 'destroy']);
 Route::get('/users/{userId}/playlists',[PlaylistController::class, 'index']);
 Route::post('/playlist_videos', [PlaylistVideoController::class, 'store']);
 Route::get('/playlists/{playlist}/videos', [PlaylistController::class, 'getPlaylistVideos']);
+
+//################ RUTAS PARA LAS INCIDENCIAS #####################
+Route::post('incidencias',[incidenciaController::class, 'store']); // Generar incidencia
+Route::get('incidencias/user/{userId}/video/{videoId}', [IncidenciaController::class, 'showIncidenciasPorVideoYUsuario']); //Muestra las incidencias del video de cada usuario
 
 
 //################ RUTA PARA EL HISTORIAL ##################

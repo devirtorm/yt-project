@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class EditarUsuariosService {
-  private apiUrl = 'http://192.168.1.252:8000/api/users'; // Ajusta esta URL a tu entorno de desarrollo
+  private apiUrl = 'http://192.168.1.69:8000/api/users'; // Ajusta esta URL a tu entorno de desarrollo
 
   constructor(private http: HttpClient) {}
 

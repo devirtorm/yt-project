@@ -23,6 +23,7 @@ export class SolicitudVideosComponent implements OnInit {
 
   videos: any = {};
   videosOriginales: any = {};
+  incidencias: any = {};
 
   constructor(
     private formulario: FormBuilder,
@@ -76,6 +77,7 @@ export class SolicitudVideosComponent implements OnInit {
     this.showModal = !this.showModal;
   }
 
+
   aceptar(id:string): void {
     const datosActualizar = {
       revisado: "1",
@@ -117,48 +119,99 @@ export class SolicitudVideosComponent implements OnInit {
   }
   
 
-  rechazar(id:string): void {
+  rechazar(id: string, fk_user: number): void {
     const datosActualizar = {
       revisado: "1",
       estado: "0"
     };
-
+  
     Swal.fire({
-      title: "Estas seguro?",
-      text: "El video sera rechazado y no podrá ser mostrado",
+      title: "Motivo de rechazo",
+      text: "Haga saber al usuario por qué el video no es apto",
       icon: "warning",
+      input: "text",
+      inputPlaceholder: "Ingrese el motivo de rechazo",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
       confirmButtonText: "Rechazar",
-      cancelButtonText: "Cancelar"
+      cancelButtonText: "Cancelar",
+      inputValidator: (value) => {
+        if (!value) {
+          return "Debe proporcionar un motivo para rechazar el video.";
+        }
+        return null;
+      }
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          title: "Video rechazado!",
-          icon: "success",
-          confirmButtonText:"Rechazar"
-        });
-        this.videoService.VerificarVideo(id, datosActualizar).subscribe(
-          () => {
-            this.toggleEditModal();  // Cerrar el modal después de editar
-            this.cargarVideos();  // Recargar la lista de videos si es necesario
+        const motivo = result.value;
+  
+        // Guarda la incidencia
+        const incidenciaData = {
+          motivo: motivo,
+          fk_user: fk_user,
+          fk_video: id
+        };
+  
+        this.videoService.storeIncidencia(incidenciaData).subscribe(
+          (response) => {
+            Swal.fire({
+              title: "Video rechazado!",
+              text: response.msg,
+              icon: "success",
+              confirmButtonText: "Aceptar"
+            });
+  
+            // Actualiza el estado del video
+            this.videoService.VerificarVideo(id, datosActualizar).subscribe(
+              () => {
+                this.cargarVideos();  // Recargar la lista de videos si es necesario
+              },
+              (error) => {
+                console.error('Error al actualizar el video:', error);
+                Swal.fire({
+                  position: "top-end",
+                  icon: "error",
+                  title: "Hubo algun error al procesar la petición",
+                  showConfirmButton: false,
+                  timer: 1500
+                });
+              }
+            );
           },
-          error => {
-            console.error('Error al actualizar el video:', error);
+          (error) => {
+            console.error('Error al guardar la incidencia:', error);
             Swal.fire({
               position: "top-end",
               icon: "error",
-              title: "Hubo algun error al procesar la petición",
+              title: "Hubo un error al guardar la incidencia",
               showConfirmButton: false,
-              timer: 1500,
+              timer: 1500
             });
           }
         );
       }
     });
+  }
 
+  showIncidenciaModal(videoId: string): void {
+    // Suponiendo que tienes una forma de obtener el userId, quizás del servicio de autenticación o una propiedad
+    const userId = 'algún_user_id'; // Asegúrate de reemplazar esto con la lógica adecuada para obtener el userId actual
   
+    this.videoService.getIncidenciasPorVideoYUsuario(userId, videoId).subscribe({
+      next: (incidencia) => {
+        Swal.fire({
+          title: 'Motivo de Rechazo',
+          text: incidencia.motivo, // Asegúrate que esto coincida con cómo se reciben los datos
+          icon: 'info',
+          confirmButtonText: 'Cerrar'
+        });
+      },
+      error: (error) => {
+        console.error('Error al obtener la incidencia', error);
+        Swal.fire('Error', 'No se pudo cargar el motivo de rechazo.', 'error');
+      }
+    });
   }
 
   toggleEditModal(video?: any): void {

@@ -6,7 +6,7 @@
     >
       <img
         class="rounded-full my-3 w-36 h-36 mb-4 sm:mb-0 sm:mr-8"
-        [src]="'http://192.168.1.252:8000/storage/' + user?.data.foto"
+        [src]="'http://192.168.1.69:8000/storage/' + user?.data.foto"
         alt="Extra large avatar"
       />
       <div class="text-center sm:text-left">
@@ -37,7 +37,7 @@
         <a [routerLink]="getVideoLink(video.id)">
           <img
             class="w-full object-cover h-48"
-            [src]="'http://192.168.1.252:8000/storage/' + video.miniatura"
+            [src]="'http://192.168.1.69:8000/storage/' + video.miniatura"
             alt="Image Description"
           />
         </a>
@@ -47,7 +47,7 @@
             <!-- Alineamos verticalmente el texto y la imagen -->
             <img
               class="w-8 h-8 rounded-full mr-2"
-              [src]="'http://192.168.1.252:8000/storage/' + user?.data?.foto"
+              [src]="'http://192.168.1.69:8000/storage/' + user?.data?.foto"
               alt="user photo"
             />
             <div>

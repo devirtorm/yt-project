@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  private API = 'http://192.168.1.252:8000/api/login';
+  private API = 'http://192.168.1.69:8000/api/login';
 
   constructor(private httpClient: HttpClient) {}
 

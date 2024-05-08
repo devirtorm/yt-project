@@ -33,7 +33,7 @@ export class MiPerfilComponent implements OnInit {
     private progress: NgProgress,
   ) {
     this.editUser = this.fb.group({
-      name: ['', [Validators.required, Validators.pattern(/^[a-zA-Z ]+$/)]],
+      name: ['', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ ]+$/)]],
       email: ['', [Validators.required, Validators.email]],
       birthdate: ['', Validators.required],
       password: ['', [Validators.minLength(5), Validators.pattern(/^[a-zA-Z0-9]*$/)]],
